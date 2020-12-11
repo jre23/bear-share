@@ -9,9 +9,3 @@ module.exports = (app) => {
   //Route for bear list "/search"
   //Route for user home page "/:user_name"
 }
-
-
-  
- 
-  
-
