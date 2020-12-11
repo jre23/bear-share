@@ -1,25 +1,28 @@
 //API Routes & passport routes
+module.exports = (app) => {
+    //Passport routes
 
-module.exports = function(app) {
-//Passport routes
+        //Route for logging in a user "/api/login"
+        //Route for logging user out "/logout"
+        //Route to sign up a new user at "/api/signup"
 
-    //Route for logging in a user "/api/login"
-    //Route for logging user out "/logout"
-    //Route to sign up a new user at "/api/signup"
+    //CREATE (POST)
 
-//CREATE (POST)
+        //Route to create a new review on a user "/api/users/review"
 
-    //Route to create a new review on a user "/api/users/review"
-
-    //Route to create a new bear listing "/api/bears"
-    //Route to create a new review on a bear listing "/api/bears/review"
+        //Route to create a new bear listing "/api/bears"
+        //Route to create a new review on a bear listing "/api/bears/review"
 
 
-//READ (GET)
+    //READ (GET)
 
-    //Route to get all users information "/api/users"
+        //Route to get all users information "/api/users"
+
+
     //Route to get all bears information "/api/bears"
-
+    app.get("/api/bears", function(req, res) {
+        res.end();
+      });
     //Route to get all users with bear listings "/api/users/lists"
     //Route to get all bear with user listings "/api/bears/lists"
 
@@ -49,7 +52,4 @@ module.exports = function(app) {
         //users can delete their own bears they added to the database?
         
     //admin can delete anything?
-
-
-
-};
+}
