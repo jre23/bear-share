@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS bear_share_DB;
+CREATE DATABASE bear_share_DB;
