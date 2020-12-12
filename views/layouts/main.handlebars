@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Materialize CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+
+	<!-- Customized CSS-->
+	<link href="./stylesheets/style.css" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 	<title>Bear Share</title>
 </head>
+
 <body>
+	<nav class = "white" id ="navTextColor" style ="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
+		<div class="nav-wrapper" >
+			<a href="#" class="brand-logo center"><img src="./img/logo2.png" width="90px"></a>
+			<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#">Login</a></li>
+				<li><a href="#">Post</a></li>
+				<li><a href="#">Selling</a></li>
+				<li><a href="#">Acount</a></li>
+			</ul>
+			<ul class="side-nav" id="modible-demo">
+				<!-- id should match data-activates-->
+				<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img src="./img/logo1.png" width="45px"><sup style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
+				<li><a href="#">Login</a></li>
+				<li><a href="/signup">Sign up</a></li>
+				<li><a href="#">Post</a></li>
+				<li><a href="#">Selling</a></li>
+				<li><a href="#">Acount</a></li>
+			</ul>
+			<ul class="nav-wrapper right hide-on-large-only" id="modible-demo">
+				<!-- id should match data-activates-->
+				<li><a href="#"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
+			</ul>
+			
+		</div>
+
+	</nav>
+
+
+
 	{{{ body }}}
+
+
+
+	<footer class="page-footer hide-on-med-and-down orange darken-3" style="margin-top: 10%">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Footer Content</h5>
+					<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
+						content.</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5 class="white-text">Links</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Post</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Selling</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Account</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container center">
+				© 2020 Copyright
+			</div>
+		</div>
+	</footer>
+	<!-- fixed Action button -->
+	<footer class="page-footer hide-on-large-only white">
+		<div class="fixed-action-btn">
+			<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
+			<ul>
+				<li><a href="#" class="btn-floating purple btn-large"><i class="large material-icons">format_list_bulleted</i></a>
+				</li>
+				<li><a href="#" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
+				</li>
+				<li><a href="#" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
+				</li>
+				<li><a href="#" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+
+	<!-- jQuery Js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Materialize Js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<!-- this is for collapse Nav -->
+	<script>$(".button-collapse").sideNav();</script>
 </body>
+
 </html>
