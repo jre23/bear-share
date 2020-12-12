@@ -11,3 +11,40 @@
 .starIcon{
     font-size:6px;
 }
+
+.search_bar{
+    width: 70%
+}
+
+
+.search_wrap .search_box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+}
+
+.search_wrap .search_box .input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 100%;
+    padding-left: 30px;
+    font-size: 18px;
+}
+
+.search_wrap .search_box .label-icon{
+    position: absolute;
+    padding-top: 15px;
+}
+
+.search_wrap .search_box .btn{
+    position: absolute;
+    /* top: 0; */
+    right: 0;
+    width: 70px;
+    height: 103%;
+    z-index: 1;
+    padding: 10px;
+    font-size: 13px;
+}

@@ -1,0 +1,23 @@
+<div class="container search_bar">
+    <div class="search_wrap">
+        <div class="search_box">
+            <input type="text" class="input" placeholder="Search for your bear">
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <div type="submit" class="btn orange darken-3">Search</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Posting Lists Test</h2>
+
+    <ul>
+        {{#each bearsList}}
+        <li>
+            <p>Id: {{id}}</p>
+            <p>Title: {{title}}</p>
+            <p>Price: {{price}}</p>
+        </li>
+        {{/each}}
+    </ul>
+</div>

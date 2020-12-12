@@ -3,7 +3,30 @@ module.exports = (app) => {
 
     //Route for landing page "/"
     app.get("/", (req, res) => {
-        res.render("index");
+        //Dummy Data
+        bearsList = [
+            {
+                id: 1,
+                title: "Bear A",
+                Price: "$$",
+            },
+            {
+                id: 2,
+                title: "Bear B",
+                Price: "$$",
+            },
+            {
+                id: 3,
+                title: "Bear C",
+                Price: "$$",
+            },
+            {
+                id: 4,
+                title: "Bear D",
+                Price: "$$",
+            }
+        ];
+        res.render("index", {bearsList : bearsList});
     });
 
 
