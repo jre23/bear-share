@@ -1,7 +1,14 @@
 //API Routes & passport routes
-module.exports = (app) => {
-    //Passport routes
+const db = require("../models");
+const passport = require("../config/passport");
 
+module.exports = app => {
+    //Passport routes
+    const User = db.User;
+    const Bear = db.Bear;
+    const Posting = db.Posting;
+    const Reviews = db.Reviews;
+    const Comments = db.Comments;
     //Route for logging in a user "/api/login"
     //Route for logging user out "/logout"
     //Route to sign up a new user at "/api/signup"
@@ -13,26 +20,28 @@ module.exports = (app) => {
     //Route to create a new bear listing "/api/bears"
     //Route to create a new review on a bear listing "/api/bears/review"
 
-
     //READ (GET)
 
     //Route to get all users information "/api/users"
-
-    app.get("/api/bears", (req, res) => {
-        // Write code here to retrieve all of the bears from the database and res.json them
-        // back to the user
-        db.Bear.findAll({}).then(results => {
+    app.get("/api/users", (req, res) => {
+        // Write code here to retrieve all of the users from the database and res.json them back to the user
+        User.findAll({}).then(results => {
             res.json(results);
         }).catch(e => {
             console.log(e);
         });
     });
 
-
     //Route to get all bears information "/api/bears"
-    app.get("/api/bears", function (req, res) {
-        res.end();
+    app.get("/api/bears", (req, res) => {
+        // Write code here to retrieve all of the bears from the database and res.json them back to the user
+        Bear.findAll({}).then(results => {
+            res.json(results);
+        }).catch(e => {
+            console.log(e);
+        });
     });
+
     //Route to get all users with bear listings "/api/users/lists"
     //Route to get all bear with user listings "/api/bears/lists"
 
