@@ -1,63 +1,42 @@
-const db = require("../models");
-
-//Dummy Data
-const bearsList = [{
-        id: 1,
-        title: "Bear A",
-        Price: "$$",
-    },
-    {
-        id: 2,
-        title: "Bear B",
-        Price: "$$",
-    },
-    {
-        id: 3,
-        title: "Bear C",
-        Price: "$$",
-    },
-    {
-        id: 4,
-        title: "Bear D",
-        Price: "$$",
-    },
-    {
-        id: 5,
-        title: "Bear E",
-        Price: "$$",
-    },
-    {
-        id: 6,
-        title: "Bear F",
-        Price: "$$",
-    }
-];
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 //HTML Routes
 module.exports = app => {
-    //Route for landing page "/"
+    // route for landing page "/"
     app.get("/", (req, res) => {
-        db.Posting.findAll({}).then(results => {
-            res.render("index", {
-                bearsList: results
-            });
-        }).catch(e => {
-            console.log(e);
-        });
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
+        } else {
+            res.render("index");
+        }
     });
 
     app.get("/login", (req, res) => {
-        res.render("login");
-    });
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
+        } else {
+            res.render("login");
+        }
 
+    });
+    // route for signup page
     app.get("/signup", (req, res) => {
         res.render("signup");
     });
-
+    // route for posting an item
     app.get("/post", (req, res) => {
         res.render("post");
     });
-    //Route for bear list "/search"
-    //Route for user home page "/:user_name"
+    // route for members page. currently don't have members.handlebars file
+    // If a user who is not logged in tries to access this route they will be redirected to the signup page
+    app.get("/members", isAuthenticated, (req, res) => {
+        res.render("members");
+    });
+    // route for bear list "/search"
+    app.get("/search", (req, res) => {
+        res.render("search"); // currently don't have a search.handlebars file
+    });
 
 }
