@@ -4,12 +4,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = app => {
     // route for landing page "/"
     app.get("/", (req, res) => {
-        // If the user already has an account send them to the members page
-        if (req.user) {
-            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
-        } else {
-            res.render("index");
-        }
+        res.render("index");
     });
 
     // route for login page
@@ -24,7 +19,12 @@ module.exports = app => {
 
     // route for signup page
     app.get("/signup", (req, res) => {
-        res.render("signup");
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
+        } else {
+            res.render("signup");
+        }
     });
     // route for posting an item
     app.get("/post", (req, res) => {
