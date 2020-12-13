@@ -12,6 +12,25 @@
                     <input type="textarea" id="title_post" class="post_input_boader left">
                 </div>
             </div>
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="bears_lists" class="orange-text text-darken-3 post_label_custom left">Category</label>
+                </div>
+                <div class="col s12 m10">
+                    <select name="bears_lists" class="browser-default post_input_boader" id="bears_lists">
+                        <option value="" disabled selected >Choose your option</option>
+                        <option value="teddy_bear">Teddy Bear</option>
+                        <option value="pokemon">Pokemon</option>
+                        <option value="unicorn">Unicorn</option>
+                        <option value="bunny">Bunny</option>
+                        <option value="dino">Dino</option>
+                        <option value="farm_zoo">Farm &amp; Zoo</option>
+                        <option value="misc">Misc</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                </div>
+            </div>
             <div class="row" style="margin-top: 5%;">
                 <div class="col s12 m2">
                     <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Photos</label>
@@ -19,39 +38,39 @@
 
                 <div class="col s12 m10">
                     <div class="photo_box">
-                    <div class="row img_row">
-                    <div class="col s12 m6 photo_box_inside">
-                        <label for="file-upload_1" class="custom-file-upload" id="img_upload_btn_1">
-                            <i class="material-icons">add</i>
-                        </label>
-                        <input id="file-upload_1" type="file" onchange="readURL01(this)" />
-                        <img id="img_up_load_1" src="" style="display: none;"/>
+                        <div class="row img_row">
+                            <div class="col s12 m6 photo_box_inside">
+                                <label for="file-upload_1" class="custom-file-upload" id="img_upload_btn_1">
+                                    <i class="material-icons">add</i>
+                                </label>
+                                <input id="file-upload_1" type="file" onchange="readURL01(this)" />
+                                <img id="img_up_load_1" src="" style="display: none;" />
+                            </div>
+                            <div class="col s12 m6 photo_box_inside">
+                                <label for="file-upload_2" class="custom-file-upload" id="img_upload_btn_2">
+                                    <i class="material-icons">add</i>
+                                </label>
+                                <input id="file-upload_2" type="file" onchange="readURL02(this)" />
+                                <img id="img_up_load_2" src="" style="display: none;" />
+                            </div>
+                        </div>
+                        <div class="row img_row">
+                            <div class="col s12 m6 photo_box_inside">
+                                <label for="file-upload_3" class="custom-file-upload" id="img_upload_btn_3">
+                                    <i class="material-icons">add</i>
+                                </label>
+                                <input id="file-upload_3" type="file" onchange="readURL03(this)" />
+                                <img id="img_up_load_3" src="" style="display: none;" />
+                            </div>
+                            <div class="col s12 m6 photo_box_inside">
+                                <label for="file-upload_4" class="custom-file-upload" id="img_upload_btn_4">
+                                    <i class="material-icons">add</i>
+                                </label>
+                                <input id="file-upload_4" type="file" onchange="readURL04(this)" />
+                                <img id="img_up_load_4" src="" style="display: none;" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col s12 m6 photo_box_inside">
-                        <label for="file-upload_2" class="custom-file-upload" id="img_upload_btn_2">
-                            <i class="material-icons">add</i>
-                        </label>
-                        <input id="file-upload_2" type="file" onchange="readURL02(this)" />
-                        <img id="img_up_load_2" src="" style="display: none;"/>
-                    </div>
-                    </div>
-                    <div class="row img_row">
-                    <div class="col s12 m6 photo_box_inside">
-                        <label for="file-upload_3" class="custom-file-upload" id="img_upload_btn_3">
-                            <i class="material-icons">add</i>
-                        </label>
-                        <input id="file-upload_3" type="file" onchange="readURL03(this)" />
-                        <img id="img_up_load_3" src="" style="display: none;"/>
-                    </div>
-                    <div class="col s12 m6 photo_box_inside">
-                        <label for="file-upload_4" class="custom-file-upload" id="img_upload_btn_4">
-                            <i class="material-icons">add</i>
-                        </label>
-                        <input id="file-upload_4" type="file" onchange="readURL04(this)" />
-                        <img id="img_up_load_4" src="" style="display: none;" />
-                    </div>
-                </div>
-                </div>
                 </div>
             </div>
 
@@ -95,7 +114,7 @@
         }
     }
 
-        function readURL02(input) {
+    function readURL02(input) {
         console.log("readURL02");
         $("#img_upload_btn_2").css("display", "none");
         $("#img_up_load_2").css("display", "block")
@@ -109,7 +128,7 @@
         }
     }
 
-        function readURL03(input) {
+    function readURL03(input) {
         console.log("readURL03");
         $("#img_upload_btn_3").css("display", "none");
         $("#img_up_load_3").css("display", "block")
@@ -123,7 +142,7 @@
         }
     }
 
-        function readURL04(input) {
+    function readURL04(input) {
         console.log("readURL04");
         $("#img_upload_btn_4").css("display", "none");
         $("#img_up_load_4").css("display", "block")
