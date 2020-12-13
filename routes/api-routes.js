@@ -3,6 +3,12 @@ const passport = require("../config/passport");
 const { Op } = require("sequelize");
 
 //API Routes & passport routes
+
+// Requiring our models and passport as we've configured it
+const db = require("../models");
+const passport = require("../config/passport");
+
+
 module.exports = (app) => {
     /***************
     Passport Routes for Signup, Login, logout
@@ -25,8 +31,12 @@ module.exports = (app) => {
     // otherwise send back an error
     app.post("/api/signup", function (req, res) {
         db.User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address,
             email: req.body.email,
-            password: req.body.password,
+            password: req.body.password
         })
             .then(function () {
                 res.redirect(307, "/api/login");
