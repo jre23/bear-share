@@ -36,14 +36,31 @@ module.exports = function (sequelize, DataTypes) {
         },
     });
 
-    //User.hasMany(Posting);
     User.associate = function (models) {
-        // Associating User with Posting
-        // When an User is deleted, also delete any associated Posting
+        // Associating User with their Postings
         User.hasMany(models.Posting, {
+            foreignKey: {
+                name: "userId",
+            },
+            onDelete: "cascade",
+        });
+
+        // Associate User with their reviews
+        User.hasMany(models.UserReview, {
+            foreignKey: {
+                name: "reviewerId",
+            },
+            onDelete: "cascade",
+        });
+
+        User.hasMany(models.PostingComment, {
+            foreignKey: {
+                name: "commenterId",
+            },
             onDelete: "cascade",
         });
     };
+
     // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
     User.prototype.validPassword = function (password) {
         return bcrypt.compareSync(password, this.password);

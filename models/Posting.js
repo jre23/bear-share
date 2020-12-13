@@ -17,16 +17,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         ask_price: {
             type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
     });
 
     Posting.associate = function (models) {
-        // We're saying that a Posting should belong to an User
-        // A Posting can't be created without an User due to the foreign key constraint
-        Posting.belongsTo(models.User, {
-            foreignKey: {
-                allowNull: false,
-            },
+        // Associating Posting with PostingComment
+        Posting.hasMany(models.PostingComment, {
+            onDelete: "cascade",
         });
     };
 
