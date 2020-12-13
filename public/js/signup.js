@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function() {
     // Getting references to our form and input
     const signUpForm = $(".signup");
@@ -58,3 +59,20 @@ $(document).ready(function() {
     }
   });
   
+=======
+$(document).ready(() => {
+
+    // Getting references to our form and input
+    const signUpForm = $("form.signup");
+    const emailInput = $("input#email_input");
+
+    //test line to take data from Form.
+    signUpForm.on("submit", (e) => {
+        e.preventDefault();
+
+        console.log(emailInput.val().trim());
+
+    });
+    
+});
+>>>>>>> 3b10e46d8f39e0966757ffc03366e7df7e05c5a8

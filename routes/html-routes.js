@@ -24,6 +24,17 @@ module.exports = (app) => {
                 id: 4,
                 title: "Bear D",
                 Price: "$$",
+            },
+            {
+                id: 5,
+                title: "Bear E",
+                Price: "$$",
+            }
+            ,
+            {
+                id: 6,
+                title: "Bear F",
+                Price: "$$",
             }
         ];
         res.render("index", {bearsList : bearsList});
@@ -38,6 +49,9 @@ module.exports = (app) => {
         res.render("signup");
     });
 
+    app.get("/post", (req, res) => {
+        res.render("post");
+    });
     //Route for bear list "/search"
     //Route for user home page "/:user_name"
 

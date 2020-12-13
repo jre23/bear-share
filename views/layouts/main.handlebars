@@ -18,6 +18,9 @@
 	<!--Import Google Icon Font-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<!-- TextArea editor -->
+	<script src="https://cdn.tiny.cloud/1/ka4kjciymashf9uvb29ys61dy7vhzwuqax1j6wasmy2p9tqt/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  	<script>tinymce.init({selector:'textarea', menubar: ''});</script>
 
 	<title>Bear Share</title>
 </head>
@@ -29,7 +32,7 @@
 			<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="/login">Login</a></li>
-				<li><a href="#">Post</a></li>
+				<li><a href="/post">Post</a></li>
 				<li><a href="#">Selling</a></li>
 				<li><a href="#">Acount</a></li>
 			</ul>
@@ -38,7 +41,7 @@
 				<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img src="./img/logo1.png" width="45px"><sup style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
 				<li><a href="/login">Login</a></li>
 				<li><a href="/signup">Sign up</a></li>
-				<li><a href="#">Post</a></li>
+				<li><a href="/post">Post</a></li>
 				<li><a href="#">Selling</a></li>
 				<li><a href="#">Acount</a></li>
 			</ul>
@@ -69,7 +72,7 @@
 					<h5 class="white-text">Links</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Post</a></li>
+						<li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
 						<li><a class="grey-text text-lighten-3" href="#!">Selling</a></li>
 						<li><a class="grey-text text-lighten-3" href="#!">Account</a></li>
 					</ul>
@@ -89,7 +92,7 @@
 			<ul>
 				<li><a href="/" class="btn-floating purple btn-large"><i class="large material-icons">format_list_bulleted</i></a>
 				</li>
-				<li><a href="#" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
+				<li><a href="/post" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
 				</li>
 				<li><a href="#" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
 				</li>
@@ -99,17 +102,22 @@
 		</div>
 	</footer>
 
-
 	<!-- jQuery Js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Materialize Js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 	<!-- this is for collapse Nav -->
 	<script>$(".button-collapse").sideNav();</script>
+<<<<<<< HEAD
 	{{!-- login JS --}}
 	<script src="js/login.js"></script>
 	{{!-- signup JS --}}
 	<script src="js/signup.js"></script>
+=======
+	<!-- Public Js -->
+	<script type="text/javascript" src="./js/signup.js"></script>
+	<script type="text/javascript" src="./js/login.js"></script>
+>>>>>>> 3b10e46d8f39e0966757ffc03366e7df7e05c5a8
 </body>
 
 </html>
