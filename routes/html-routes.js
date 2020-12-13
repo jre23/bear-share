@@ -49,6 +49,9 @@ module.exports = (app) => {
         res.render("signup");
     });
 
+    app.get("/post", (req, res) => {
+        res.render("post");
+    });
     //Route for bear list "/search"
     //Route for user home page "/:user_name"
 

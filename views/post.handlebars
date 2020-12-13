@@ -1,0 +1,139 @@
+<div class="container">
+    <div class="row">
+        <h3 class="orange-text text-darken-3 center" style="margin-bottom: 5%;">Post an Item</h3>
+    </div>
+    <div class="row">
+        <form class="col s12 post_item">
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Title</label>
+                </div>
+                <div class="col s12 m10">
+                    <input type="textarea" id="title_post" class="post_input_boader left">
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5%;">
+                <div class="col s12 m2">
+                    <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Photos</label>
+                </div>
+
+                <div class="col s12 m10">
+                    <div class="photo_box">
+                    <div class="row img_row">
+                    <div class="col s12 m6 photo_box_inside">
+                        <label for="file-upload_1" class="custom-file-upload" id="img_upload_btn_1">
+                            <i class="material-icons">add</i>
+                        </label>
+                        <input id="file-upload_1" type="file" onchange="readURL01(this)" />
+                        <img id="img_up_load_1" src="" style="display: none;"/>
+                    </div>
+                    <div class="col s12 m6 photo_box_inside">
+                        <label for="file-upload_2" class="custom-file-upload" id="img_upload_btn_2">
+                            <i class="material-icons">add</i>
+                        </label>
+                        <input id="file-upload_2" type="file" onchange="readURL02(this)" />
+                        <img id="img_up_load_2" src="" style="display: none;"/>
+                    </div>
+                    </div>
+                    <div class="row img_row">
+                    <div class="col s12 m6 photo_box_inside">
+                        <label for="file-upload_3" class="custom-file-upload" id="img_upload_btn_3">
+                            <i class="material-icons">add</i>
+                        </label>
+                        <input id="file-upload_3" type="file" onchange="readURL03(this)" />
+                        <img id="img_up_load_3" src="" style="display: none;"/>
+                    </div>
+                    <div class="col s12 m6 photo_box_inside">
+                        <label for="file-upload_4" class="custom-file-upload" id="img_upload_btn_4">
+                            <i class="material-icons">add</i>
+                        </label>
+                        <input id="file-upload_4" type="file" onchange="readURL04(this)" />
+                        <img id="img_up_load_4" src="" style="display: none;" />
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Description</label>
+                </div>
+                <div class="col s12 m10">
+                    <textarea rows="10" id="description_post" class="post_input_boader left"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="price" class="orange-text text-darken-3 post_label_custom left">Price</label>
+                </div>
+                <div class="col s12 m10">
+                    <label for="price" class="orange-text text-darken-3 left post_label_custom ">$</label>
+                    <input type="textarea" id="price_post" class="left post_input_boader">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <button type="submit" class="btn orange darken-3 waves-effect" style="margin-top: 50px;">Post item</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Script for displaying images -->
+<script>
+    function readURL01(input) {
+        console.log("readURL01");
+        $("#img_upload_btn_1").css("display", "none");
+        $("#img_up_load_1").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_1').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+        function readURL02(input) {
+        console.log("readURL02");
+        $("#img_upload_btn_2").css("display", "none");
+        $("#img_up_load_2").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_2').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+        function readURL03(input) {
+        console.log("readURL03");
+        $("#img_upload_btn_3").css("display", "none");
+        $("#img_up_load_3").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_3').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+        function readURL04(input) {
+        console.log("readURL04");
+        $("#img_upload_btn_4").css("display", "none");
+        $("#img_up_load_4").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_4').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
