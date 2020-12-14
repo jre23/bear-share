@@ -102,7 +102,6 @@ module.exports = (app) => {
     // route for landing page "/".
     app.get("/", (req, res) => {
         db.Posting.findAll({}).then((data) => {
-            console.log(data);
             res.render("index", {
                 bearsList: data
             });
@@ -115,7 +114,7 @@ module.exports = (app) => {
             // send to handlebars and populate postings as cards
             // include in the html something like "data-posting-id={{id}}" so we can reference that when clicking through to an individual posting????
             console.log(data);
-            res.end();
+            res.json(data);
         });
     });
 
