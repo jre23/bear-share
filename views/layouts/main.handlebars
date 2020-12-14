@@ -27,28 +27,51 @@
 </head>
 
 <body>
-	<nav class="white" id="navTextColor" style="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
+	<!-- No Member Nav -->
+	<nav class="white navTextColor no_members_fixed_btn" id="" style="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
 		<div class="nav-wrapper">
 			<a href="/" class="brand-logo center"><img src="./img/logo2.png" width="90px"></a>
-			<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<a href="#" data-activates="no_member_nav" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="/login">Login</a></li>
-				<li><a href="/post">Post</a></li>
-				<li><a href="#">Selling</a></li>
-				<li><a href="#">Acount</a></li>
+				<li><a href="/signup">Sign up</a></li>
 			</ul>
-			<ul class="side-nav" id="modible-demo">
+			<ul class="side-nav" id="no_member_nav">
 				<!-- id should match data-activates-->
 				<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img
 							src="./img/logo1.png" width="45px"><sup
 							style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
 				<li><a href="/login">Login</a></li>
 				<li><a href="/signup">Sign up</a></li>
+			</ul>
+		</div>
+
+	</nav>
+
+	<!-- Members Nav -->
+	<nav class="white navTextColor members_fixed_btn" style="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo center"><img src="./img/logo2.png" width="90px"></a>
+			<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="/">Lists</a></li>
 				<li><a href="/post">Post</a></li>
 				<li><a href="#">Selling</a></li>
-				<li><a href="#">Account</a></li>
+				<li><a href="#">Acount</a></li>
+				<li><a href="/logout">Logout</a></li>
 			</ul>
-			<ul class="nav-wrapper right hide-on-large-only" id="modible-demo">
+			<ul class="side-nav" id="modible-demo">
+				<!-- id should match data-activates-->
+				<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img
+							src="./img/logo1.png" width="45px"><sup
+							style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
+				<li><a href="/">Lists</a></li>
+				<li><a href="/post">Post</a></li>
+				<li><a href="#">Selling</a></li>
+				<li><a href="#">Acount</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+			<ul class="nav-wrapper right hide-on-large-only" id="user_account_id">
 				<!-- id should match data-activates-->
 				<li><a href="#"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
 			</ul>
@@ -88,8 +111,9 @@
 			</div>
 		</div>
 	</footer>
-	<!-- fixed Action button -->
-	<footer class="page-footer hide-on-large-only white">
+
+	<!-- member fixed Action button -->
+	<footer class="page-footer hide-on-large-only white members_fixed_btn">
 		<div class="fixed-action-btn">
 			<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
 			<ul>
@@ -98,9 +122,22 @@
 				</li>
 				<li><a href="/post" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
 				</li>
-				<li><a href="#" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
+				<li><a href="/" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
 				</li>
 				<li><a href="#" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- No member fixed Action button -->
+	<footer class="page-footer hide-on-large-only white no_members_fixed_btn">
+		<div class="fixed-action-btn">
+			<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
+			<ul>
+				<li><a href="/login" class="btn-floating blue btn-large"><i class="fas fa-sign-in-alt"></i></a>
+				</li>
+				<li><a href="/signup" class="btn-floating red btn-large"><i class="fas fa-user-plus"></i></a>
 				</li>
 			</ul>
 		</div>
@@ -115,7 +152,6 @@
 	<!-- Public Js -->
 	<script type="text/javascript" src="./js/signup.js"></script>
 	<script type="text/javascript" src="./js/login.js"></script>
-	<script type="text/javascript" src="./js/post.js"></script>
 </body>
 
 </html>

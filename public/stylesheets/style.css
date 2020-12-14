@@ -1,4 +1,8 @@
-#navTextColor a,
+.members_fixed_btn{
+    display: none;
+}
+
+.navTextColor a,
 .listing-Link{
     color: #795548;
     font-weight: bold;
