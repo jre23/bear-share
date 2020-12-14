@@ -5,7 +5,7 @@ module.exports = app => {
     app.get("/login", (req, res) => {
         // If the user already has an account send them to the members page
         if (req.user) {
-            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
+            res.redirect("/"); // we currently don't have a members.handlebars file so this redirects to the root route. Are we going to have a separate page for members or...?
         } else {
             res.render("login");
         }
@@ -15,7 +15,7 @@ module.exports = app => {
     app.get("/signup", (req, res) => {
         // If the user already has an account send them to the members page
         if (req.user) {
-            res.redirect("/members"); // we currently don't have a members.handlebars file. Are we going to have a separate page for members or...?
+            res.redirect("/"); // we currently don't have a members.handlebars file so this redirects to the root route. Are we going to have a separate page for members or...?
         } else {
             res.render("signup");
         }
