@@ -30,7 +30,7 @@ $(document).ready(() => {
         password: password
       })
       .then(function () {
-        window.location.replace("/members");
+        window.location.replace("/");
         // If there's an error, log the error
       })
       .catch(function (err) {
