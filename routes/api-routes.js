@@ -1,9 +1,10 @@
 //API Routes & passport routes
-
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
-const { Op } = require("sequelize");
+const {
+    Op
+} = require("sequelize");
 
 module.exports = (app) => {
     /***************
@@ -27,13 +28,13 @@ module.exports = (app) => {
     // otherwise send back an error
     app.post("/api/signup", function (req, res) {
         db.User.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address,
-            email: req.body.email,
-            password: req.body.password
-        })
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                phoneNumber: req.body.phoneNumber,
+                address: req.body.address,
+                email: req.body.email,
+                password: req.body.password
+            })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -93,12 +94,21 @@ module.exports = (app) => {
         });
     });
 
+    // route for landing page "/".
+    app.get("/", (req, res) => {
+        db.Posting.findAll({}).then((data) => {
+            console.log(data);
+            res.render("index", {
+                bearsList: data
+            });
+        });
+    });
+
     //Route to get all postings information "/api/postings"
     app.get("/api/postings", (req, res) => {
         db.Posting.findAll({}).then((data) => {
             // send to handlebars and populate postings as cards
             // include in the html something like "data-posting-id={{id}}" so we can reference that when clicking through to an individual posting????
-
             console.log(data);
             res.end();
         });
@@ -147,14 +157,13 @@ module.exports = (app) => {
     //Route to update a user from database "/api/users/id/:id"
     app.put("/api/users/:userId", (req, res) => {
         // destructure req.body here???
-        db.User.update(
-            { lastName: "hexsel" },
-            {
-                where: {
-                    id: req.params.userId,
-                },
-            }
-        ).then((data) => {
+        db.User.update({
+            lastName: "hexsel"
+        }, {
+            where: {
+                id: req.params.userId,
+            },
+        }).then((data) => {
             // render the users account page again???
         });
     });
