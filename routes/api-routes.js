@@ -101,12 +101,21 @@ module.exports = (app) => {
 
     // route for landing page "/".
     app.get("/", (req, res) => {
-        db.Posting.findAll({}).then((data) => {
-            console.log(data);
-            res.render("index", {
-                bearsList: data
+        if (req.user) {
+            db.Posting.findAll({}).then((data) => {
+                // console.log(data);
+                res.render("members", {
+                    bearsList: data
+                });
             });
-        });
+        } else {
+            db.Posting.findAll({}).then((data) => {
+                // console.log(data);
+                res.render("index", {
+                    bearsList: data
+                });
+            });
+        }
     });
 
     //Route to get all postings information "/api/postings"
