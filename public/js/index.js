@@ -8,7 +8,7 @@ $(document).ready(function () {
     // make sure to preventDefault on a submit event.
     event.preventDefault();
     // grab reference to search input
-    let searchInput = $(".input").val().trim();
+    let searchInput = $(".input").val().trim().replace(/\s+/g, " ");
     if (searchInput === "") {
       return alert("Empty search input");
     }
@@ -19,12 +19,20 @@ $(document).ready(function () {
       let index = -1;
       let searchArray = [];
       let searchInputLower = searchInput.toLowerCase();
+      let eachInputArray = searchInput.split(" ");
+      let j = 0;
       for (let i = 0; i < results.length; i++) {
         if (results[i].title.toLowerCase() === searchInputLower) {
           index = i;
         }
         if (results[i].title.toLowerCase().includes(searchInputLower) || results[i].description.toLowerCase().includes(searchInputLower)) {
           searchArray.push(results[i].title);
+        }
+        if (j < eachInputArray.length) {
+          if (results[i].title.toLowerCase().includes(eachInputArray[j]) || results[i].description.toLowerCase().includes(eachInputArray[j])) {
+            searchArray.push(results[i].title);
+          }
+          j++;
         }
       }
       let newP = $("<p>");
@@ -55,7 +63,6 @@ $(document).ready(function () {
   });
   // this event handler is so the user can also press enter to search instead of having to click the search button
   $(".searchField").keypress(enter => {
-    console.log("key press test");
     if (enter.which === 13) {
       $(".searchButton").click();
       return false;
