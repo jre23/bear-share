@@ -1,13 +1,12 @@
-<<<<<<< HEAD
 $(document).ready(function() {
     // Getting references to our form and input
     const signUpForm = $(".signup");
-    const firstNameInput = $("#first_name");
-    const lastNameInput = $("#last_name");
-    const phoneInput = $("#mobile_number");
-    const addressInput = $("#address");
-    const emailInput = $("#email");
-    const passwordInput = $("#password");
+    const firstNameInput = $("#first_name_input");
+    const lastNameInput = $("#last_name_input");
+    const phoneInput = $("#mobile_number_input");
+    const addressInput = $("#address_input");
+    const emailInput = $("#email_input");
+    const passwordInput = $("#password_input");
   
     // When the signup button is clicked, we validate the email and password are not blank
     signUpForm.on("submit", function(event) {
@@ -58,21 +57,3 @@ $(document).ready(function() {
       $("#alert").fadeIn(500);
     }
   });
-  
-=======
-$(document).ready(() => {
-
-    // Getting references to our form and input
-    const signUpForm = $("form.signup");
-    const emailInput = $("input#email_input");
-
-    //test line to take data from Form.
-    signUpForm.on("submit", (e) => {
-        e.preventDefault();
-
-        console.log(emailInput.val().trim());
-
-    });
-    
-});
->>>>>>> 3b10e46d8f39e0966757ffc03366e7df7e05c5a8
