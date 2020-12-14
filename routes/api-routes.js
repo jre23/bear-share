@@ -66,7 +66,10 @@ module.exports = (app) => {
     //Route to create a new bear listing "/api/postings"
     app.post("/api/postings", (req, res) => {
         console.log(req.body);
-        db.Posting.create(req.body).then((data) => {
+        let posting = req.body;
+        posting["userId"] = req.user.id;
+        console.log(posting);
+        db.Posting.create(posting).then((data) => {
             // data returned... use in handlebars to
             // redirect user to that individual posting page?
             console.log(data);
