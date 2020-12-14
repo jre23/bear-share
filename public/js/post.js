@@ -25,8 +25,8 @@ $(document).ready(() => {
         $.ajax("/api/postings", {
             type: "POST",
             data: newPost
-        }).then(() => { // reload the page to get the updated list
-            location.reload();
+        }).then(() => { // redirect to main page to see all of the listings (maybe redirect to a page that has just this new listing?)
+            location.replace("/");
         }).catch((e) => {
             console.log(e)
         });
