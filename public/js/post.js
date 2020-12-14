@@ -2,7 +2,7 @@
 $(document).ready(() => {
     $(".no_members_fixed_btn").css("display", "none");
     $(".members_fixed_btn").css("display", "block");
-    
+
     // this event listener is for when the user adds a post
     $(".post_item").on("submit", event => {
         // make sure to preventDefault on a submit event.
@@ -40,17 +40,21 @@ $(document).ready(() => {
         event.preventDefault();
         // grab reference to search input
         let searchInput = $(".input").val().trim();
+        if (searchInput === "") {
+            return alert("Empty search input");
+        }
         // send the GET request
         $.ajax("/api/postings/", {
             type: "GET"
         }).then(results => {
             let index = -1;
             let searchArray = [];
+            let searchInputLower = searchInput.toLowerCase();
             for (let i = 0; i < results.length; i++) {
-                if (results[i].title.toLowerCase() === searchInput.toLowerCase()) {
+                if (results[i].title.toLowerCase() === searchInputLower) {
                     index = i;
                 }
-                if (results[i].title.toLowerCase().includes(searchInput.toLowerCase())) {
+                if (results[i].title.toLowerCase().includes(searchInputLower) || results[i].description.toLowerCase().includes(searchInputLower)) {
                     searchArray.push(results[i].title);
                 }
             }
