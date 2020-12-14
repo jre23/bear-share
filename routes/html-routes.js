@@ -1,12 +1,6 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
-
 //HTML Routes
 module.exports = app => {
-    // route for landing page "/"
-    app.get("/", (req, res) => {
-        res.render("index");
-    });
-
     // route for login page
     app.get("/login", (req, res) => {
         // If the user already has an account send them to the members page
