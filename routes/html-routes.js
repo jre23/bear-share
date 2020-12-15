@@ -39,4 +39,13 @@ module.exports = app => {
     app.get("/search", (req, res) => {
         res.render("search"); // currently don't have a search.handlebars file
     });
+
+        // route for showing a product
+        app.get("/product", (req, res) => {
+            if (req.user) {
+                res.render("product");
+            } else {
+                res.render("login");
+            }
+        });
 }
