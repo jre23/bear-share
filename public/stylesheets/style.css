@@ -122,3 +122,7 @@ input[type="file"] {
 .photo_box_inside{
     margin-bottom: 15%;
 }
+
+#alert{
+    color: red;
+}

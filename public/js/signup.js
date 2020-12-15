@@ -34,7 +34,7 @@ $(document).ready(function () {
     passwordInput.val("");
   });
 
-  // Does a post to the signup route. If successful, we are redirected to the members page
+  // Does a post to the signup route. If successful, we are redirected to the login page...which should reroute to the members page
   // Otherwise we log any errors
   function signUpUser(firstName, lastName, phoneNumber, address, email, password) {
     $.post("/api/signup", {
@@ -46,14 +46,13 @@ $(document).ready(function () {
         password: password
       })
       .then(function (data) {
-        window.location.replace("/");
-        // If there's an error, handle it by throwing up a bootstrap alert
+        window.location.replace("/login");
+        // If there's an error, handle it by throwing up an alert
       })
       .catch(handleLoginErr);
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
+    $(".msg").text(err.responseJSON.errors[0].message);
   }
 });
