@@ -29,6 +29,15 @@ module.exports = app => {
         }
     });
 
+    // route for posting an item
+    app.get("/account", (req, res) => {
+        if (req.user) {
+            res.render("account");
+        } else {
+            res.render("login");
+        }
+    });
+
     // route for members page. currently don't have members.handlebars file
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
     app.get("/members", isAuthenticated, (req, res) => {
@@ -40,12 +49,12 @@ module.exports = app => {
         res.render("search"); // currently don't have a search.handlebars file
     });
 
-        // route for showing a product
-        app.get("/product", (req, res) => {
-            if (req.user) {
-                res.render("product");
-            } else {
-                res.render("login");
-            }
-        });
+    // route for showing a product
+    app.get("/product", (req, res) => {
+        if (req.user) {
+            res.render("product");
+        } else {
+            res.render("login");
+        }
+    });
 }
