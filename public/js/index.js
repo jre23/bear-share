@@ -20,9 +20,11 @@ $(document).ready(function () {
       let searchArray = [];
       let searchInputLower = searchInput.toLowerCase();
       let eachInputArray = searchInputLower.toString().split(" ");
+      console.log(eachInputArray);
       for (let i = 0; i < results.length; i++) {
         if (results[i].title.toLowerCase() === searchInputLower) {
           index = i;
+          console.log("item found!")
         }
         if (results[i].title.toLowerCase().includes(searchInputLower) || results[i].description.toLowerCase().includes(searchInputLower)) {
           searchArray.push(results[i].title);
