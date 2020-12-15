@@ -19,8 +19,7 @@ $(document).ready(function () {
       let index = -1;
       let searchArray = [];
       let searchInputLower = searchInput.toLowerCase();
-      let eachInputArray = searchInput.split(" ");
-      let j = 0;
+      let eachInputArray = searchInputLower.toString().split(" ");
       for (let i = 0; i < results.length; i++) {
         if (results[i].title.toLowerCase() === searchInputLower) {
           index = i;
@@ -28,11 +27,12 @@ $(document).ready(function () {
         if (results[i].title.toLowerCase().includes(searchInputLower) || results[i].description.toLowerCase().includes(searchInputLower)) {
           searchArray.push(results[i].title);
         }
-        if (j < eachInputArray.length) {
-          if (results[i].title.toLowerCase().includes(eachInputArray[j]) || results[i].description.toLowerCase().includes(eachInputArray[j])) {
-            searchArray.push(results[i].title);
+        for (let j = 0; j < eachInputArray.length; j++) {
+          if (results[i].title.toLowerCase().toString().includes(eachInputArray[j]) || results[i].description.toLowerCase().toString().includes(eachInputArray[j])) {
+            if (!searchArray.includes(results[i].title)) {
+              searchArray.push(results[i].title);
+            }
           }
-          j++;
         }
       }
       let newP = $("<p>");
