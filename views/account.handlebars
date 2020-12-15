@@ -1,0 +1,206 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="s12 m12">
+    <div class="row">
+        <div class="col s12 m12" style="margin-bottom:50px;">
+            <ul class="tabs">
+                <li class="tab col m4 l4"><a href="#selling_tab">Selling</a></li>
+                <li class="tab col m4 l4"><a href="#message_tab">Message</a></li>
+                <li class="tab col m4 l4"><a class="active" href="#account_tab">Account</a></li>
+            </ul>
+        </div>
+
+        <!-- selling Tab -->
+        <div id="selling_tab" class="">
+            <!-- hide-on-small-only" -->
+            <div class="container hide-on-small-only">
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2 tab_name">
+                        Title
+                    </div>
+                    <div class="col s2 tab_name">
+                        Category
+                    </div>
+                    <div class="col s2 tab_name">
+                        Price
+                    </div>
+                    <div class="col s2 tab_name">
+                        Action
+                    </div>
+                    <div class="col s2 tab_name">
+                        Sold
+                    </div>
+                    <div class="col s2 tab_name">
+                        Buyer
+                    </div>
+                </div>
+                <!-- Iterate lists from DB -->
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2">
+                        <span class="title_tab_data">TEST_Title</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="category_tab_data">TEST_Category</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="price_tab_data">TEST_Price</span>
+                    </div>
+
+                    <div class="col s2">
+                        <a class='dropdown-trigger btn' data-id="" href='#' data-activates='dropdown_selling_tab'>
+                            <span id="account_dropdown_btn_status">On sale</span></a>
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown_selling_tab' class='dropdown-content'>
+                            <li><button class="btn_tab_account" data-id="">On sale</button></li>
+                            <li><button class="btn_tab_account" data-id="">Inactive</button></li>
+                            <li><button class="btn_tab_account" data-id="">End item</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="col s2">
+                        <span class="sold_tab_data">x</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="buyer_tab_data">null</span>
+                    </div>
+                </div>
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2">
+                        <span id="title_tab">TEST_Title</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="category_tab">TEST_Category</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="price_tab">TEST_Price</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="active_tab">hidden</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="sold_tab">x</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="buyer_tab">null</span>
+                    </div>
+                </div>
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2">
+                        <span id="title_tab">TEST_Title</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="category_tab">TEST_Category</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="price_tab">TEST_Price</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="active_tab">hidden</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="sold_tab">12/14/2020</span>
+                    </div>
+                    <div class="col s2">
+                        <span id="buyer_tab">Test_buyer</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- hide-on-med-and-up -->
+            <div class="container hide-on-med-and-up">
+                <!-- Iterate lists from DB -->
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title_tab_data" style="font-size:20px; font-weight:bold;">TEST_Title</p>
+                            <p class="category_tab_data">TEST_Category</p>
+                            <p class="price_tab_data">TEST_Price</p>
+                            <p class="active_tab_data">on sale</p>
+                            <p class="sold_tab_data">sold</p>
+                            <p class="buyer_tab_data">TEST_buyer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p style="font-size:20px; font-weight:bold;">TEST_Title</p>
+                            <p>TEST_Category</p>
+                            <p>TEST_Price</p>
+                            <p>on sale</p>
+                            <p>sold</p>
+                            <p>TEST_buyer</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- message_tab-->
+        <div id="message_tab" class="">
+            <div class="container orange-text text-darken-3 center" style="font-size:18px;">
+                It will be on service sooner than later.
+            </div>
+        </div>
+        <!-- account Tab -->
+        <div id="account_tab" class="">
+            <div class="container">
+                <div class="row">
+                    <form class="col s12 post_item">
+                        <div class="row">
+                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                                Name :
+                            </div>
+                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                                <strong><span id="name_tab">Test_NAME NAME</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                                Address :
+                            </div>
+                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                                <strong><span id="address_tab">Test_Address Address</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                                email :
+                            </div>
+                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                                <span id="email_tab">Test_email email</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                                Phone Number :
+                            </div>
+                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                                <span id="phonenumber_tab">Test_Phone number</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m12">
+                                <div class="left" style="margin-top: 50px;">
+                                    <div class="row">
+                                        <div class="col s6 m6">
+                                            <button class="btn white orange-text text-darken-3 waves-effect left"
+                                                data-id="" id="account_edit_btn"
+                                                style=" border: solid 1px">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="./js/account.js"></script>
