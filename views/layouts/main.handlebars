@@ -56,8 +56,7 @@
 			<ul class="right hide-on-med-and-down">
 				<li><a href="/">Lists</a></li>
 				<li><a href="/post">Post</a></li>
-				<li><a href="#">Selling</a></li>
-				<li><a href="#">Acount</a></li>
+				<li><a href="/account">Acount</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
 			<ul class="side-nav" id="modible-demo">
@@ -67,13 +66,12 @@
 							style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
 				<li><a href="/">Lists</a></li>
 				<li><a href="/post">Post</a></li>
-				<li><a href="#">Selling</a></li>
-				<li><a href="#">Acount</a></li>
+				<li><a href="/account">Acount</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
 			<ul class="nav-wrapper right hide-on-large-only" id="user_account_id">
 				<!-- id should match data-activates-->
-				<li><a href="#"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
+				<li><a href="/account"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
 			</ul>
 
 		</div>
@@ -97,10 +95,11 @@
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Links</h5>
 					<ul>
+
+						<li><a class="grey-text text-lighten-3" href="/">Lists</a></li>
 						<li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
 						<li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Selling</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Account</a></li>
+						<li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
 					</ul>
 				</div>
 			</div>
@@ -124,7 +123,7 @@
 				</li>
 				<li><a href="/" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
 				</li>
-				<li><a href="#" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
+				<li><a href="/account" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
 				</li>
 			</ul>
 		</div>
@@ -147,8 +146,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Materialize Js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-	<!-- this is for collapse Nav -->
-	<script>$(".button-collapse").sideNav();</script>
+	<!-- this is for MarterializeCSS-->
+	<script>
+		$(".button-collapse").sideNav();
+		$('.carousel.carousel-slider').carousel({
+			fullWidth: true
+		}).width(370)
+	</script>
 	<!-- Public Js -->
 	<script type="text/javascript" src="./js/signup.js"></script>
 	<script type="text/javascript" src="./js/login.js"></script>
