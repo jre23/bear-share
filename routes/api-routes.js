@@ -27,13 +27,14 @@ module.exports = (app) => {
     // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
     // otherwise send back an error
     app.post("/api/signup", function (req, res) {
+        let user = req.body;
         db.User.create({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                phoneNumber: req.body.phoneNumber,
-                address: req.body.address,
-                email: req.body.email,
-                password: req.body.password
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                email: user.email,
+                password: user.password
             })
             .then(function () {
                 res.redirect(307, "/api/login");
@@ -41,16 +42,6 @@ module.exports = (app) => {
             .catch(function (err) {
                 res.status(401).json(err);
             });
-    });
-
-    //CREATE (POST)
-
-    // Create new user route for signup form
-    app.post("/api/users", (req, res) => {
-        db.User.create(req.body).then((data) => {
-            // Send all the form data in req.body?
-            // take the user to the user page with account info and listings below??
-        });
     });
 
     //Route to create a new review on a user "/api/users/review"
