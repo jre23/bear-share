@@ -46,11 +46,11 @@
     </div>
 </a>
 
-<div class="container hide-on-med-and-down">
+<div class="container">
     <div class="row">
         {{#each bearsList}}
         <a href="/login" class="listing-Link">
-            <div class="col m3">
+            <div class="col s6 m4 l3">
                 <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
                         <img src="./img/example.png" height="150px" width="100px">
@@ -61,12 +61,12 @@
                     </div>
                 </div>
             </div>
-            {{/each}}
         </a>
+         {{/each}}
     </div>
 </div>
 
-{{#each bearsList}}
+{{!-- {{#each bearsList}}
 <a href="/login" class="listing-Link">
     <div class="container hide-on-large-only">
         <div class="col s12 m7">
@@ -82,6 +82,6 @@
         </div>
     </div>
 </a>
-{{/each}}
+{{/each}} --}}
 
 <script type="text/javascript" src="./js/index.js"></script>
