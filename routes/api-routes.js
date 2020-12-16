@@ -3,7 +3,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const {
-    Op, json
+    Op,
+    json
 } = require("sequelize");
 
 module.exports = (app) => {
@@ -29,13 +30,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            address: user.address,
-            email: user.email,
-            password: user.password
-        })
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                email: user.email,
+                password: user.password
+            })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -91,11 +92,6 @@ module.exports = (app) => {
         }).then((data) => {
             // load in the users page with the data?
         });
-    });
-
-    //Route to get a single user's userId
-    app.get("/api/users", (req, res) => {
-        res.json(req.user.id);
     });
 
     // route for landing page "/".
@@ -154,7 +150,6 @@ module.exports = (app) => {
         });
     });
 
-<<<<<<< HEAD
     // route for user's account page
     app.get("/account", (req, res) => {
         if (req.user) {
@@ -163,12 +158,12 @@ module.exports = (app) => {
         } else {
             res.render("login");
         }
-=======
+    });
     // route for showing a product
     app.get("/api/product/:id", (req, res) => {
         console.log(req.params.id);
         db.Posting.findAll({
-            where:{
+            where: {
                 id: req.params.id
             }
         }).then((data) => {
@@ -180,7 +175,6 @@ module.exports = (app) => {
 
             // res.render("index", data[0].dataValues);
         });
->>>>>>> 5fed6086672a571d1e77886831e44cfe4ff45f65
     });
 
     //Route to get all users with bear listings "/api/users/lists"  ???
@@ -234,13 +228,13 @@ module.exports = (app) => {
     //user can delete their own listing - Will have to validate that current user id is equal to
 
     //Route to delete a users listing from database
-    app.delete("/api/postings/:postingId/:userId", (req, res) => {
+    app.delete("/api/postings/:postingId", (req, res) => {
         console.log("test delete api route");
         console.log(req.body);
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
-                userId: req.params.userId,
+                userId: req.user.id,
             },
         }).then((data) => {
             // send data back to account.js and reload the account page

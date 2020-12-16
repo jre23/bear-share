@@ -17,23 +17,11 @@ $(document).ready(() => {
         if (!makeSureDelete) {
             return alert("Item not deleted.");
         } else {
-            let userId = -1;
-            console.log(userId)
-            console.log("before user api get call")
-            // make ajax call to get the user's id
-            $.ajax("/api/users", {
-                type: "GET"
-            }).then(results => {
-                userId = results;
-                console.log(userId)
-                console.log(postingId);
-                // use the user id from the first ajax call along with the posting id from the account.handlebars data-id to make delete ajax call
-                $.ajax("/api/postings/" + postingId + "/" + userId, {
-                    type: "DELETE",
-                }).then(res => {
-                    console.log("Item deleted!")
-                    location.reload();
-                })
+            $.ajax("/api/postings/" + postingId, {
+                type: "DELETE",
+            }).then(res => {
+                alert("Item deleted!");
+                location.reload();
             }).catch((e) => {
                 console.log(e)
             });
