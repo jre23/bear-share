@@ -56,20 +56,21 @@ module.exports = (app) => {
     });
 
     //Route to create a new bear listing "/api/postings"
-    app.post("/api/postings", (req, res) => {
-        console.log(req.body);
-        let posting = req.body;
-        posting["userId"] = req.user.id;
-        console.log(posting);
-        db.Posting.create(posting).then((data) => {
-            // data returned... use in handlebars to
-            // redirect user to that individual posting page?
-            console.log(data);
-            res.json({
-                id: data.insertId
-            })
-        });
-    });
+    // app.post("/api/postings", (req, res) => {
+    //     // console.log(req.body);
+    //     let posting = req.body;
+    //     console.log(req.user.id);
+    //     posting["userId"] = req.user.id;
+    //     console.log(posting);
+    //     db.Posting.create(posting).then((data) => {
+    //         // data returned... use in handlebars to
+    //         // redirect user to that individual posting page?
+    //         console.log(data);
+    //         res.json({
+    //             id: data.insertId
+    //         })
+    //     });
+    // });
 
     //Route to create a new review on a bear listing "/api/postings/comments"
     app.post("/api/postings/comments", (req, res) => {
@@ -97,18 +98,18 @@ module.exports = (app) => {
         console.log(req.params.userId);
         console.log(typeof req.user.id);
         console.log(typeof req.params.userId);
-        if(req.user.id == parseInt(req.params.userId, 10)){
-           return res.redirect("/account");
+        if (req.user.id == parseInt(req.params.userId, 10)) {
+            return res.redirect("/account");
         }
         db.User.findAll({
             where: {
                 id: req.params.userId
             },
             include: [{
-              model: Posting
-             }]
-          }).then((data) => {
-                res.render("userProfile", data.firstName);
+                model: Posting
+            }]
+        }).then((data) => {
+            res.render("userProfile", data.firstName);
         }).catch(function (err) {
             res.status(404).json(err);
         });
@@ -157,6 +158,12 @@ module.exports = (app) => {
         });
     });
 
+    // test route to get userId when logged in
+    app.get("/api/userId", (req, res) => {
+        console.log(req.user.id);
+        res.json(req.user.id);
+    });
+
     //Route to find all postings with a title LIKE searched
     app.get("/api/postings", (req, res) => {
         db.Posting.findAll({
@@ -173,7 +180,6 @@ module.exports = (app) => {
     // route for user's account page
     app.get("/account", (req, res) => {
         if (req.user) {
-
             res.render("account");
         } else {
             res.render("login");

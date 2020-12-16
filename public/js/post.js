@@ -1,7 +1,7 @@
-// // wait to attach our handlers until the DOM is fully loaded with document.ready
-// $(document).ready(() => {
-//     $(".no_members_fixed_btn").css("display", "none");
-//     $(".members_fixed_btn").css("display", "block");
+// wait to attach our handlers until the DOM is fully loaded with document.ready
+$(document).ready(() => {
+    $(".no_members_fixed_btn").css("display", "none");
+    $(".members_fixed_btn").css("display", "block");
 
     // this event listener is for when the user adds a post
     $(".post_item").on("submit", event => {
@@ -20,13 +20,13 @@
         let newPost = {
             title: postTitle,
             description: postDescription,
-            image_paths: postPhotoOne,
-            ask_price: postPrice,
             category: postCategory,
+            image_paths: postPhotoOne,
+            ask_price: postPrice
         }
         console.log(newPost);
         // send the POST request.
-        $.ajax("/api/postings", {
+        $.ajax("/upload-posting", {
             type: "POST",
             data: newPost
         }).then(() => { // redirect to main page to see all of the listings (maybe redirect to a page that has just this new listing?)

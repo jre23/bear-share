@@ -25,6 +25,15 @@ $(document).ready(() => {
             }).catch((e) => {
                 console.log(e)
             });
+            // test route to get userId
+            // $.ajax("/api/userId/", {
+            //     type: "GET",
+            // }).then(res => {
+            //     console.log(res);
+            // }).catch((e) => {
+            //     console.log(e)
+            // });
+
         }
     });
 });
