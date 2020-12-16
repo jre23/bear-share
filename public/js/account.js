@@ -10,27 +10,26 @@ $(document).ready(() => {
     // this event listener is for when the user is logged in, in their account page, under the selling tab, and wants to delete an item
     $(".endItem").on("click", event => {
         event.preventDefault();
-        console.log("test endItem button click");
-        let id = event.target.getAttribute("data-id");
-        console.log(id);
+        let postingId = event.target.getAttribute("data-id");
+        postingId = parseInt(postingId);
+        console.log(postingId);
         let makeSureDelete = confirm("Are you sure you want to delete your item?");
-        console.log(makeSureDelete);
         if (!makeSureDelete) {
             return alert("Item not deleted.");
         } else {
-            console.log("send api post to delete");
-            // testing different api routes to get userId
             let userId = -1;
             console.log(userId)
             console.log("before user api get call")
+            // make ajax call to get the user's id
             $.ajax("/api/users", {
                 type: "GET"
             }).then(results => {
                 userId = results;
-                console.log(id);
-                $.ajax("api/postings/" + id, {
+                console.log(userId)
+                console.log(postingId);
+                // use the user id from the first ajax call along with the posting id from the account.handlebars data-id to make delete ajax call
+                $.ajax("/api/postings/" + postingId + "/" + userId, {
                     type: "DELETE",
-                    userId: userId
                 }).then(res => {
                     console.log("Item deleted!")
                     location.reload();
