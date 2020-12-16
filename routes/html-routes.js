@@ -68,4 +68,5 @@ module.exports = app => {
             res.render("login");
         }
     });
+
 }
