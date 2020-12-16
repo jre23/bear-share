@@ -23,7 +23,7 @@ $(document).ready(function () {
     if (!userData.email || !userData.password || !userData.firstName || !userData.lastName) {
       return;
     }
-    console.log(userData);
+    // console.log(userData);
     // If we have an email and password, run the signUpUser function
     signUpUser(userData.firstName, userData.lastName, userData.phoneNumber, userData.address, userData.email, userData.password);
     firstNameInput.val("");
@@ -53,6 +53,6 @@ $(document).ready(function () {
   }
 
   function handleLoginErr(err) {
-    $(".msg").text(err.responseJSON.errors[0].message);
+    $(".msg").text(err.responseJSON.name);
   }
 });
