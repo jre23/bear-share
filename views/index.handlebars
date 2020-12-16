@@ -17,7 +17,7 @@
             <div class="col m3">
                 <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
-                        <img src="./img/example.png" height="150px" width="100px">
+                        <img src="img/example.png" height="150px" width="100px">
                     </div>
                     <div class="card-content">
                         <p style="font-size:20px">Searched Item</p>
@@ -34,7 +34,7 @@
     <div class="hide container hide-on-large-only">
         <div class="col s12 m7">
             <div class="card horizontal">
-                <img src="./img/logo1.png" height="100px" width="100px" style="border:solid 1px black">
+                <img src="img/logo1.png" height="100px" width="100px" style="border:solid 1px black">
                 <div class="card-stacked">
                     <div class="card-content">
                         <p style="font-size:20px">Searched Item</p>
@@ -48,21 +48,21 @@
 
 <div class="container">
     <div class="row">
-        {{#each bearsList}}
-        <a href="/login" class="listing-Link">
+         {{#each bearsList}}
+          <a href="/login" class="listing-Link">
             <div class="col s6 m4 l3">
-                <div class="card" data-productId="{{id}}">
+                <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
-                        <img src="./img/example.png" height="150px" width="100px">
+                        <img src="{{image_paths}}" height="150px" width="100px">
                     </div>
                     <div class="card-content">
-                        <p style="font-size:20px; font-weight:bold;">{{title}}</p>
-                        <p>I am convenient because I require little markup to use effectively.</p>
+                        <p style="font-size:20px; font-weight:bold;">{{this.title}}</p>
+                        <p>{{this.category}}</p>
                     </div>
                 </div>
             </div>
         </a>
-         {{/each}}
+        {{/each}}
     </div>
 </div>
 
@@ -84,4 +84,4 @@
 </a>
 {{/each}} --}}
 
-<script type="text/javascript" src="./js/index.js"></script>
+<script type="text/javascript" src="js/index.js"></script>

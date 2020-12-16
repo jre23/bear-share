@@ -19,7 +19,7 @@
             <div class="col m3">
                 <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
-                        <img src="./img/example.png" height="150px" width="100px">
+                        <img src="img/example.png" height="150px" width="100px">
                     </div>
                     <div class="card-content">
                         <p style="font-size:20px">Searched Item</p>
@@ -36,7 +36,7 @@
     <div class="hide container hide-on-large-only">
         <div class="col s12 m7">
             <div class="card horizontal">
-                <img src="./img/logo1.png" height="100px" width="100px" style="border:solid 1px black">
+                <img src="img/logo1.png" height="100px" width="100px" style="border:solid 1px black">
                 <div class="card-stacked">
                     <div class="card-content">
                         <p style="font-size:20px">Searched Item</p>
@@ -51,16 +51,11 @@
 <div class="container">
     <div class="row">
         {{#each bearsList}}
-
-        
-
-        
-        <button class="testBtn" data-id="{{this.id}}">Test {{this.id}}</button>
           <a href="/product/{{this.id}}" class="listing-Link">
             <div class="col s6 m4 l3">
                 <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
-                        <img src="./img/example.png" height="150px" width="100px">
+                        <img src="{{image_paths}}" height="150px" width="100px">
                     </div>
                     <div class="card-content">
                         <p style="font-size:20px; font-weight:bold;">{{this.title}}</p>
@@ -73,23 +68,4 @@
     </div>
 </div>
 
-
-{{!-- {{#each bearsList}}
-<a href="/product" class="listing-Link" data-id="{{this.id}}">
-    <div class="container hide-on-large-only">
-        <div class="col s12 m7">
-            <div class="card horizontal">
-                <img src="./img/logo1.png" height="100px" width="100px" style="border:solid 1px black">
-                <div class="card-stacked">
-                    <div class="card-content">
-                        <p style="font-size:20px;">{{title}}</p>
-                        <p style="font-size:14px;">Short information about the bear</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</a>
-{{/each}} --}}
-
-<script type="text/javascript" src="./js/members.js"></script>
+<script type="text/javascript" src="js/members.js"></script>
