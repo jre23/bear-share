@@ -154,6 +154,16 @@ module.exports = (app) => {
         });
     });
 
+    // route for user's account page
+    app.get("/account", (req, res) => {
+        if (req.user) {
+
+            res.render("account");
+        } else {
+            res.render("login");
+        }
+    });
+
     //Route to get all users with bear listings "/api/users/lists"  ???
     //Route to get all bear with user listings "/api/postings/lists" ???
 
@@ -214,8 +224,7 @@ module.exports = (app) => {
                 userId: req.params.userId,
             },
         }).then((data) => {
-            //reload user to their account page??
-            // the reload code is in account.js
+            // send data back to account.js and reload the account page
             console.log(data);
             if (data.affectedRows === 0) {
                 // If no rows were changed, then the ID must not exist, so 404
