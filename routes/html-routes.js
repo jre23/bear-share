@@ -6,7 +6,7 @@ module.exports = app => {
     app.get("/login", (req, res) => {
         // If the user already has an account send them to the members page
         if (req.user) {
-            res.redirect("/members");
+            res.redirect("/");
         } else {
             res.render("login");
         }
@@ -16,7 +16,7 @@ module.exports = app => {
     app.get("/signup", (req, res) => {
         // If the user already has an account send them to the members page
         if (req.user) {
-            res.redirect("/members");
+            res.redirect("/");
         } else {
             res.render("signup");
         }
@@ -41,9 +41,9 @@ module.exports = app => {
 
     // route for members page. currently don't have members.handlebars file
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
-    app.get("/members", isAuthenticated, (req, res) => {
-        res.render("members");
-    });
+    // app.get("/members", isAuthenticated, (req, res) => {
+    //     res.render("members");
+    // });
 
     // route for bear list "/search"
     app.get("/search", (req, res) => {
