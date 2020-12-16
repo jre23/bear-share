@@ -1,10 +1,7 @@
 var AWS = require("aws-sdk");
-var express = require("express");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 const db = require("../models");
-
-var app = express();
 
 var s3 = new AWS.S3({
     accessKeyId: "AKIA4XUDOL34WVD7NMNJ",
@@ -44,6 +41,7 @@ module.exports = (app) => {
             category,
             image_paths,
             ask_price,
+            userId: req.user.id,
         };
         db.Posting.create(newPosting).then((data) => {
             res.redirect("/");
