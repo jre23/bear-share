@@ -1,4 +1,5 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+const db = require("../models");
 //HTML Routes
 module.exports = app => {
     // route for login page
@@ -50,9 +51,19 @@ module.exports = app => {
     });
 
     // route for showing a product
-    app.get("/product", (req, res) => {
+    app.get("/product/:productID", (req, res) => {
         if (req.user) {
-            res.render("product");
+                db.Posting.findOne({
+                    where: {
+                        id: req.params.productID,
+                    },
+                }).then(function(results){
+                    console.log(results);
+                    let hbsObject = results.dataValues;
+                    console.log(hbsObject);
+                    res.render("product", hbsObject);
+                }
+                )
         } else {
             res.render("login");
         }

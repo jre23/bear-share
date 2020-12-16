@@ -21,7 +21,8 @@ $(document).ready(() => {
             title: postTitle,
             description: postDescription,
             image_paths: postPhotoOne,
-            ask_price: postPrice
+            ask_price: postPrice,
+            category: postCategory,
         }
         console.log(newPost);
         // send the POST request.
