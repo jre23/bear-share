@@ -1,30 +1,29 @@
-.members_fixed_btn{
+.members_fixed_btn {
     display: none;
 }
 
 .navTextColor a,
-.listing-Link{
+.listing-Link {
     color: #795548;
     font-weight: bold;
 }
 
-.starIcon{
-    font-size:6px;
+.starIcon {
+    font-size: 6px;
 }
 
-.search_bar{
+.search_bar {
     width: 70%;
     margin-bottom: 10%;
 }
 
-
-.search_wrap .search_box{
+.search_wrap .search_box {
     position: relative;
     width: 100%;
     height: 50px;
 }
 
-.search_wrap .search_box .input{
+.search_wrap .search_box .input {
     position: absolute;
     top: 0;
     left: 0;
@@ -34,12 +33,12 @@
     font-size: 18px;
 }
 
-.search_wrap .search_box .label-icon{
+.search_wrap .search_box .label-icon {
     position: absolute;
     padding-top: 15px;
 }
 
-.search_wrap .search_box .btn{
+.search_wrap .search_box .btn {
     position: absolute;
     /* top: 0; */
     right: 0;
@@ -50,39 +49,36 @@
     font-size: 13px;
 }
 
-.post_label_custom{
+.post_label_custom {
     font-size: 18px;
     color: black;
 }
 
-.post_input_boader{
+.post_input_boader {
     padding: 5px 10px;
     width: 100%;
     height: 35px;
     border: 1px solid #ccc;
 }
 
-#price_post{
+#price_post {
     padding: 5px;
     margin-left: 5px;
     width: 30%;
 }
 
-textarea{
-    height:100px;
+textarea {
+    height: 100px;
 }
 
-#img_up_load_1, 
+#img_up_load_1,
 #img_up_load_2,
 #img_up_load_3,
-#img_up_load_4{
-    height:150px;
-    width:150px;
-  }
-
-input[type="file"] {
-    display: none;
+#img_up_load_4 {
+    height: 150px;
+    width: 150px;
 }
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -90,58 +86,58 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.photo_box{
+.photo_box {
     height: 200px;
     width: 400px;
     padding: 5%;
 }
 
-@media (max-width:600px) {
-    .photo_box{
+@media (max-width: 600px) {
+    .photo_box {
         height: 100%;
         width: 100%;
         padding: 5%;
         text-align: center;
     }
-    
-    #img_up_load_1, 
+
+    #img_up_load_1,
     #img_up_load_2,
     #img_up_load_3,
-    #img_up_load_4{
-    margin: auto;
-    height:150px;
-    width:150px;
-  }
+    #img_up_load_4 {
+        margin: auto;
+        height: 150px;
+        width: 150px;
+    }
 }
 
-.img_row{
+.img_row {
     margin: 0;
     text-align: center;
 }
 
-.photo_box_inside{
+.photo_box_inside {
     margin-bottom: 15%;
 }
 
-#alert{
+#alert {
     color: red;
 }
 
 /* Style for Account page */
-.tab_name{
+.tab_name {
     font-weight: bold;
 }
-.btn_tab_account{
+.btn_tab_account {
     text-align: center;
-    border: none; 
-    width:100%; 
-    height:50px; 
-    padding:auto; 
-    cursor: pointer; 
-    color:#00796b;
-    background-color: white; 
+    border: none;
+    width: 100%;
+    height: 50px;
+    padding: auto;
+    cursor: pointer;
+    color: #00796b;
+    background-color: white;
 }
-.btn_tab_account:hover{
+.btn_tab_account:hover {
     background-color: #00796b;
     color: white;
 }
