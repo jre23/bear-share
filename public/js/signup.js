@@ -53,6 +53,6 @@ $(document).ready(function () {
   }
 
   function handleLoginErr(err) {
-    $(".msg").text(err.responseJSON.errors[0].message);
+    $(".msg").text(err.responseJSON.name);
   }
 });
