@@ -126,3 +126,22 @@ input[type="file"] {
 #alert{
     color: red;
 }
+
+/* Style for Account page */
+.tab_name{
+    font-weight: bold;
+}
+.btn_tab_account{
+    text-align: center;
+    border: none; 
+    width:100%; 
+    height:50px; 
+    padding:auto; 
+    cursor: pointer; 
+    color:#00796b;
+    background-color: white; 
+}
+.btn_tab_account:hover{
+    background-color: #00796b;
+    color: white;
+}
