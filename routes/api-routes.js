@@ -73,10 +73,18 @@ module.exports = (app) => {
 
     //Route to create a new review on a bear listing "/api/postings/comments"
     app.post("/api/postings/comments", (req, res) => {
-        db.PostingComment.create(req.body).then((data) => {
+        console.log(req.body);
+        let comment = req.body;
+        comment.UserId = req.user.id;
+        console.log(comment);
+        db.PostingComment.create(comment).then((data) => {
+            res.status(200);
+            res.redirect('back');
             //make sure to include the userId for who is making the comment and the postingId
             // get those off a "data-posting-id" & "data-user-id" from jQuery client-side???
             // after posting comment is added, reload that posting?
+        }).catch(function (err) {
+            res.status(500).json(err);
         });
     });
 
@@ -85,12 +93,24 @@ module.exports = (app) => {
     ******/
     //Route to get a single user's information "/api/users"
     app.get("/api/users/:userId", (req, res) => {
-        db.Users.findOne({
+        console.log(req.user.id);
+        console.log(req.params.userId);
+        console.log(typeof req.user.id);
+        console.log(typeof req.params.userId);
+        if(req.user.id == parseInt(req.params.userId, 10)){
+           return res.redirect("/account");
+        }
+        db.User.findAll({
             where: {
-                id: req.params.userId,
+                id: req.params.userId
             },
-        }).then((data) => {
-            // load in the users page with the data?
+            include: [{
+              model: Posting
+             }]
+          }).then((data) => {
+                res.render("userProfile", data.firstName);
+        }).catch(function (err) {
+            res.status(404).json(err);
         });
     });
 
@@ -181,7 +201,17 @@ module.exports = (app) => {
     //Route to get all bear with user listings "/api/postings/lists" ???
 
     //Route to get all users with reviews "/api/users/reviews" ???
-    //Route to get all postings with reviews "/api/postings/reviews" ???
+    //Route to get all postings with reviews "/api/postings/comments" ???
+    app.get("/api/postings/comments/:postingId", (req, res) => {
+        db.PostingComment.findAll({
+            where: {
+                PostingId: req.params.postingId,
+            },
+        }).then((data) => {
+            res.json(data);
+        });
+    });
+
 
     //Route to get a user information by name "/api/users/name/:name"
     //Route to get a bear info by name "/api/postings/name/:name"

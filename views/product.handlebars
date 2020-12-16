@@ -1,26 +1,26 @@
 <!-- jQuery Js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
-
 <div class="container">
     <div class="row">
         <div class="col s0 m2"></div>
         <div class="col s12 m10" style="height:370px;">
             <div class="carousel carousel-slider left" data-indicators="true" style="margin:auto;">
-                <a class="carousel-item" href="#"><img src="./img/test.png"></a>
-                <a class="carousel-item" href="#"><img src="./img/test.png"></a>
-                <a class="carousel-item" href="#"><img src="./img/test.png"></a>
+                <a class="carousel-item" href="#"><img src="{{image_paths}}"></a>
+                <a class="carousel-item" href="#"><img src="{{image_paths}}"></a>
+                <a class="carousel-item" href="#"><img src="{{image_paths}}"></a>
             </div>
         </div>
     </div>
     <div class="row">
-        <form class="col s12 post_item">
             <div class="row">
-                <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left">
+                <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left productId" data-id="{{id}}">
                     Title :
                 </div>
                 <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-                    <strong><span id="title_product">{{title}}</span></strong>
+
+                    <strong><span id="title_product">{{this.title}}</span></strong>
+
                 </div>
             </div>
 
@@ -29,7 +29,9 @@
                     Price :
                 </div>
                 <div class="col s10 m10 black-text text-darken-3 post_label_custom left">
-                    <span>$</span><span id="price_product">d</span>
+
+                    <span>$</span><span id="price_product">{{ask_price}}</span>
+
                 </div>
             </div>
 
@@ -38,7 +40,9 @@
                     Category :
                 </div>
                 <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-                    <span id="cagegory_product">d</span>
+
+                    <span id="cagegory_product">{{category}}</span>
+
                 </div>
             </div>
 
@@ -49,7 +53,9 @@
                 </div>
                 <div class="col s12 m10"
                     style="border: 1px solid rgb(179, 179, 179); border-radius:5px; margin-left:10px; padding: 10px; height: 100px; max-width:350px">
-                    <div id="description_product">d</div>
+
+                    <div id="description_product">{{description}}</div>
+
                 </div>
             </div>
             <div class="row">
@@ -58,7 +64,7 @@
                     <div class="left" style="margin-top: 50px;">
                         <div class="row">
                             <div class="col s6 m6">
-                                <button class="btn white orange-text text-darken-3 waves-effect left" data-id=""
+                                <button class="btn white orange-text text-darken-3 waves-effect left" data-id="{{id}}"
                                     style=" border: solid 1px">Message</button>
                             </div>
                             <div class="col s6 m6">
@@ -69,9 +75,29 @@
                     </div>
                 </div>
             </div>
-        </form>
+    </div>
+    <h5>Reviews</h5>
+    <div class="row reviews">
+        {{!-- This is an example card that is removed when product.js runs --}}
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content">
+                    <p class="review_text"></p>
+                </div>
+                <div class="card-action">
+                    <a href="#"></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
-
-<script type="text/javascript" src="./js/product.js"></script>
+<div class="row">
+    <form class="col s6 review_submit" action="/api/postings/comments" method="POST">
+        <input id="PostingId" name="PostingId" type="hidden" value="{{id}}">
+        <label>Leave a review for {{title}}</label>
+        <textArea name="comment" type="text"></textArea>
+        <button>Submit</button>
+    </form>
+</div>
+<script type="text/javascript" src="/js/product.js"></script>

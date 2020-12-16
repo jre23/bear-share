@@ -1,4 +1,5 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+const db = require("../models");
 //HTML Routes
 module.exports = app => {
     // route for login page
@@ -48,4 +49,24 @@ module.exports = app => {
     app.get("/search", (req, res) => {
         res.render("search"); // currently don't have a search.handlebars file
     });
+
+    // route for showing a product
+    app.get("/product/:productID", (req, res) => {
+        if (req.user) {
+                db.Posting.findOne({
+                    where: {
+                        id: req.params.productID,
+                    },
+                }).then(function(results){
+                    console.log(results);
+                    let hbsObject = results.dataValues;
+                    console.log(hbsObject);
+                    res.render("product", hbsObject);
+                }
+                )
+        } else {
+            res.render("login");
+        }
+    });
+
 }
