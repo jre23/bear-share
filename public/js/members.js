@@ -70,4 +70,20 @@ $(document).ready(function () {
       return false;
     }
   });
+
+  $(".testBtn").on('click', (e) => {
+    e.preventDefault();
+
+    let id = $(e.target).data("id");
+    console.log(id);
+    $.get(`/api/product/${id}`).then((result) =>{
+      // window.location.replace("/product");
+      // location.reload();
+    
+      
+      // res.end();
+    });
+
+  });
+
 });

@@ -3,7 +3,7 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const {
-    Op
+    Op, json
 } = require("sequelize");
 
 module.exports = (app) => {
@@ -29,13 +29,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                phoneNumber: user.phoneNumber,
-                address: user.address,
-                email: user.email,
-                password: user.password
-            })
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+            email: user.email,
+            password: user.password
+        })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -102,7 +102,7 @@ module.exports = (app) => {
     app.get("/", (req, res) => {
         if (req.user) {
             db.Posting.findAll({}).then((data) => {
-                // console.log(data);
+                console.log(data);
                 res.render("members", {
                     bearsList: data
                 });
@@ -151,6 +151,24 @@ module.exports = (app) => {
             },
         }).then((data) => {
             // Render all the returned postings as cards on the main page?????
+        });
+    });
+
+    // route for showing a product
+    app.get("/api/product/:id", (req, res) => {
+        console.log(req.params.id);
+        db.Posting.findAll({
+            where:{
+                id: req.params.id
+            }
+        }).then((data) => {
+            console.log(data[0].dataValues);
+            // res.render("index");
+            // res.json(data[0].dataValues);
+            res.render("product", data[0].dataValues);
+            // res.end();
+
+            // res.render("index", data[0].dataValues);
         });
     });
 
