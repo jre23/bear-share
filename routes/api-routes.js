@@ -93,6 +93,11 @@ module.exports = (app) => {
         });
     });
 
+    //Route to get a single user's userId
+    app.get("/api/users", (req, res) => {
+        res.json(req.user.id);
+    });
+
     // route for landing page "/".
     app.get("/", (req, res) => {
         if (req.user) {
@@ -204,9 +209,15 @@ module.exports = (app) => {
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
+                userId: req.body.userId
             },
         }).then((data) => {
             //reload user to their account page??
+            // the reload code is in account.js
+            console.log("deleted");
+            res.json(data);
+        }).catch((e) => {
+            console.log(e)
         });
     });
 
