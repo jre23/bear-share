@@ -118,7 +118,7 @@ module.exports = (app) => {
             // send to handlebars and populate postings as cards
             // include in the html something like "data-posting-id={{id}}" so we can reference that when clicking through to an individual posting????
             console.log(data);
-            res.end();
+            res.json(data);
         });
     });
 

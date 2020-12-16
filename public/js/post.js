@@ -2,7 +2,7 @@
 $(document).ready(() => {
     $(".no_members_fixed_btn").css("display", "none");
     $(".members_fixed_btn").css("display", "block");
-    
+
     // this event listener is for when the user adds a post
     $(".post_item").on("submit", event => {
         // make sure to preventDefault on a submit event.
