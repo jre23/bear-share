@@ -12,6 +12,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             len: [1],
         },
+        category: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            len: [1],
+        },
         image_paths: {
             type: DataTypes.TEXT,
         },
