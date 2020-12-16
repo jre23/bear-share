@@ -20,20 +20,17 @@ $(document).ready(() => {
             $.ajax("/api/postings/" + postingId, {
                 type: "DELETE",
             }).then(res => {
-                alert("Item deleted!");
-                location.reload();
+                console.log(res);
+                console.log("test log after ajax to api/postings");
+                if (res === 0) {
+                    return alert("Item to delete not found!")
+                } else {
+                    alert("Item deleted!");
+                    location.reload();
+                }
             }).catch((e) => {
                 console.log(e)
             });
-            // test route to get userId
-            // $.ajax("/api/userId/", {
-            //     type: "GET",
-            // }).then(res => {
-            //     console.log(res);
-            // }).catch((e) => {
-            //     console.log(e)
-            // });
-
         }
     });
 });

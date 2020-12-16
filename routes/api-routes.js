@@ -274,17 +274,12 @@ module.exports = (app) => {
             },
         }).then((data) => {
             // send data back to account.js and reload the account page
+            // if data === 0 -> item not found, if data === 1 -> item found and deleted
             console.log(data);
-            if (data.affectedRows === 0) {
-                // If no rows were changed, then the ID must not exist, so 404
-                return res.status(404).end();
-            }
             res.json(data);
-            res.status(200).end();
         }).catch((e) => {
             console.log(e)
-        });
+        })
     });
-
     //admin can delete anything?
 };
