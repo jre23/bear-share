@@ -24,10 +24,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-        category: {
-            type: DataTypes.STRING,
-            defaultValue: "",
-        }
     });
 
     Posting.associate = function (models) {
