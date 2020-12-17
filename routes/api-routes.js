@@ -3,7 +3,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const {
-    Op, json
+    Op,
+    json
 } = require("sequelize");
 
 module.exports = (app) => {
@@ -29,13 +30,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            address: user.address,
-            email: user.email,
-            password: user.password
-        })
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                email: user.email,
+                password: user.password
+            })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -55,20 +56,21 @@ module.exports = (app) => {
     });
 
     //Route to create a new bear listing "/api/postings"
-    app.post("/api/postings", (req, res) => {
-        console.log(req.body);
-        let posting = req.body;
-        posting["userId"] = req.user.id;
-        console.log(posting);
-        db.Posting.create(posting).then((data) => {
-            // data returned... use in handlebars to
-            // redirect user to that individual posting page?
-            console.log(data);
-            res.json({
-                id: data.insertId
-            })
-        });
-    });
+    // app.post("/api/postings", (req, res) => {
+    //     // console.log(req.body);
+    //     let posting = req.body;
+    //     console.log(req.user.id);
+    //     posting["userId"] = req.user.id;
+    //     console.log(posting);
+    //     db.Posting.create(posting).then((data) => {
+    //         // data returned... use in handlebars to
+    //         // redirect user to that individual posting page?
+    //         console.log(data);
+    //         res.json({
+    //             id: data.insertId
+    //         })
+    //     });
+    // });
 
     //Route to create a new review on a bear listing "/api/postings/comments"
     app.post("/api/postings/comments", (req, res) => {
@@ -96,11 +98,12 @@ module.exports = (app) => {
         console.log(req.params.userId);
         console.log(typeof req.user.id);
         console.log(typeof req.params.userId);
-        if(req.user.id == parseInt(req.params.userId, 10)){
-           return res.redirect("/account");
+        if (req.user.id == parseInt(req.params.userId, 10)) {
+            return res.redirect("/account");
         }
         db.User.findAll({
             where: {
+
                 id: parseInt(req.params.userId, 10)
             },
             include: [
@@ -120,9 +123,47 @@ module.exports = (app) => {
         });
     });
 
-    //Route to get a single user's userId
-    app.get("/api/users", (req, res) => {
-        res.json(req.user.id);
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    app.get("/account", (req, res) => {
+        if (req.user) {
+            db.Posting.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            }).then((data) => {
+                console.log(data);
+                console.log("test log for account data values");
+                if (data.length < 0) {
+                    res.render("account");
+                } else {
+                    res.render("account", {
+                        bearsList: data
+                    });
+                }
+            }).catch(function (err) {
+                res.status(404).json(err);
+            });
+        } else {
+            res.render("login");
+        }
+    });
+
+    // route to get all of user's info for account page used by account.js
+    app.get("/api/userInfo", (req, res) => {
+        console.log(req.user.id);
+        console.log("req user id line api-routes");
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) => {
+            console.log(data);
+            console.log("test log for userInfo data values");
+            console.log(data[0].dataValues.firstName);
+            res.json(data);
+        }).catch(function (err) {
+            res.status(404).json(err);
+        });
     });
 
     // route for landing page "/".
@@ -168,6 +209,12 @@ module.exports = (app) => {
         });
     });
 
+    // test route to get userId when logged in
+    app.get("/api/userId", (req, res) => {
+        console.log(req.user.id);
+        res.json(req.user.id);
+    });
+
     //Route to find all postings with a title LIKE searched
     app.get("/api/postings", (req, res) => {
         db.Posting.findAll({
@@ -185,7 +232,7 @@ module.exports = (app) => {
     app.get("/api/product/:id", (req, res) => {
         console.log(req.params.id);
         db.Posting.findAll({
-            where:{
+            where: {
                 id: req.params.id
             }
         }).then((data) => {
@@ -260,28 +307,22 @@ module.exports = (app) => {
     //user can delete their own listing - Will have to validate that current user id is equal to
 
     //Route to delete a users listing from database
-    app.delete("/api/postings/:postingId/:userId", (req, res) => {
+    app.delete("/api/postings/:postingId", (req, res) => {
         console.log("test delete api route");
         console.log(req.body);
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
-                userId: req.params.userId,
+                userId: req.user.id,
             },
         }).then((data) => {
-            //reload user to their account page??
-            // the reload code is in account.js
+            // send data back to account.js and reload the account page
+            // if data === 0 -> item not found, if data === 1 -> item found and deleted
             console.log(data);
-            if (data.affectedRows === 0) {
-                // If no rows were changed, then the ID must not exist, so 404
-                return res.status(404).end();
-            }
             res.json(data);
-            res.status(200).end();
         }).catch((e) => {
             console.log(e)
-        });
+        })
     });
-
     //admin can delete anything?
 };

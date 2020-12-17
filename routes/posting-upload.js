@@ -3,15 +3,20 @@ var multer = require("multer");
 var multerS3 = require("multer-s3");
 const db = require("../models");
 
+AWS.config.region = "us-west-2"; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: process.env.IdentityPoolId,
+});
+
 var s3 = new AWS.S3({
-    accessKeyId: "AKIA4XUDOL34WVD7NMNJ",
-    secretAccessKey: "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",
+    apiVersion: "2006-03-01",
+    params: { Bucket: "bear-share-2" },
 });
 
 var uploadS3 = multer({
     storage: multerS3({
         s3: s3,
-        bucket: "bear-share",
+        bucket: "bear-share-2",
         acl: "public-read",
         metadata: (req, file, cb) => {
             cb(null, { fieldName: file.fieldname });

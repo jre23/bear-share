@@ -36,15 +36,16 @@
                     </div>
                 </div>
                 <!-- Iterate lists from DB -->
+                {{#each bearsList}}
                 <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
                     <div class="col s2">
-                        <span class="title_tab_data">TEST_Title</span>
+                        <span class="title_tab_data">{{title}}</span>
                     </div>
                     <div class="col s2">
-                        <span class="category_tab_data">TEST_Category</span>
+                        <span class="category_tab_data">{{category}}</span>
                     </div>
                     <div class="col s2">
-                        <span class="price_tab_data">TEST_Price</span>
+                        <span class="price_tab_data">{{ask_price}}</span>
                     </div>
 
                     <div class="col s2">
@@ -54,7 +55,7 @@
                         <ul id='dropdown_selling_tab' class='dropdown-content'>
                             <li><button class="btn_tab_account" data-id="">On sale</button></li>
                             <li><button class="btn_tab_account" data-id="">Inactive</button></li>
-                            <li><button class="btn_tab_account endItem" data-id="4">End item</button></li>
+                            <li><button class="btn_tab_account endItem" data-id={{id}}>End item</button></li>
                         </ul>
                     </div>
 
@@ -65,76 +66,33 @@
                         <span class="buyer_tab_data">null</span>
                     </div>
                 </div>
-                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                    <div class="col s2">
-                        <span id="title_tab">TEST_Title</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="category_tab">TEST_Category</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="price_tab">TEST_Price</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="active_tab">hidden</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="sold_tab">x</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="buyer_tab">null</span>
-                    </div>
-                </div>
-                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                    <div class="col s2">
-                        <span id="title_tab">TEST_Title</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="category_tab">TEST_Category</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="price_tab">TEST_Price</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="active_tab">hidden</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="sold_tab">12/14/2020</span>
-                    </div>
-                    <div class="col s2">
-                        <span id="buyer_tab">Test_buyer</span>
-                    </div>
-                </div>
-
+                {{/each}}
             </div>
 
             <!-- hide-on-med-and-up -->
             <div class="container hide-on-med-and-up">
                 <!-- Iterate lists from DB -->
+                {{#each bearsList}}
                 <div class="col s6">
                     <div class="card">
                         <div class="card-content">
                             <p class="title_tab_data" style="font-size:20px; font-weight:bold;">TEST_Title</p>
                             <p class="category_tab_data">TEST_Category</p>
                             <p class="price_tab_data">TEST_Price</p>
+                            <!-- Dropdown Structure -->
+                            <div>
+                                <p>Actions:</p>
+                                <li><a class="btn_tab_account" data-id="">On sale</a></li>
+                                <li><a class="btn_tab_account" data-id="">Inactive</a></li>
+                                <li><a class="btn_tab_account endItem" data-id={{id}}>End item</a></li>
+                            </div>
                             <p class="active_tab_data">on sale</p>
                             <p class="sold_tab_data">sold</p>
                             <p class="buyer_tab_data">TEST_buyer</p>
                         </div>
                     </div>
                 </div>
-                <div class="col s6 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <p style="font-size:20px; font-weight:bold;">TEST_Title</p>
-                            <p>TEST_Category</p>
-                            <p>TEST_Price</p>
-                            <p>on sale</p>
-                            <p>sold</p>
-                            <p>TEST_buyer</p>
-                        </div>
-                    </div>
-                </div>
+                {{/each}}
 
             </div>
         </div>
@@ -154,7 +112,7 @@
                                 Name :
                             </div>
                             <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
-                                <strong><span id="name_tab">Test_NAME NAME</span></strong>
+                                <strong><span id="user_name"></span></strong>
                             </div>
                         </div>
 
@@ -163,7 +121,7 @@
                                 Address :
                             </div>
                             <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
-                                <strong><span id="address_tab">Test_Address Address</span></strong>
+                                <strong><span id="user_address">Test_Address Address</span></strong>
                             </div>
                         </div>
 
@@ -172,7 +130,7 @@
                                 email :
                             </div>
                             <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
-                                <span id="email_tab">Test_email email</span>
+                                <span id="user_email">Test_email email</span>
                             </div>
                         </div>
 
@@ -181,7 +139,7 @@
                                 Phone Number :
                             </div>
                             <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
-                                <span id="phonenumber_tab">Test_Phone number</span>
+                                <span id="user_phone">Test_Phone number</span>
                             </div>
                         </div>
                         <div class="row">
@@ -204,5 +162,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/account.js"></script>
-
+<script type="text/javascript" src="/js/account.js"></script>
