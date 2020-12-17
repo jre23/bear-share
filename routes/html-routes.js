@@ -56,15 +56,29 @@ module.exports = app => {
             db.Posting.findAll({
                 where: {
                     userId: req.user.id
-                }
+                },
+                include: [{
+                    model: db.Message,
+                    where: { toId: req.user.id}
+                }]
             }).then((data) => {
                 console.log(data);
                 console.log("test log for account data values");
+                console.log("============================ message ====================================");
+                console.log(data[0].dataValues.Messages[0]);
+                let messageArr = [];
+                for(let i = 0; i < data[0].dataValues.Messages.length; i++){
+                    messageArr.push(data[0].dataValues.Messages[i].dataValues);
+                }
+                
+                console.log("============================ message ====================================");
+                console.log(messageArr);
                 if (data.length < 0) {
                     res.render("account");
                 } else {
                     res.render("account", {
-                        bearsList: data
+                        bearsList: data,
+                        messageLists: messageArr
                     });
                 }
             }).catch(function (err) {

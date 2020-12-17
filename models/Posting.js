@@ -31,6 +31,12 @@ module.exports = function (sequelize, DataTypes) {
         Posting.hasMany(models.PostingComment, {
             onDelete: "cascade",
         });
+        Posting.hasMany(models.Message, {
+            foreignKey: {
+                name: "productId",
+            },
+            onDelete: "cascade",
+        });
     };
 
     return Posting;

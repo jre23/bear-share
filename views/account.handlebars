@@ -96,10 +96,39 @@
 
             </div>
         </div>
+        
         <!-- message_tab-->
         <div id="message_tab" class="">
-            <div class="container orange-text text-darken-3 center" style="font-size:18px;">
-                It will be on service sooner than later.
+            <div class="container center" style="font-size:14px;">
+                
+                <div class="container hide-on-small-only">
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s4 tab_name">
+                        From
+                    </div>
+                    <div class="col s4 tab_name">
+                        About Products
+                    </div>
+                    <div class="col s4 tab_name">
+                        Received
+                    </div>
+                </div>
+                <!-- Iterate lists from DB -->
+                {{#each messageLists}}
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s4">
+                        <span class="">{{this.fromId}}</span>
+                    </div>
+                    <div class="col s4">
+                        <span class="">{{this.contents}}</span>
+                    </div>
+                    <div class="col s4">
+                        <span class="">{{this.createdAt}}</span>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
             </div>
         </div>
         <!-- account Tab -->

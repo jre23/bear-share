@@ -51,45 +51,48 @@ $(document).ready(function () {
 $("#message_btn").on("click", (e) => {
   e.preventDefault();
   let id = $(e.target).data("id");
-  
+  console.log("id");
+  let idArr = String(id).split(" ");
+  let userId = idArr[0];
+  let productId = idArr[1];
+  console.log("userId");
+  console.log(userId);
+  console.log("productId");
+  console.log(productId);
   const getProductData = () => {
-    $.ajax("/api/product/" + id, {
+    $.ajax("/api/product/" + userId +"/"+productId, {
         type: "GET"
     }).then(res => {
-        console.log(res.User);
-
-        const productInfo = {
-          id: res.id,
-          title: res.title,
-          category: res.category,
-          price: res.ask_price,
+        console.log(res);
+        let fullName = res.firstName +" "+res.lastName;
+        const userProductInfo = {
+          id: res.productId,
+          productId: res.productId,
+          title: res.productTitle,
+          category: res.productCategory,
+          price: res.productPrice,
           userId: res.userId,
-          imgPath: res.image_paths
-        }
-
-        let fullName = res.User.firstName +" "+res.User.lastName;
-        const userInfo = {
-          id: res.User.id,
+          imgPath: res.productImgPath,
           name: fullName
         }
       let query = `
         <div class="row" style="border:1px solid #ccc; padding: 10px;">
         <div class="row" style="margin-bottom: 0;">
             <div class="col s3 m2 l1">
-                <img src="${productInfo.imgPath}" width="75px" height="100px" alt="product image"
+                <img src="${userProductInfo.imgPath}" width="75px" height="100px" alt="product image"
                     style="border:1px solid #ccc;">
             </div>
             <div class="col s4 m4">
-                <h5 style="margin-top:0;">${productInfo.title}</h5>
-                <p>${productInfo.category}</p>
-                <p>$ ${productInfo.price}</p>
+                <h5 style="margin-top:0;">${userProductInfo.title}</h5>
+                <p>${userProductInfo.category}</p>
+                <p>$ ${userProductInfo.price}</p>
             </div>
         </div>
         <div class="row">
             <form class="col s12">
                 <div class="row" style="margin-bottom:0; height:100;">
                     <div class="col s12">
-                        <textarea maxlength="500" id="textarea_message_product" placeholder="Write something to ${userInfo.name}"
+                        <textarea maxlength="500" id="textarea_message_product" placeholder="Write something to ${userProductInfo.name}"
                             style="border:1px solid #ccc; padding:10px; margin-bottom:0; height:100px;"></textarea>
                     </div>
                 </div>
@@ -97,10 +100,10 @@ $("#message_btn").on("click", (e) => {
         </div>
             <div class="row">
                 <div class="col">
-                <button id="messageSendbtn" class="waves-effect waves-green btn">Send</button>
+                <button id="messageSendbtn" data-productId="${userProductInfo.productId}" data-userId="${userProductInfo.userId}" class="waves-effect waves-green btn">Send</button>
                 </div>
                 <div class="col">
-                <a href="/product/${id}" class="waves-effect waves-green btn">Cancel</a>
+                <a href="/product/${userProductInfo.productId}" class="waves-effect waves-green btn">Cancel</a>
                 </div>
             </div>
         </div>
@@ -108,13 +111,38 @@ $("#message_btn").on("click", (e) => {
     
       $("#message_form").html(query);
     });
-
-    $(document).on("click","#messageSendbtn", (e) => {
-      e.preventDefault();
-      console.log($("#textarea_message_product").val());
-      console.log("TEST SEND Button");
-    });
 }
+
+$(document).on("click","#messageSendbtn", (e) => {
+  e.preventDefault();
+  // console.log($("#textarea_message_product").val());
+
+  let toId = $(e.target)[0].attributes[2].nodeValue;
+  let productId = $(e.target)[0].attributes[1].nodeValue;
+  let contents = $("#textarea_message_product").val();
+
+    $.ajax("/api/message/", {
+        type: "POST",
+        data: {
+          "contents" : contents,
+          "toId" : toId,
+          "productId" : productId
+      }
+    }).then(res => {
+      
+      if(res.toId == res.fromId){
+        alert("This is your product!! You can't send a message to yourself.");
+        location.reload();
+      }else{
+        alert("Sent the message");
+        location.reload();
+      }
+    });
+  
+});
+
 getProductData();
+
+
 });
 });

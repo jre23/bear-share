@@ -172,24 +172,60 @@ module.exports = (app) => {
     });
 
     // Route for Sending Messages Form
-    app.get("/api/product/:id", (req, res) => {
-        console.log(req.params.id);
-        db.Posting.findAll({
+    app.get("/api/product/:userId/:productId", (req, res) => {
+        console.log("req.params.userId");
+        console.log(req.params.userId);
+        console.log("req.params.productId");
+        console.log(req.params.productId);
+        db.User.findAll({
             where: {
-                id: req.params.id
+                id: req.params.userId
             },
-            include: [db.User]
+            include: [{
+                model: db.Posting,
+                where: { id: req.params.productId }
+            }]
         }).then((data) => {
+            console.log("====================data[0]====================");
             console.log(data[0].dataValues);
-            res.json(data[0].dataValues);
+            console.log(data[0].dataValues.Postings[0].dataValues);
+            // console.log(data[0].dataValues.Posting.dataValues);
+            let userProductInfo = {
+                userId: data[0].dataValues.id,
+                firstName: data[0].dataValues.firstName,
+                lastName: data[0].dataValues.lastName,
+                productId: data[0].dataValues.Postings[0].dataValues.id,
+                productTitle: data[0].dataValues.Postings[0].dataValues.title,
+                productCategory: data[0].dataValues.Postings[0].dataValues.category,
+                productImgPath: data[0].dataValues.Postings[0].dataValues.image_paths,
+                productPrice: data[0].dataValues.Postings[0].dataValues.ask_price
+            }
+
+            res.json(userProductInfo);
         });
     });
 
-    app.get("/api/message", (req, res) =>{
-        console.log("req.body");
+    app.post("/api/message/", function (req, res) {
         console.log(req.body);
-        res.end();
+        console.log("req.user.id");
+        console.log(req.user.id); 
+        let message = req.body;
+        message["fromId"] = req.user.id;
+        console.log(message);
+        if(req.user.id == req.body.toId){
+            res.json(message);
+        }
+        else{
+            db.Message.create(message).then((data) => {
+                res.json(data);
+            });
+            
+        }
+
     });
+
+
+
 
     //Route to get all users with bear listings "/api/users/lists"  ???
     //Route to get all bear with user listings "/api/postings/lists" ???
