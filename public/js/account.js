@@ -35,21 +35,6 @@ $(document).ready(() => {
                 });
         }
     });
-    // this function gets the user's info for the account tab
-    const getUserData = () => {
-        $.ajax("/api/userInfo/", {
-            type: "GET",
-        }).then((res) => {
-            console.log(res);
-            console.log(res[0].firstName);
-            console.log("test getUserData route response");
-            $("#user_name").text(`${res[0].firstName} ${res[0].lastName}`);
-            $("#user_address").text(`${res[0].address}`);
-            $("#user_email").text(`${res[0].email}`);
-            $("#user_phone").text(`${res[0].phoneNumber}`);
-        });
-    };
-    getUserData();
 
     document.getElementById("file").onchange = function () {
         document.getElementById("pp-form").submit();
