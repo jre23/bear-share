@@ -92,8 +92,8 @@ module.exports = (app) => {
     /******
         READ (GET)
     ******/
-    //Route to get a single user's information "/api/users"
-    app.get("/api/users/:userId", (req, res) => {
+    //Route to get a single user's information "/api/usersInfo/:userId"
+    app.get("/api/userInfo/:userId", (req, res) => {
         console.log(req.user.id);
         console.log(req.params.userId);
         console.log(typeof req.user.id);
@@ -104,12 +104,11 @@ module.exports = (app) => {
         db.User.findAll({
             where: {
                 id: req.params.userId
-            },
-            include: [{
-                model: Posting
-            }]
+            }
         }).then((data) => {
-            res.render("userProfile", data.firstName);
+            console.log(data);
+            console.log(data[0].dataValues);
+            res.render("userInfo", data[0].dataValues);
         }).catch(function (err) {
             res.status(404).json(err);
         });

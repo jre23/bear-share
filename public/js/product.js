@@ -32,7 +32,7 @@ $(document).ready(function () {
       pText.text(results[i].comment)
       aUser.text(results[i].UserId)
 
-      aUser.attr("href", `api/userInfo/${results[i].UserId}`)
+      aUser.attr("href", `../api/userInfo/${results[i].UserId}`)
       
       reviewDiv.append(divCol);
       divCol.append(divCard);
