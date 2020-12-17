@@ -115,31 +115,6 @@ module.exports = (app) => {
         res.json(req.user.id);
     });
 
-    // route for user's account page. gets all of user's postings to hydrate selling tab
-    app.get("/account", (req, res) => {
-        if (req.user) {
-            db.Posting.findAll({
-                where: {
-                    userId: req.user.id
-                }
-            }).then((data) => {
-                console.log(data);
-                console.log("test log for account data values");
-                if (data.length < 0) {
-                    res.render("account");
-                } else {
-                    res.render("account", {
-                        bearsList: data
-                    });
-                }
-            }).catch(function (err) {
-                res.status(404).json(err);
-            });
-        } else {
-            res.render("login");
-        }
-    });
-
     // route to get all of user's info for account page used by account.js
     app.get("/api/userInfo", (req, res) => {
         console.log(req.user.id);
@@ -158,24 +133,6 @@ module.exports = (app) => {
         });
     });
 
-    // route for landing page "/".
-    app.get("/", (req, res) => {
-        if (req.user) {
-            db.Posting.findAll({}).then((data) => {
-                console.log(data);
-                res.render("members", {
-                    bearsList: data
-                });
-            });
-        } else {
-            db.Posting.findAll({}).then((data) => {
-                // console.log(data);
-                res.render("index", {
-                    bearsList: data
-                });
-            });
-        }
-    });
 
     //Route to get all postings information "/api/postings"
     app.get("/api/postings", (req, res) => {
