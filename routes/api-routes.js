@@ -3,7 +3,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const {
-    Op, json
+    Op,
+    json
 } = require("sequelize");
 
 module.exports = (app) => {
@@ -29,13 +30,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            address: user.address,
-            email: user.email,
-            password: user.password
-        })
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                email: user.email,
+                password: user.password
+            })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -57,22 +58,6 @@ module.exports = (app) => {
             // console.log(data);
         }).catch(function (err) {
             res.status(500).json(err);
-        });
-    });
-
-    //Route to create a new bear listing "/api/postings"
-    app.post("/api/postings", (req, res) => {
-        // console.log(req.body);
-        let posting = req.body;
-        posting["userId"] = req.user.id;
-        // console.log(posting);
-        db.Posting.create(posting).then((data) => {
-            // data returned... use in handlebars to
-            // redirect user to that individual posting page?
-            // console.log(data);
-            res.json({
-                id: data.insertId
-            })
         });
     });
 
@@ -102,25 +87,24 @@ module.exports = (app) => {
         // console.log(req.params.userId);
         // console.log(typeof req.user.id);
         // console.log(typeof req.params.userId);
-        if(req.user.id == parseInt(req.params.userId, 10)){
-           return res.redirect("/account");
+        if (req.user.id == parseInt(req.params.userId, 10)) {
+            return res.redirect("/account");
         }
         db.User.findAll({
             where: {
                 id: parseInt(req.params.userId, 10)
             },
-            include: [
-                {
+            include: [{
                     model: db.Posting,
                 },
                 {
                     model: db.PostingComment,
                 }
             ]
-          }).then((data) => {
-                //console.log(data[0].dataValues);
-                //console.log(data[0].dataValues.PostingComments);
-                res.render("userInfo", data[0].dataValues);
+        }).then((data) => {
+            //console.log(data[0].dataValues);
+            //console.log(data[0].dataValues.PostingComments);
+            res.render("userInfo", data[0].dataValues);
         }).catch(function (err) {
             res.status(404).json(err);
         });
@@ -129,6 +113,49 @@ module.exports = (app) => {
     //Route to get a single user's userId
     app.get("/api/users", (req, res) => {
         res.json(req.user.id);
+    });
+
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    app.get("/account", (req, res) => {
+        if (req.user) {
+            db.Posting.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            }).then((data) => {
+                console.log(data);
+                console.log("test log for account data values");
+                if (data.length < 0) {
+                    res.render("account");
+                } else {
+                    res.render("account", {
+                        bearsList: data
+                    });
+                }
+            }).catch(function (err) {
+                res.status(404).json(err);
+            });
+        } else {
+            res.render("login");
+        }
+    });
+
+    // route to get all of user's info for account page used by account.js
+    app.get("/api/userInfo", (req, res) => {
+        console.log(req.user.id);
+        console.log("req user id line api-routes");
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) => {
+            console.log(data);
+            console.log("test log for userInfo data values");
+            console.log(data[0].dataValues.firstName);
+            res.json(data);
+        }).catch(function (err) {
+            res.status(404).json(err);
+        });
     });
 
     // route for landing page "/".
@@ -191,7 +218,7 @@ module.exports = (app) => {
     app.get("/api/product/:id", (req, res) => {
         console.log(req.params.id);
         db.Posting.findAll({
-            where:{
+            where: {
                 id: req.params.id
             }
         }).then((data) => {
