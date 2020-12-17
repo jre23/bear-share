@@ -76,7 +76,7 @@ module.exports = (app) => {
     app.post("/api/postings/comments", (req, res) => {
         console.log(req.body);
         let comment = req.body;
-        comment.UserId = req.user.id;
+        comment.commenterId = req.user.id;
         console.log(comment);
         db.PostingComment.create(comment).then((data) => {
             res.status(200);
@@ -103,12 +103,21 @@ module.exports = (app) => {
         }
         db.User.findAll({
             where: {
-                id: req.params.userId
-            }
-        }).then((data) => {
-            console.log(data);
-            console.log(data[0].dataValues);
-            res.render("userInfo", data[0].dataValues);
+
+                id: parseInt(req.params.userId, 10)
+            },
+            include: [
+                {
+                    model: db.Posting,
+                },
+                {
+                    model: db.PostingComment,
+                }
+            ]
+          }).then((data) => {
+                //console.log(data[0].dataValues);
+                console.log(data[0].dataValues.PostingComments);
+                res.render("userInfo", data[0].dataValues);
         }).catch(function (err) {
             res.status(404).json(err);
         });
