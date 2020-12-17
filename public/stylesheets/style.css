@@ -79,6 +79,10 @@ textarea {
     width: 150px;
 }
 
+#profile-img {
+    border-radius: 50%;
+}
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
