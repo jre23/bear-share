@@ -66,7 +66,17 @@ module.exports = (app) => {
             })
                 .then((data) => {
                     console.log("========Account data==========");
+                    console.log(data[0].dataValues.Postings);
                     console.log(data[0].dataValues.Postings[0].dataValues.Messages);
+                    let messageArr = [];
+                    for(let i = 0; i < data[0].dataValues.Postings.length; i++){
+                        for(let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++){
+                            messageArr.push(data[0].dataValues.Postings[i].dataValues.Messages[j].dataValues);
+                        }
+                    }
+                    console.log("========message data==========");
+                    console.log(messageArr);
+                    console.log("========message data==========");
                     if (data.length < 0) {
                         res.render("account");
                     } else {
@@ -75,7 +85,7 @@ module.exports = (app) => {
                         {
                             Profile: data[0].dataValues,
                             Postings: data[0].dataValues.Postings,
-                            Messages: data[0].dataValues.Postings[0].dataValues.Messages
+                            Messages: messageArr
                         });
                     }
                 })
