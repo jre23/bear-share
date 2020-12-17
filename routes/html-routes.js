@@ -1,6 +1,7 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 //HTML Routes
+
 module.exports = app => {
 
     // route for landing page "/".
@@ -21,6 +22,7 @@ module.exports = app => {
             });
         }
     });
+
 
     // route for login page
     app.get("/login", (req, res) => {
@@ -50,13 +52,17 @@ module.exports = app => {
         }
     });
 
+
     // route for user's account page. gets all of user's postings to hydrate selling tab
     app.get("/account", (req, res) => {
         if (req.user) {
-            db.Posting.findAll({
+            db.User.findAll({
                 where: {
-                    userId: req.user.id
-                }
+                    id: req.user.id
+                },
+                include: {
+                  model: db.Posting,
+                },
             }).then((data) => {
                 console.log(data);
                 console.log("test log for account data values");
@@ -103,5 +109,4 @@ module.exports = app => {
             res.render("login");
         }
     });
-
-}
+};
