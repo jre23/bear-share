@@ -50,39 +50,42 @@ module.exports = (app) => {
         }
     });
 
-     // route for user's account page. gets all of user's postings to hydrate selling tab
-     app.get("/account", (req, res) => {
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
-                where: {
-                    id: req.user.id,
-                },
-                include: {
-                    model: db.Posting,
+                    where: {
+                        id: req.user.id,
+                    },
                     include: {
-                        model: db.Message
+                        model: db.Posting,
+                        include: {
+                            model: db.Message
+                        }
                     }
-                }
-            })
+                })
                 .then((data) => {
                     console.log("========Account data==========");
+                    console.log(data[0].dataValues);
+                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages);
                     console.log(data[0].dataValues.Postings);
-                    console.log(data[0].dataValues.Postings[0].dataValues.Messages);
+                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages); // joel - if this array is zero this will throw a 404 error
                     let messageArr = [];
-                    for(let i = 0; i < data[0].dataValues.Postings.length; i++){
-                        for(let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++){
+                    for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
+                        for (let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++) {
                             messageArr.push(data[0].dataValues.Postings[i].dataValues.Messages[j].dataValues);
                         }
                     }
                     console.log("========message data==========");
                     console.log(messageArr);
-                    console.log("========message data==========");
-                    if (data.length < 0) {
-                        res.render("account");
+                    if (data[0].dataValues.Postings.length === 0) {
+                        console.log("test length zero");
+                        res.render("account", {
+                            Profile: data[0].dataValues,
+                        });
                     } else {
-                        res.render("account",
-                        
-                        {
+                        console.log("test length > zero");
+                        res.render("account", {
                             Profile: data[0].dataValues,
                             Postings: data[0].dataValues.Postings,
                             Messages: messageArr
@@ -116,7 +119,7 @@ module.exports = (app) => {
     //             for(let i = 0; i < data[0].dataValues.Messages.length; i++){
     //                 messageArr.push(data[0].dataValues.Messages[i].dataValues);
     //             }
-                
+
     //             console.log("============================ message ====================================");
     //             console.log(messageArr);
     //             if (data.length < 0) {
