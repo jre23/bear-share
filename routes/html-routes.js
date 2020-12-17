@@ -69,7 +69,7 @@ module.exports = (app) => {
                     console.log(data[0].dataValues);
                     // console.log(data[0].dataValues.Postings[0].dataValues.Messages);
                     console.log(data[0].dataValues.Postings);
-                    console.log(data[0].dataValues.Postings[0].dataValues.Messages);
+                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages); // joel - if this array is zero this will throw a 404 error
                     let messageArr = [];
                     for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
                         for (let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++) {
