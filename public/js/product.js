@@ -3,7 +3,6 @@ $(document).ready(function () {
     $(".no_members_fixed_btn").css("display", "none");
     $(".members_fixed_btn").css("display", "block");
 
-
     //select review div to append reviews
     let reviewDiv = $(".reviews");
     reviewDiv.empty();
@@ -98,17 +97,23 @@ $("#message_btn").on("click", (e) => {
         </div>
             <div class="row">
                 <div class="col">
-                    <a href="#!" class="modal-close waves-effect waves-green btn">Send</a>
+                <button id="messageSendbtn" class="waves-effect waves-green btn">Send</button>
                 </div>
                 <div class="col">
-                <a href="/product/${id}" class="modal-close waves-effect waves-green btn">Cancel</a>
+                <a href="/product/${id}" class="waves-effect waves-green btn">Cancel</a>
                 </div>
             </div>
         </div>
     </div>`
     
       $("#message_form").html(query);
-    })
+    });
+
+    $(document).on("click","#messageSendbtn", (e) => {
+      e.preventDefault();
+      console.log($("#textarea_message_product").val());
+      console.log("TEST SEND Button");
+    });
 }
 getProductData();
 });

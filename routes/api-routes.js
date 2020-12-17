@@ -242,6 +242,12 @@ module.exports = (app) => {
         });
     });
 
+    app.get("/api/message", (req, res) =>{
+        console.log("req.body");
+        console.log(req.body);
+        res.end();
+    });
+
     //Route to get all users with bear listings "/api/users/lists"  ???
     //Route to get all bear with user listings "/api/postings/lists" ???
 
