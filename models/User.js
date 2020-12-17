@@ -34,6 +34,9 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        profilePic: {
+            type: DataTypes.TEXT,
+        },
     });
 
     User.associate = function (models) {
