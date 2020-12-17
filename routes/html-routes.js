@@ -50,29 +50,32 @@ module.exports = (app) => {
         }
     });
 
-     // route for user's account page. gets all of user's postings to hydrate selling tab
-     app.get("/account", (req, res) => {
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
-                where: {
-                    id: req.user.id,
-                },
-                include: {
-                    model: db.Posting,
+                    where: {
+                        id: req.user.id,
+                    },
                     include: {
-                        model: db.Message
+                        model: db.Posting,
+                        include: {
+                            model: db.Message
+                        }
                     }
-                }
-            })
+                })
                 .then((data) => {
                     console.log("========Account data==========");
-                    console.log(data[0].dataValues.Postings[0].dataValues.Messages);
-                    if (data.length < 0) {
-                        res.render("account");
+                    console.log(data[0].dataValues);
+                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages);
+                    if (data[0].dataValues.Postings.length === 0) {
+                        console.log("test length zero");
+                        res.render("account", {
+                            Profile: data[0].dataValues,
+                        });
                     } else {
-                        res.render("account",
-                        
-                        {
+                        console.log("test length > zero");
+                        res.render("account", {
                             Profile: data[0].dataValues,
                             Postings: data[0].dataValues.Postings,
                             Messages: data[0].dataValues.Postings[0].dataValues.Messages
@@ -106,7 +109,7 @@ module.exports = (app) => {
     //             for(let i = 0; i < data[0].dataValues.Messages.length; i++){
     //                 messageArr.push(data[0].dataValues.Messages[i].dataValues);
     //             }
-                
+
     //             console.log("============================ message ====================================");
     //             console.log(messageArr);
     //             if (data.length < 0) {

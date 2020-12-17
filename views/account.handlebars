@@ -96,38 +96,38 @@
 
             </div>
         </div>
-        
+
         <!-- message_tab-->
         <div id="message_tab" class="">
             <div class="container center" style="font-size:14px;">
-                
+
                 <div class="container hide-on-small-only">
-                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                    <div class="col s4 tab_name">
-                        From
+                    <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                        <div class="col s4 tab_name">
+                            From
+                        </div>
+                        <div class="col s4 tab_name">
+                            About Products
+                        </div>
+                        <div class="col s4 tab_name">
+                            Received
+                        </div>
                     </div>
-                    <div class="col s4 tab_name">
-                        About Products
+                    <!-- Iterate lists from DB -->
+                    {{#each Messages}}
+                    <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                        <div class="col s4">
+                            <span class="">{{fromId}}</span>
+                        </div>
+                        <div class="col s4">
+                            <span class="">{{this.contents}}</span>
+                        </div>
+                        <div class="col s4">
+                            <span class="">{{this.createdAt}}</span>
+                        </div>
                     </div>
-                    <div class="col s4 tab_name">
-                        Received
-                    </div>
+                    {{/each}}
                 </div>
-                <!-- Iterate lists from DB -->
-                {{#each Messages}}
-                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                    <div class="col s4">
-                        <span class="">{{fromId}}</span>
-                    </div>
-                    <div class="col s4">
-                        <span class="">{{this.contents}}</span>
-                    </div>
-                    <div class="col s4">
-                        <span class="">{{this.createdAt}}</span>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
 
             </div>
         </div>
@@ -143,9 +143,10 @@
                             <img id="profile-img" src="https://via.placeholder.com/150" alt="">
                             {{/if}}
                         </div>
-                        <input type="button" class="btn white orange-text text-darken-3 waves-effect left" value="Change" onclick="document.getElementById('file').click();" />
-                        <form method='post' action="/profile-pic"  enctype="multipart/form-data" id="pp-form">
-                        <input type="file" style="display:none;" id="file" name="file"/>
+                        <input type="button" class="btn white orange-text text-darken-3 waves-effect left"
+                            value="Change" onclick="document.getElementById('file').click();" />
+                        <form method='post' action="/profile-pic" enctype="multipart/form-data" id="pp-form">
+                            <input type="file" style="display:none;" id="file" name="file" />
                         </form>
                     </div>
                     <form class="col s8 post_item">
