@@ -12,7 +12,7 @@ $(document).ready(function () {
       type: "GET"
     }).then(results => {
       let reviews = results;
-      
+      console.log(results);
       for(let i = 0; i < reviews.length; i++){
       
       let divCol = $("<div></div>");
@@ -30,9 +30,9 @@ $(document).ready(function () {
       divCardAction.attr("class", "card-action");
       
       pText.text(results[i].comment)
-      aUser.text(results[i].UserId)
+      aUser.text(results[i].commenterId)
 
-      aUser.attr("href", `../api/userInfo/${results[i].UserId}`)
+      aUser.attr("href", `../api/userInfo/${results[i].commenterId}`)
       
       reviewDiv.append(divCol);
       divCol.append(divCard);
