@@ -272,29 +272,21 @@ module.exports = (app) => {
     //user can delete their own listing - Will have to validate that current user id is equal to
 
     //Route to delete a users listing from database
-    app.delete("/api/postings/:postingId/:userId", (req, res) => {
+    app.delete("/api/postings/:postingId", (req, res) => {
         console.log("test delete api route");
         console.log(req.body);
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
-                userId: req.params.userId,
+                userId: req.user.id,
             },
-        })
-            .then((data) => {
-                //reload user to their account page??
-                // the reload code is in account.js
-                console.log(data);
-                if (data.affectedRows === 0) {
-                    // If no rows were changed, then the ID must not exist, so 404
-                    return res.status(404).end();
-                }
-                res.json(data);
-                res.status(200).end();
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        }).then((data) => {
+            // if data === 0 -> item not found, if data === 1 -> item found and deleted
+            console.log(data);
+            res.json(data);
+        }).catch((e) => {
+            console.log(e)
+        });
     });
 
     //admin can delete anything?
