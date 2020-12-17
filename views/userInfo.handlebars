@@ -21,16 +21,20 @@
             <h5>Posts</h5>
         <div class="row posts">
             {{!-- This is an example card that is removed when product.js runs --}}
+            {{#each Postings}}
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <p class="posts_text"></p>
+                        <p class="posts_text">{{title}}</p>
+                        <img src="{{image_paths}}" style="width:150px;height:auto;">
+                        <p>${{ask_price}}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#"></a>
+                        <a href="/product/{{id}}">Checkout here!</a>
                     </div>
                 </div>
             </div>
+            {{/each}}
         </div>
         </div>
             <!-- Reviews Tab -->
@@ -38,16 +42,18 @@
             <h5>Reviews</h5>
         <div class="row reviews">
             {{!-- This is an example card that is removed when product.js runs --}}
+            {{#each PostingComments}}
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <p class="review_text"></p>
+                        <p>{{comment}}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#"></a>
+                        <a href="/product/{{PostingId}}">Checkout here!</a>
                     </div>
                 </div>
             </div>
+            {{/each}}
         </div>
         </div>
         <!-- Reviews About Tab -->
@@ -58,7 +64,6 @@
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <p class="reviewAbout_text"></p>
                     </div>
                     <div class="card-action">
                         <a href="#"></a>

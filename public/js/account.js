@@ -17,26 +17,35 @@ $(document).ready(() => {
         if (!makeSureDelete) {
             return alert("Item not deleted.");
         } else {
-            let userId = -1;
-            console.log(userId)
-            console.log("before user api get call")
-            // make ajax call to get the user's id
-            $.ajax("/api/users", {
-                type: "GET"
-            }).then(results => {
-                userId = results;
-                console.log(userId)
-                console.log(postingId);
-                // use the user id from the first ajax call along with the posting id from the account.handlebars data-id to make delete ajax call
-                $.ajax("/api/postings/" + postingId + "/" + userId, {
-                    type: "DELETE",
-                }).then(res => {
-                    console.log("Item deleted!")
+            $.ajax("/api/postings/" + postingId, {
+                type: "DELETE",
+            }).then(res => {
+                console.log(res);
+                console.log("test log after ajax to api/postings");
+                if (res === 0) {
+                    return alert("Item to delete not found!")
+                } else {
+                    alert("Item deleted!");
                     location.reload();
-                })
+                }
             }).catch((e) => {
                 console.log(e)
             });
         }
     });
+    // this function gets the user's info for the account tab
+    const getUserData = () => {
+        $.ajax("/api/userInfo/", {
+            type: "GET",
+        }).then(res => {
+            console.log(res);
+            console.log(res[0].firstName);
+            console.log("test getUserData route response");
+            $("#user_name").text(`${res[0].firstName} ${res[0].lastName}`)
+            $("#user_address").text(`${res[0].address}`)
+            $("#user_email").text(`${res[0].email}`)
+            $("#user_phone").text(`${res[0].phoneNumber}`)
+        })
+    }
+    getUserData();
 });
