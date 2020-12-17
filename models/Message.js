@@ -11,5 +11,19 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
+    Message.associate = function (models) {
+        Message.belongsTo(models.User, {
+            foreignKey: {
+                name: "fromId",
+            },
+            onDelete: "cascade",
+        });
+        Message.belongsTo(models.Posting, {
+            foreignKey: {
+            name: "productId",
+        },
+        onDelete: "cascade",
+        });
+    };
     return Message;
 };
