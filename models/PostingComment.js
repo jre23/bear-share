@@ -13,5 +13,21 @@ module.exports = function (sequelize, DataTypes) {
         },
     });
 
+    PostingComment.associate = function (models) {
+        PostingComment.belongsTo(models.User, {
+            foreignKey: {
+                name: "commenterId",
+            },
+            onDelete: "cascade",
+        });
+
+        PostingComment.belongsTo(models.Posting, {
+            foreignKey: {
+                name: "postingId",
+            },
+            onDelete: "cascade",
+        });
+    };
+
     return PostingComment;
 };
