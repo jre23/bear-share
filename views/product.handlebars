@@ -101,7 +101,7 @@
 </div>
 <div class="row">
     <form class="col s6 review_submit" action="/api/postings/comments" method="POST">
-        <input id="PostingId" name="PostingId" type="hidden" value="{{id}}">
+        <input id="postingId" name="postingId" type="hidden" value="{{id}}">
         <label>Leave a review for {{title}}</label>
         <textArea name="comment" type="text"></textArea>
         <button>Submit</button>

@@ -2,10 +2,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
-const {
-    Op,
-    json
-} = require("sequelize");
+const { Op, json } = require("sequelize");
 
 module.exports = (app) => {
     /***************
@@ -30,13 +27,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                phoneNumber: user.phoneNumber,
-                address: user.address,
-                email: user.email,
-                password: user.password
-            })
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+            email: user.email,
+            password: user.password,
+        })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -49,16 +46,18 @@ module.exports = (app) => {
     app.post("/api/users/review", (req, res) => {
         let review = req.body;
         review["reviewerId"] = req.user.id;
-        db.UserReview.create(review).then((data) => {
-            res.status(200);
-            res.redirect('back');
-            // This needs the reviewerId and userReviewedId in the object sent
+        db.UserReview.create(review)
+            .then((data) => {
+                res.status(200);
+                res.redirect("back");
+                // This needs the reviewerId and userReviewedId in the object sent
 
-            // reload that users page with the reviews underneath
-            // console.log(data);
-        }).catch(function (err) {
-            res.status(500).json(err);
-        });
+                // reload that users page with the reviews underneath
+                // console.log(data);
+            })
+            .catch(function (err) {
+                res.status(500).json(err);
+            });
     });
 
     //Route to create a new review on a bear listing "/api/postings/comments"
@@ -67,15 +66,17 @@ module.exports = (app) => {
         let comment = req.body;
         comment.commenterId = req.user.id;
         // console.log(comment);
-        db.PostingComment.create(comment).then((data) => {
-            res.status(200);
-            res.redirect('back');
-            //make sure to include the userId for who is making the comment and the postingId
-            // get those off a "data-posting-id" & "data-user-id" from jQuery client-side???
-            // after posting comment is added, reload that posting?
-        }).catch(function (err) {
-            res.status(500).json(err);
-        });
+        db.PostingComment.create(comment)
+            .then((data) => {
+                res.status(200);
+                res.redirect("back");
+                //make sure to include the userId for who is making the comment and the postingId
+                // get those off a "data-posting-id" & "data-user-id" from jQuery client-side???
+                // after posting comment is added, reload that posting?
+            })
+            .catch(function (err) {
+                res.status(500).json(err);
+            });
     });
 
     /******
@@ -92,22 +93,25 @@ module.exports = (app) => {
         }
         db.User.findAll({
             where: {
-                id: parseInt(req.params.userId, 10)
+                id: parseInt(req.params.userId, 10),
             },
-            include: [{
+            include: [
+                {
                     model: db.Posting,
                 },
                 {
                     model: db.PostingComment,
-                }
-            ]
-        }).then((data) => {
-            //console.log(data[0].dataValues);
-            //console.log(data[0].dataValues.PostingComments);
-            res.render("userInfo", data[0].dataValues);
-        }).catch(function (err) {
-            res.status(404).json(err);
-        });
+                },
+            ],
+        })
+            .then((data) => {
+                //console.log(data[0].dataValues);
+                //console.log(data[0].dataValues.PostingComments);
+                res.render("userInfo", data[0].dataValues);
+            })
+            .catch(function (err) {
+                res.status(404).json(err);
+            });
     });
 
     //Route to get a single user's userId
@@ -121,18 +125,19 @@ module.exports = (app) => {
         console.log("req user id line api-routes");
         db.User.findAll({
             where: {
-                id: req.user.id
-            }
-        }).then((data) => {
-            console.log(data);
-            console.log("test log for userInfo data values");
-            console.log(data[0].dataValues.firstName);
-            res.json(data);
-        }).catch(function (err) {
-            res.status(404).json(err);
-        });
+                id: req.user.id,
+            },
+        })
+            .then((data) => {
+                console.log(data);
+                console.log("test log for userInfo data values");
+                console.log(data[0].dataValues.firstName);
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.status(404).json(err);
+            });
     });
-
 
     //Route to get all postings information "/api/postings"
     app.get("/api/postings", (req, res) => {
@@ -246,13 +251,16 @@ module.exports = (app) => {
     app.get("/api/postings/comments/:postingId", (req, res) => {
         db.PostingComment.findAll({
             where: {
-                PostingId: req.params.postingId,
+                postingId: req.params.postingId,
+            },
+            include: {
+                model: db.User,
+                attributes: ["firstName", "lastName"],
             },
         }).then((data) => {
             res.json(data);
         });
     });
-
 
     //Route to get a user information by name "/api/users/name/:name"
     //Route to get a bear info by name "/api/postings/name/:name"
@@ -264,13 +272,16 @@ module.exports = (app) => {
     //Route to update a user from database "/api/users/id/:id"
     app.put("/api/users/:userId", (req, res) => {
         // destructure req.body here???
-        db.User.update({
-            lastName: "hexsel"
-        }, {
-            where: {
-                id: req.params.userId,
+        db.User.update(
+            {
+                lastName: "hexsel",
             },
-        }).then((data) => {
+            {
+                where: {
+                    id: req.params.userId,
+                },
+            }
+        ).then((data) => {
             // render the users account page again???
         });
     });
@@ -299,24 +310,18 @@ module.exports = (app) => {
     //user can delete their own listing - Will have to validate that current user id is equal to
 
     //Route to delete a users listing from database
-    app.delete("/api/postings/:postingId/:userId", (req, res) => {
+    app.delete("/api/postings/:postingId", (req, res) => {
         console.log("test delete api route");
         console.log(req.body);
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
-                userId: req.params.userId,
+                userId: req.user.id,
             },
         }).then((data) => {
-            //reload user to their account page??
-            // the reload code is in account.js
+            // if data === 0 -> item not found, if data === 1 -> item found and deleted
             console.log(data);
-            if (data.affectedRows === 0) {
-                // If no rows were changed, then the ID must not exist, so 404
-                return res.status(404).end();
-            }
             res.json(data);
-            res.status(200).end();
         }).catch((e) => {
             console.log(e)
         });

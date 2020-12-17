@@ -29,6 +29,9 @@ module.exports = function (sequelize, DataTypes) {
     Posting.associate = function (models) {
         // Associating Posting with PostingComment
         Posting.hasMany(models.PostingComment, {
+            foreignKey: {
+                name: "postingId",
+            },
             onDelete: "cascade",
         });
         Posting.hasMany(models.Message, {

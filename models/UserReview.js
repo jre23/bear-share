@@ -13,7 +13,12 @@ module.exports = function (sequelize, DataTypes) {
         // We're saying that a UserReview should belong to an User
         // A UserReview can't be created without an User due to the foreign key constraint
         // UserReview.belongsTo(models.User, { as: "reviewer" });
-        UserReview.belongsTo(models.User, { as: "user_reviewed" });
+        UserReview.belongsTo(models.User, {
+            foreignKey: {
+                name: "reviewerId",
+            },
+            onDelete: "cascade",
+        });
     };
 
     return UserReview;

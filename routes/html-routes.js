@@ -1,22 +1,22 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 //HTML Routes
-module.exports = app => {
 
+module.exports = (app) => {
     // route for landing page "/".
     app.get("/", (req, res) => {
         if (req.user) {
             db.Posting.findAll({}).then((data) => {
                 console.log(data);
                 res.render("members", {
-                    bearsList: data
+                    bearsList: data,
                 });
             });
         } else {
             db.Posting.findAll({}).then((data) => {
                 // console.log(data);
                 res.render("index", {
-                    bearsList: data
+                    bearsList: data,
                 });
             });
         }
@@ -53,7 +53,7 @@ module.exports = app => {
     // route for user's account page. gets all of user's postings to hydrate selling tab
     app.get("/account", (req, res) => {
         if (req.user) {
-            db.Posting.findAll({
+            db.User.findAll({
                 where: {
                     userId: req.user.id
                 },
@@ -112,10 +112,9 @@ module.exports = app => {
                 let hbsObject = results.dataValues;
                 console.log(hbsObject);
                 res.render("product", hbsObject);
-            })
+            });
         } else {
             res.render("login");
         }
     });
-
-}
+};
