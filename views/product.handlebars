@@ -13,69 +13,76 @@
         </div>
     </div>
     <div class="row">
-            <div class="row">
-                <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left productId" data-id="{{id}}">
-                    Title :
-                </div>
-                <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-
-                    <strong><span id="title_product">{{this.title}}</span></strong>
-
-                </div>
+        <div class="row">
+            <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left productId"
+                data-id="{{id}}">
+                Title :
             </div>
+            <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
 
-            <div class="row">
-                <div class="col s2 m2 orange-text text-darken-3 post_label_custom left hide-on-small-only">
-                    Price :
-                </div>
-                <div class="col s10 m10 black-text text-darken-3 post_label_custom left">
+                <strong><span id="title_product">{{this.title}}</span></strong>
 
-                    <span>$</span><span id="price_product">{{ask_price}}</span>
-
-                </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col s4 m2 orange-text text-darken-3 post_label_custom left">
-                    Category :
-                </div>
-                <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-
-                    <span id="cagegory_product">{{category}}</span>
-
-                </div>
+        <div class="row">
+            <div class="col s2 m2 orange-text text-darken-3 post_label_custom left hide-on-small-only">
+                Price :
             </div>
+            <div class="col s10 m10 black-text text-darken-3 post_label_custom left">
 
-            <div class="row">
-                <div class="col s12 m2">
-                    <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Description
-                    </label>
-                </div>
-                <div class="col s12 m10"
-                    style="border: 1px solid rgb(179, 179, 179); border-radius:5px; margin-left:10px; padding: 10px; max-height: 350px; max-width:350px">
+                <span>$</span><span id="price_product">{{ask_price}}</span>
 
-                    <div id="description_product">{{description}}</div>
-
-                </div>
             </div>
-            <div class="row">
-                <div class="col s0 m2"></div>
-                <div class="col s12 m10">
-                    <div class="left" style="margin-top: 50px;">
-                        <div class="row">
-                            <div class="col s6 m6">
-                                <button class="btn white orange-text text-darken-3 waves-effect left" data-id="{{id}}"
-                                    style=" border: solid 1px">Message</button>
-                            </div>
-                            <div class="col s6 m6">
-                                <button class="btn orange darken-3 waves-effect left" data-id="">Buy it now</button>
-                            </div>
-                            <div class="clearfix"></div>
+        </div>
+
+        <div class="row">
+            <div class="col s4 m2 orange-text text-darken-3 post_label_custom left">
+                Category :
+            </div>
+            <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
+
+                <span id="cagegory_product">{{category}}</span>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m2">
+                <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Description
+                </label>
+            </div>
+            <div class="col s12 m10"
+                style="border: 1px solid rgb(179, 179, 179); border-radius:5px; margin-left:10px; padding: 10px; max-height: 350px; max-width:350px">
+
+                <div id="description_product">{{description}}</div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s0 m2"></div>
+            <div class="col s12 m10">
+                <div class="left" style="margin-top: 50px;">
+                    <div class="row">
+                        <div class="col s6 m6">
+                            <button id="message_btn" data-target="modal1"
+                                class="btn white orange-text text-darken-3 waves-effect left modal-trigger"
+                                data-id="{{userId}} {{id}}" style=" border: solid 1px">Message</button>
                         </div>
+                        <div class="col s6 m6">
+                            <button class="btn orange darken-3 waves-effect left" data-id="">Buy it now</button>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
+    <!-- TextArea for message -->
+    <row>
+    <div id="message_form"></div>
+    </row>
+
     <h5>Reviews</h5>
     <div class="row reviews">
         {{!-- This is an example card that is removed when product.js runs --}}
