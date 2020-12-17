@@ -50,44 +50,80 @@ module.exports = (app) => {
         }
     });
 
-    // route for user's account page. gets all of user's postings to hydrate selling tab
-    app.get("/account", (req, res) => {
+     // route for user's account page. gets all of user's postings to hydrate selling tab
+     app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
                 where: {
-                    id: req.user.id
+                    id: req.user.id,
                 },
-                include: [{
-                    model: db.Message,
-                    where: { toId: req.user.id}
-                }]
-            }).then((data) => {
-                console.log(data);
-                console.log("test log for account data values");
-                console.log("============================ message ====================================");
-                console.log(data[0].dataValues.Messages[0]);
-                let messageArr = [];
-                for(let i = 0; i < data[0].dataValues.Messages.length; i++){
-                    messageArr.push(data[0].dataValues.Messages[i].dataValues);
+                include: {
+                    model: db.Posting,
+                    include: {
+                        model: db.Message
+                    }
                 }
-                
-                console.log("============================ message ====================================");
-                console.log(messageArr);
-                if (data.length < 0) {
-                    res.render("account");
-                } else {
-                    res.render("account", {
-                        bearsList: data,
-                        messageLists: messageArr
-                    });
-                }
-            }).catch(function (err) {
-                res.status(404).json(err);
-            });
+            })
+                .then((data) => {
+                    console.log("========Account data==========");
+                    console.log(data[0].dataValues.Postings[0].dataValues.Messages);
+                    if (data.length < 0) {
+                        res.render("account");
+                    } else {
+                        res.render("account",
+                        
+                        {
+                            Profile: data[0].dataValues,
+                            Postings: data[0].dataValues.Postings,
+                            Messages: data[0].dataValues.Postings[0].dataValues.Messages
+                        });
+                    }
+                })
+                .catch(function (err) {
+                    res.status(404).json(err);
+                });
         } else {
             res.render("login");
         }
     });
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    // app.get("/account", (req, res) => {
+    //     if (req.user) {
+    //         db.User.findAll({
+    //             where: {
+    //                 id: req.user.id
+    //             },
+    //             include: [{
+    //                 model: db.Message,
+    //                 where: { toId: req.user.id}
+    //             }]
+    //         }).then((data) => {
+    //             console.log(data);
+    //             console.log("test log for account data values");
+    //             console.log("============================ message ====================================");
+    //             console.log(data[0].dataValues.Messages[0]);
+    //             let messageArr = [];
+    //             for(let i = 0; i < data[0].dataValues.Messages.length; i++){
+    //                 messageArr.push(data[0].dataValues.Messages[i].dataValues);
+    //             }
+                
+    //             console.log("============================ message ====================================");
+    //             console.log(messageArr);
+    //             if (data.length < 0) {
+    //                 res.render("account");
+    //             } else {
+    //                 res.render("account", {
+    //                     bearsList: data,
+    //                     messageLists: messageArr
+    //                 });
+    //             }
+    //         }).catch(function (err) {
+    //             res.status(404).json(err);
+    //         });
+    //     } else {
+    //         res.render("login");
+    //     }
+    // });
 
     // route for members page. currently don't have members.handlebars file
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
