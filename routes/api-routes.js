@@ -114,6 +114,49 @@ module.exports = (app) => {
         });
     });
 
+    // route for user's account page. gets all of user's postings to hydrate selling tab
+    app.get("/account", (req, res) => {
+        if (req.user) {
+            db.Posting.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            }).then((data) => {
+                console.log(data);
+                console.log("test log for account data values");
+                if (data.length < 0) {
+                    res.render("account");
+                } else {
+                    res.render("account", {
+                        bearsList: data
+                    });
+                }
+            }).catch(function (err) {
+                res.status(404).json(err);
+            });
+        } else {
+            res.render("login");
+        }
+    });
+
+    // route to get all of user's info for account page used by account.js
+    app.get("/api/userInfo", (req, res) => {
+        console.log(req.user.id);
+        console.log("req user id line api-routes");
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) => {
+            console.log(data);
+            console.log("test log for userInfo data values");
+            console.log(data[0].dataValues.firstName);
+            res.json(data);
+        }).catch(function (err) {
+            res.status(404).json(err);
+        });
+    });
+
     // route for landing page "/".
     app.get("/", (req, res) => {
         if (req.user) {
@@ -176,14 +219,6 @@ module.exports = (app) => {
         });
     });
 
-    // route for user's account page
-    app.get("/account", (req, res) => {
-        if (req.user) {
-            res.render("account");
-        } else {
-            res.render("login");
-        }
-    });
     // route for showing a product
     app.get("/api/product/:id", (req, res) => {
         console.log(req.params.id);
