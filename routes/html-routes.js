@@ -1,7 +1,29 @@
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 //HTML Routes
-module.exports = (app) => {
+
+module.exports = app => {
+
+    // route for landing page "/".
+    app.get("/", (req, res) => {
+        if (req.user) {
+            db.Posting.findAll({}).then((data) => {
+                console.log(data);
+                res.render("members", {
+                    bearsList: data
+                });
+            });
+        } else {
+            db.Posting.findAll({}).then((data) => {
+                // console.log(data);
+                res.render("index", {
+                    bearsList: data
+                });
+            });
+        }
+    });
+
+
     // route for login page
     app.get("/login", (req, res) => {
         // If the user already has an account send them to the members page
@@ -30,18 +52,29 @@ module.exports = (app) => {
         }
     });
 
-    // route for user's account page
+
+    // route for user's account page. gets all of user's postings to hydrate selling tab
     app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
                 where: {
-                    id: req.user.id,
+                    id: req.user.id
                 },
                 include: {
-                    model: db.Posting,
+                  model: db.Posting,
                 },
             }).then((data) => {
-                return res.render("account", data[0].dataValues);
+                console.log(data);
+                console.log("test log for account data values");
+                if (data.length < 0) {
+                    res.render("account");
+                } else {
+                    res.render("account", {
+                        bearsList: data
+                    });
+                }
+            }).catch(function (err) {
+                res.status(404).json(err);
             });
         } else {
             res.render("login");
@@ -71,7 +104,7 @@ module.exports = (app) => {
                 let hbsObject = results.dataValues;
                 console.log(hbsObject);
                 res.render("product", hbsObject);
-            });
+            })
         } else {
             res.render("login");
         }
