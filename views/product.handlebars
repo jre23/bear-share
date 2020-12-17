@@ -65,20 +65,10 @@
                 <div class="left" style="margin-top: 50px;">
                     <div class="row">
                         <div class="col s6 m6">
-                            <button target="modal1" class="btn white orange-text text-darken-3 waves-effect left modal-trigger" data-id="{{id}}"
-                                style=" border: solid 1px">Message</button>
+                            <button id="message_btn" data-target="modal1"
+                                class="btn white orange-text text-darken-3 waves-effect left modal-trigger"
+                                data-id="{{id}}" style=" border: solid 1px">Message</button>
                         </div>
-                        <!-- Modals for message -->
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>Modal Header</h4>
-                                <p>A bunch of text</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                            </div>
-                        </div>
-
                         <div class="col s6 m6">
                             <button class="btn orange darken-3 waves-effect left" data-id="">Buy it now</button>
                         </div>
@@ -88,6 +78,11 @@
             </div>
         </div>
     </div>
+    <!-- TextArea for message -->
+    <row>
+    <div id="message_form"></div>
+    </row>
+
     <h5>Reviews</h5>
     <div class="row reviews">
         {{!-- This is an example card that is removed when product.js runs --}}

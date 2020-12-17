@@ -228,21 +228,17 @@ module.exports = (app) => {
         });
     });
 
-    // route for showing a product
+    // Route for Sending Messages Form
     app.get("/api/product/:id", (req, res) => {
         console.log(req.params.id);
         db.Posting.findAll({
             where: {
                 id: req.params.id
-            }
+            },
+            include: [db.User]
         }).then((data) => {
             console.log(data[0].dataValues);
-            // res.render("index");
-            // res.json(data[0].dataValues);
-            res.render("product", data[0].dataValues);
-            // res.end();
-
-            // res.render("index", data[0].dataValues);
+            res.json(data[0].dataValues);
         });
     });
 
