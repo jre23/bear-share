@@ -1,14 +1,11 @@
 $(document).ready(function () {
-    console.log("members JS");
-    $(".no_members_fixed_btn").css("display", "none");
-    $(".members_fixed_btn").css("display", "block");
-
-
-    //select review div to append reviews
-    let reviewDiv = $(".reviews");
-    reviewDiv.empty();
+    console.log("userInfo JS");
     
-    $.ajax("/api/postings/comments/" + $(".productId").data("id"), {
+    //select review div to append reviews
+    let reviewDiv = $(".reviewsAbout");
+    reviewDiv.empty();
+    console.log($(".userReviewed").data("id"));
+    $.ajax("/api/users/reviews/" + $(".userReviewed").data("id"), {
       type: "GET"
     }).then(results => {
       let reviews = results;
@@ -30,9 +27,9 @@ $(document).ready(function () {
       divCardAction.attr("class", "card-action");
       
       pText.text(results[i].comment)
-      aUser.text(results[i].commenterId)
+      aUser.text(results[i].reviewerId)
 
-      aUser.attr("href", `../api/userInfo/${results[i].commenterId}`)
+      aUser.attr("href", `../userInfo/${results[i].reviewerId}`)
       
       reviewDiv.append(divCol);
       divCol.append(divCard);
@@ -43,7 +40,7 @@ $(document).ready(function () {
       }
 }).catch(err => {
   let pTagNoResult = $("<p></p>");
-  pTagNoResult.text("Server had an error getting the reviews for this product");
+  pTagNoResult.text("Server had an error getting the reviews for this user");
   reviewDiv.append(pTagNoResult);
 })
 
