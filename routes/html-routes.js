@@ -55,7 +55,7 @@ module.exports = (app) => {
         if (req.user) {
             db.User.findAll({
                 where: {
-                    userId: req.user.id
+                    id: req.user.id
                 },
                 include: [{
                     model: db.Message,
