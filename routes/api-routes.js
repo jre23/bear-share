@@ -47,37 +47,26 @@ module.exports = (app) => {
 
     //Route to create a new review on a user "/api/users/review"
     app.post("/api/users/review", (req, res) => {
-        db.UserReview.create(req.body).then((data) => {
+        let review = req.body;
+        review["reviewerId"] = req.user.id;
+        db.UserReview.create(review).then((data) => {
+            res.status(200);
+            res.redirect('back');
             // This needs the reviewerId and userReviewedId in the object sent
 
             // reload that users page with the reviews underneath
-            console.log(data);
+            // console.log(data);
+        }).catch(function (err) {
+            res.status(500).json(err);
         });
     });
 
-    //Route to create a new bear listing "/api/postings"
-    // app.post("/api/postings", (req, res) => {
-    //     // console.log(req.body);
-    //     let posting = req.body;
-    //     console.log(req.user.id);
-    //     posting["userId"] = req.user.id;
-    //     console.log(posting);
-    //     db.Posting.create(posting).then((data) => {
-    //         // data returned... use in handlebars to
-    //         // redirect user to that individual posting page?
-    //         console.log(data);
-    //         res.json({
-    //             id: data.insertId
-    //         })
-    //     });
-    // });
-
     //Route to create a new review on a bear listing "/api/postings/comments"
     app.post("/api/postings/comments", (req, res) => {
-        console.log(req.body);
+        // console.log(req.body);
         let comment = req.body;
         comment.commenterId = req.user.id;
-        console.log(comment);
+        // console.log(comment);
         db.PostingComment.create(comment).then((data) => {
             res.status(200);
             res.redirect('back');
@@ -94,58 +83,36 @@ module.exports = (app) => {
     ******/
     //Route to get a single user's information "/api/usersInfo/:userId"
     app.get("/api/userInfo/:userId", (req, res) => {
-        console.log(req.user.id);
-        console.log(req.params.userId);
-        console.log(typeof req.user.id);
-        console.log(typeof req.params.userId);
+        // console.log(req.user.id);
+        // console.log(req.params.userId);
+        // console.log(typeof req.user.id);
+        // console.log(typeof req.params.userId);
         if (req.user.id == parseInt(req.params.userId, 10)) {
             return res.redirect("/account");
         }
         db.User.findAll({
             where: {
-
                 id: parseInt(req.params.userId, 10)
             },
-            include: [
-                {
+            include: [{
                     model: db.Posting,
                 },
                 {
                     model: db.PostingComment,
                 }
             ]
-          }).then((data) => {
-                //console.log(data[0].dataValues);
-                console.log(data[0].dataValues.PostingComments);
-                res.render("userInfo", data[0].dataValues);
+        }).then((data) => {
+            //console.log(data[0].dataValues);
+            //console.log(data[0].dataValues.PostingComments);
+            res.render("userInfo", data[0].dataValues);
         }).catch(function (err) {
             res.status(404).json(err);
         });
     });
 
-    // route for user's account page. gets all of user's postings to hydrate selling tab
-    app.get("/account", (req, res) => {
-        if (req.user) {
-            db.Posting.findAll({
-                where: {
-                    userId: req.user.id
-                }
-            }).then((data) => {
-                console.log(data);
-                console.log("test log for account data values");
-                if (data.length < 0) {
-                    res.render("account");
-                } else {
-                    res.render("account", {
-                        bearsList: data
-                    });
-                }
-            }).catch(function (err) {
-                res.status(404).json(err);
-            });
-        } else {
-            res.render("login");
-        }
+    //Route to get a single user's userId
+    app.get("/api/users", (req, res) => {
+        res.json(req.user.id);
     });
 
     // route to get all of user's info for account page used by account.js
@@ -166,24 +133,6 @@ module.exports = (app) => {
         });
     });
 
-    // route for landing page "/".
-    app.get("/", (req, res) => {
-        if (req.user) {
-            db.Posting.findAll({}).then((data) => {
-                console.log(data);
-                res.render("members", {
-                    bearsList: data
-                });
-            });
-        } else {
-            db.Posting.findAll({}).then((data) => {
-                // console.log(data);
-                res.render("index", {
-                    bearsList: data
-                });
-            });
-        }
-    });
 
     //Route to get all postings information "/api/postings"
     app.get("/api/postings", (req, res) => {
@@ -207,12 +156,6 @@ module.exports = (app) => {
             // Should we grab the comments for this single posting as well?
             // and then can render both the posting info and comments all at once????
         });
-    });
-
-    // test route to get userId when logged in
-    app.get("/api/userId", (req, res) => {
-        console.log(req.user.id);
-        res.json(req.user.id);
     });
 
     //Route to find all postings with a title LIKE searched
@@ -252,6 +195,17 @@ module.exports = (app) => {
     //Route to get all bear with user listings "/api/postings/lists" ???
 
     //Route to get all users with reviews "/api/users/reviews" ???
+    app.get("/api/users/reviews/:userId", (req, res) => {
+        console.log(req.params.userId);
+        db.UserReview.findAll({
+            where: {
+                userReviewedId: req.params.userId,
+            },
+        }).then((data) => {
+            console.log(data);
+            res.json(data);
+        });
+    });
     //Route to get all postings with reviews "/api/postings/comments" ???
     app.get("/api/postings/comments/:postingId", (req, res) => {
         db.PostingComment.findAll({
@@ -309,22 +263,28 @@ module.exports = (app) => {
     //user can delete their own listing - Will have to validate that current user id is equal to
 
     //Route to delete a users listing from database
-    app.delete("/api/postings/:postingId", (req, res) => {
+    app.delete("/api/postings/:postingId/:userId", (req, res) => {
         console.log("test delete api route");
         console.log(req.body);
         db.Posting.destroy({
             where: {
                 id: req.params.postingId,
-                userId: req.user.id,
+                userId: req.params.userId,
             },
         }).then((data) => {
-            // send data back to account.js and reload the account page
-            // if data === 0 -> item not found, if data === 1 -> item found and deleted
+            //reload user to their account page??
+            // the reload code is in account.js
             console.log(data);
+            if (data.affectedRows === 0) {
+                // If no rows were changed, then the ID must not exist, so 404
+                return res.status(404).end();
+            }
             res.json(data);
+            res.status(200).end();
         }).catch((e) => {
             console.log(e)
-        })
+        });
     });
+
     //admin can delete anything?
 };

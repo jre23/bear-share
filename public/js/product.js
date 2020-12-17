@@ -11,7 +11,7 @@ $(document).ready(function () {
       type: "GET"
     }).then(results => {
       let reviews = results;
-      console.log(results);
+      // console.log(results);
       for(let i = 0; i < reviews.length; i++){
       
       let divCol = $("<div></div>");
