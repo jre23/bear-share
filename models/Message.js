@@ -6,9 +6,8 @@ module.exports = function (sequelize, DataTypes) {
             len: [1],
         },
         toId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            len: [1],
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         }
     });
 
