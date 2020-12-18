@@ -81,9 +81,9 @@ module.exports = (app) => {
                     messageArr.forEach(obj => {
                         newMessageArr.push(obj);
                         console.log("obj in foreach")
-                        for(key in obj){
-                            
-                            if(key === "createdAt"){
+                        for (key in obj) {
+
+                            if (key === "createdAt") {
                                 console.log("inside If statement");
                                 newMessageArr[count]["createdAt"] = obj.createdAt.toString().substring(0, 10);
                             }
@@ -92,7 +92,7 @@ module.exports = (app) => {
                     });
                     console.log("========message data newMessageArr==========");
                     console.log(newMessageArr);
-                    
+
                     if (data[0].dataValues.Postings.length === 0) {
                         console.log("test length zero");
                         res.render("account", {
