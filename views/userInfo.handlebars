@@ -13,73 +13,85 @@
                 <li class="tab col m3 l3"><a class="active" href="#posting_tab">{{firstName}} Postings</a></li>
                 <li class="tab col m3 l3"><a href="#reviews_tab">{{firstName}} Reviews</a></li>
                 <li class="tab col m3 l3"><a href="#reviewsAbout_tab">Reviews about {{firstName}}</a></li>
-                <li class="tab col m3 l3"><a href="#message_tab">Send {{firstName}} a Message</a></li>
+                <li class="tab col m3 l3"><a href="#message_tab_on_user_info">Send {{firstName}} a Message</a></li>
             </ul>
         </div>
         <!-- Postings Tab -->
         <div id="posting_tab" class="">
             <h5>Posts</h5>
-        <div class="row posts">
-            {{!-- This is an example card that is removed when product.js runs --}}
-            {{#each Postings}}
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="posts_text">{{title}}</p>
-                        <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" style="width:150px;height:auto;">
-                        <p>${{ask_price}}</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="/product/{{id}}">Checkout here!</a>
+            <div class="row posts">
+                {{!-- This is an example card that is removed when product.js runs --}}
+                {{#each Postings}}
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="posts_text">{{title}}</p>
+                            <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
+                                style="width:150px;height:auto;">
+                            <p>${{ask_price}}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="/product/{{id}}">Checkout here!</a>
+                        </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
-            {{/each}}
         </div>
-        </div>
-            <!-- Reviews Tab -->
+        <!-- Reviews Tab -->
         <div id="reviews_tab" class="">
             <h5>Reviews</h5>
-        <div class="row reviews">
-            {{!-- This is an example card that is removed when product.js runs --}}
-            {{#each PostingComments}}
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <p>{{comment}}</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="/product/{{PostingId}}">Checkout here!</a>
+            <div class="row reviews">
+                {{!-- This is an example card that is removed when product.js runs --}}
+                {{#each PostingComments}}
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <p>{{{comment}}}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="/product/{{PostingId}}">Checkout here!</a>
+                        </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
         </div>
         <!-- Reviews About Tab -->
         <div id="reviewsAbout_tab" class="userReviewed" data-id="{{id}}">
             <h5>Reviews About {{firstName}}</h5>
-        <div class="row reviewsAbout">
-            {{!-- This is an example card that is removed when userInfo.js runs --}}
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                    </div>
-                    <div class="card-action">
-                        <a href="#"></a>
+            <div class="row reviewsAbout">
+                {{!-- This is an example card that is removed when userInfo.js runs --}}
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                        </div>
+                        <div class="card-action">
+                            <a href="#"></a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <form class="col s12 review_submit" action="/api/users/review" method="POST">
+                <input id="userReviewedId" name="userReviewedId" type="hidden" value="{{id}}">
+                <label>Leave a review of {{firstName}}</label>
+                <textArea name="comment" type="text"></textArea>
+                <button>Submit</button>
+            </form>
         </div>
-        <form class="col s12 review_submit" action="/api/users/review" method="POST">
-            <input id="userReviewedId" name="userReviewedId" type="hidden" value="{{id}}">
-            <label>Leave a review of {{firstName}}</label>
-            <textArea name="comment" type="text"></textArea>
-            <button>Submit</button>
-        </form>
+
+
+        <!-- New Message Tab -->
+        <div id="message_tab_on_user_info">
+            <form>
+                <textarea id="msg_text_user_info"></textarea>
+                <button id="messageSendbtnOnUserInfo" data-toId={{id}}>Send</button>
+            </form>
         </div>
-            <!-- Message Tab -->
-        <div id="message_tab" class="">
+        <!-- New Message Tab -->
+
+        <!-- Old Message Tab -->
+        {{!-- <div id="message_tab" class="">
             <form class="col s12 review_submit" action="/api/users/message" method="POST">
                 <label for="message">Send {{firstName}} a message!</label>
                 <textarea rows="10"
@@ -90,8 +102,9 @@
                 <button>Submit</button>
             </form>
             <a href="{{email}}">Send Personal Email</a>
+        </div> --}}
+        <!-- Old Message Tab -->
 
-        </div>
     </div>
 </div>
 <script type="text/javascript" src="/js/userInfo.js"></script>
