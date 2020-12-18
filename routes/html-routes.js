@@ -247,7 +247,11 @@ module.exports = (app) => {
             db.Posting.findOne({
                 where: {
                     id: req.params.productID,
-                },
+                }, 
+                include: [{
+                    model: db.User,
+                    attributes: ["firstName", "lastName"],
+                }], 
             }).then(function (results) {
                 console.log(results);
                 let hbsObject = results.dataValues;
