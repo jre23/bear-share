@@ -1,5 +1,8 @@
 $(document).ready(function () {
     console.log("userInfo JS");
+
+    $(".no_members_fixed_btn").css("display", "none");
+    $(".members_fixed_btn").css("display", "block");
     
     //select review div to append reviews
     let reviewDiv = $(".reviewsAbout");
@@ -45,5 +48,37 @@ $(document).ready(function () {
   pTagNoResult.text("Server had an error getting the reviews for this user");
   reviewDiv.append(pTagNoResult);
 })
+
+  // Message Tab - userInfo.js 
+
+$(document).on("click","#messageSendbtnOnUserInfo", (e) => {
+  e.preventDefault();
+  location.reload();
+  alert("Sent the message");
+  let toId = $(e.target)[0].attributes[1].nodeValue;
+  let contentUserInfo = $("#msg_text_user_info").val();
+  console.log($("#msg_text_user_info"));
+  console.log("toId");
+  console.log(toId);
+  console.log("contents");
+  console.log(contentUserInfo);
+    $.ajax("/api/userInfo/message/", {
+        type: "POST",
+        data: {
+          "contents" : contentUserInfo,
+          "toId" : toId
+      }
+    }).then(res => {
+      
+      if(res.toId == res.fromId){
+        alert("You can't send a message to yourself.");
+        location.reload();
+      }else{
+        alert("Sent the message");
+        location.reload();
+      }
+    });
+  
+});
 
 });

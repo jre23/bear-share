@@ -278,6 +278,27 @@ module.exports = (app) => {
 
     });
 
+        // Store messages from user info to Message Model 
+        app.post("/api/userInfo/message/", function (req, res) {
+            console.log(req.body);
+            console.log("req.user.id");
+            console.log(req.user.id); 
+            let message = req.body;
+            message["fromId"] = req.user.id;
+            console.log(message);
+            // if(req.user.id == req.body.toId){
+            //     res.json(message);
+            // }
+            // else{
+                db.Message.create(message).then((data) => {
+                    res.json(data);
+                });
+                
+            // }
+    
+        });
+
+
         //Route to delete a message from database
         app.delete("/api/messages/:messageId", (req, res) => {
             console.log(req.params.messageId);
