@@ -161,9 +161,67 @@ module.exports = (app) => {
 
     // route for bear list "/search"
     app.get("/search", (req, res) => {
-        res.render("search"); // currently don't have a search.handlebars file
+        console.log("test search route");
+        console.log("==========search==========");
+        let urlSlice = req.url.slice(15);
+        let urlArray = urlSlice.toLowerCase().split("+");
+        let urlString = urlArray.join(" ");
+        let searchInput = urlString.trim().replace(/\s+/g, " ");
+        if (searchInput === "") {
+            console.log("Search input was empty!");
+            res.redirect("/");
+        } else {
+            db.Posting.findAll({}).then((data) => {
+                console.log(data);
+                console.log("test /search route with > 0 postings");
+                console.log(urlSlice);
+                console.log(urlArray);
+                console.log(urlString);
+                let index = -1;
+                let searchArray = [];
+                let searchInputLower = urlString;
+                let eachInputArray = urlArray;
+                console.log("==========eachInputArray==========");
+                console.log(eachInputArray);
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].title.toLowerCase() === searchInputLower) {
+                        index = i;
+                        console.log("item found!")
+                    }
+                    if (data[i].title.toLowerCase().includes(searchInputLower) || data[i].description.toLowerCase().includes(searchInputLower)) {
+                        searchArray.push(data[i]);
+                    }
+                    for (let j = 0; j < eachInputArray.length; j++) {
+                        if (data[i].title.toLowerCase().toString().includes(eachInputArray[j]) || data[i].description.toLowerCase().toString().includes(eachInputArray[j])) {
+                            if (!searchArray.includes(data[i])) {
+                                searchArray.push(data[i]);
+                            }
+                        }
+                    }
+                }
+                if (index < 0 && searchArray.length === 0) {
+                    console.log("Your search is not in the database!");
+                } else if (index < 0) {
+                    searchResultsText = searchInput;
+                } else {
+                    searchResultsText = data[index].title;
+                }
+                console.log("==========searchArray==========");
+                for (let i = 0; i < searchArray.length; i++) {
+                    console.log(searchArray[i]);
+                }
+                if (index < 0 && searchArray.length === 0) {
+                    res.redirect("/")
+                } else {
+                    res.render("search", {
+                        bearsList: searchArray,
+                    });
+                }
+            }).catch((e) => {
+                console.log(e)
+            });
+        }
     });
-
     // route for showing a product
     app.get("/product/:productID", (req, res) => {
         if (req.user) {
