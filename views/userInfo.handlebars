@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-content">
                         <p class="posts_text">{{title}}</p>
-                        <img src="{{image_paths}}" style="width:150px;height:auto;">
+                        <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" style="width:150px;height:auto;">
                         <p>${{ask_price}}</p>
                     </div>
                     <div class="card-action">
