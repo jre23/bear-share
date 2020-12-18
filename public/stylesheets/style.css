@@ -128,6 +128,7 @@ textarea {
     color: red;
 }
 
+/* Style for Tab */
 /* Style for Account page */
 .tab_name {
     font-weight: bold;
@@ -144,5 +145,23 @@ textarea {
 }
 .btn_tab_account:hover {
     background-color: #00796b;
+    color: white;
+}
+
+/* Style for message Tab */
+.btn_tab_message{
+    margin: auto 5px;
+    width: 50px;
+    border:none;   
+    border-radius: 5px;
+    background-color: #ee6c00;
+    color: white;
+}
+.btn_tab_message:hover {
+    background-color: #fd943e;
+    color: white;
+}
+.btn_tab_message:active {
+    background-color: #ee6c00;
     color: white;
 }

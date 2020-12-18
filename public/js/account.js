@@ -40,4 +40,31 @@ $(document).ready(() => {
     document.getElementById("file").onchange = function () {
         document.getElementById("pp-form").submit();
     };
+
+
+    // Message Tab on Account Page
+    $(".delete-message").on("click", (e) => {
+        e.preventDefault();
+        let id = $(e.target).data("id");
+        console.log(id);
+        let questionDelete = confirm("Are you sure you want to delete the message?");
+        if (!questionDelete) {
+            return alert("Message not deleted.");
+        } else {
+            $.ajax("/api/messages/" + id, {
+                    type: "DELETE",
+                }).then((res) => {
+                    if (res === 0) {
+                        return alert("Message to delete not found!");
+                    } else {
+                        alert("Message deleted!");
+                        location.reload();
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    })
+
 });
