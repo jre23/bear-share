@@ -105,15 +105,9 @@ module.exports = (app) => {
                         }
                         count++;
                     });
-<<<<<<< HEAD
                     // console.log("========message data newMessageArr==========");
                     // console.log(newMessageArr);
                     
-=======
-                    console.log("========message data newMessageArr==========");
-                    console.log(newMessageArr);
-
->>>>>>> develop
                     if (data[0].dataValues.Postings.length === 0) {
                         if(messageArr.length === 0){
                             console.log("test length zero");
