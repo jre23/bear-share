@@ -84,10 +84,10 @@
                             <p class="price_tab_data">{{ask_price}}</p>
                             <!-- Dropdown Structure -->
                             <div>
-                                <p>Actions:</p>
-                                <li><a class="btn_tab_account" data-id="">On sale</a></li>
-                                <li><a class="btn_tab_account" data-id="">Inactive</a></li>
-                                <li><a class="btn_tab_account endItem" data-id={{id}}>End item</a></li>
+                                <p>Action:</p>
+                                {{!-- <li><a class="btn_tab_account" data-id="">On sale</a></li>
+                                <li><a class="btn_tab_account" data-id="">Inactive</a></li> --}}
+                                <a class="btn_tab_account endItem" data-id={{id}}>Delete</a>
                             </div>
                             {{!-- <p class="active_tab_data">on sale</p>
                             <p class="sold_tab_data">sold</p>
@@ -132,12 +132,16 @@
                             <span class="">{{this.createdAt}}</span>
                         </div>
                         <div class="col s2">
-                                    <div class="col m6">
-                                    <button class="btn_tab_message reply-message" data-product-id="{{this.productId}}" data-id="{{this.fromId}}" data-message-id="{{this.id}}"><i class="fas fa-reply" data-product-id="{{this.productId}}" data-id="{{this.fromId}}" data-message-id="{{this.id}}"></i></button>
-                                    </div>
-                                    <div class="col m6">
-                                    <button class="btn_tab_message delete-message" data-id="{{this.id}}"><i class="fas fa-trash-alt" data-id="{{this.id}}"></i></button>
-                                    </div>
+                            <div class="col m6">
+                                <button class="btn_tab_message reply-message" data-product-id="{{this.productId}}"
+                                    data-id="{{this.fromId}}" data-message-id="{{this.id}}"><i class="fas fa-reply"
+                                        data-product-id="{{this.productId}}" data-id="{{this.fromId}}"
+                                        data-message-id="{{this.id}}"></i></button>
+                            </div>
+                            <div class="col m6">
+                                <button class="btn_tab_message delete-message" data-id="{{this.id}}"><i
+                                        class="fas fa-trash-alt" data-id="{{this.id}}"></i></button>
+                            </div>
                             </ul>
                         </div>
                     </div>

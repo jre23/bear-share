@@ -26,7 +26,8 @@
             <div class="col s6 m4 l3">
                 <div class="card">
                     <div class="card-image" style="padding: 20px 20px 0px 20px">
-                        <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" height="150px" width="100px">
+                        <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
+                            height="150px" width="100px">
                     </div>
                     <div class="card-content">
                         <p style="font-size:20px; font-weight:bold;">{{this.title}}</p>
@@ -37,6 +38,10 @@
         </a>
         {{/each}}
     </div>
+</div>
+
+<div class="container center-align">
+    <a href="/" style="font-size:16px">Return to all postings</a>
 </div>
 
 <script type="text/javascript" src="/js/search.js"></script>
