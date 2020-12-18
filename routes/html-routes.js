@@ -76,8 +76,23 @@ module.exports = (app) => {
                             messageArr.push(data[0].dataValues.Postings[i].dataValues.Messages[j].dataValues);
                         }
                     }
-                    console.log("========message data==========");
-                    console.log(messageArr);
+                    let count = 0;
+                    let newMessageArr = [];
+                    messageArr.forEach(obj => {
+                        newMessageArr.push(obj);
+                        console.log("obj in foreach")
+                        for(key in obj){
+                            
+                            if(key === "createdAt"){
+                                console.log("inside If statement");
+                                newMessageArr[count]["createdAt"] = obj.createdAt.toString().substring(0, 10);
+                            }
+                        }
+                        count++;
+                    });
+                    console.log("========message data newMessageArr==========");
+                    console.log(newMessageArr);
+                    
                     if (data[0].dataValues.Postings.length === 0) {
                         console.log("test length zero");
                         res.render("account", {
@@ -88,7 +103,7 @@ module.exports = (app) => {
                         res.render("account", {
                             Profile: data[0].dataValues,
                             Postings: data[0].dataValues.Postings,
-                            Messages: messageArr
+                            Messages: newMessageArr
                         });
                     }
                 })
