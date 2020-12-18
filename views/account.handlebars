@@ -133,7 +133,7 @@
                         </div>
                         <div class="col s2">
                                     <div class="col m6">
-                                    <button class="btn_tab_message" data-id=""><i class="fas fa-reply"></i></button>
+                                    <button class="btn_tab_message reply-message" data-product-id="{{this.productId}}" data-id="{{this.fromId}}" data-message-id="{{this.id}}"><i class="fas fa-reply" data-product-id="{{this.productId}}" data-id="{{this.fromId}}" data-message-id="{{this.id}}"></i></button>
                                     </div>
                                     <div class="col m6">
                                     <button class="btn_tab_message delete-message" data-id="{{this.id}}"><i class="fas fa-trash-alt" data-id="{{this.id}}"></i></button>
@@ -141,6 +141,7 @@
                             </ul>
                         </div>
                     </div>
+                    <div id="replyMessage_{{this.id}}" class="row"></div>
                     {{/each}}
                 </div>
 

@@ -57,25 +57,40 @@ module.exports = (app) => {
                     where: {
                         id: req.user.id,
                     },
-                    include: {
-                        model: db.Posting,
-                        include: {
-                            model: db.Message
-                        }
-                    }
-                })
+                    include: [{
+                        model: db.Posting
+                    }, 
+                    {
+                        model: db.Message
+                    }]
+            })
                 .then((data) => {
                     console.log("========Account data==========");
-                    console.log(data[0].dataValues);
-                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages);
-                    console.log(data[0].dataValues.Postings);
-                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages); // joel - if this array is zero this will throw a 404 error
-                    let messageArr = [];
-                    for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
-                        for (let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++) {
-                            messageArr.push(data[0].dataValues.Postings[i].dataValues.Messages[j].dataValues);
-                        }
+                    console.log(data[0]);
+                    console.log("data[0].dataValues.Postings[0].dataValues");
+                    // console.log(data[0].dataValues.Postings[0].dataValues);
+                    // console.log(data[0].dataValues.Postings[1].dataValues);
+                    // console.log(data[0].dataValues.Postings[2].dataValues);
+                    let postingArr = [];
+                    for(let i = 0; i < data[0].dataValues.Postings.length; i++){
+                        postingArr.push(data[0].dataValues.Postings[i].dataValues);
                     }
+                    console.log(postingArr);
+                    console.log(data[0].dataValues.Messages);
+
+                    let messageArr = [];
+                    for(let i = 0; i < data[0].dataValues.Messages.length; i++){
+                        messageArr.push(data[0].dataValues.Messages[i].dataValues);
+                    }
+                    // console.log(data[0].dataValues.Postings);
+                    // console.log(data[0].dataValues.Messages);
+                    // console.log(data[0].dataValues.Postings[0].dataValues.Messages); // joel - if this array is zero this will throw a 404 error
+                    // let messageArr = [];
+                    // for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
+                    //     for (let j = 0; j < data[0].dataValues.Postings[i].dataValues.Messages.length; j++) {
+                    //         messageArr.push(data[0].dataValues.Postings[i].dataValues.Messages[j].dataValues);
+                    //     }
+                    // }
                     let count = 0;
                     let newMessageArr = [];
                     messageArr.forEach(obj => {
@@ -90,20 +105,30 @@ module.exports = (app) => {
                         }
                         count++;
                     });
-                    console.log("========message data newMessageArr==========");
-                    console.log(newMessageArr);
-
+                    // console.log("========message data newMessageArr==========");
+                    // console.log(newMessageArr);
+                    
                     if (data[0].dataValues.Postings.length === 0) {
-                        console.log("test length zero");
-                        res.render("account", {
-                            Profile: data[0].dataValues,
-                        });
-                    } else {
+                        if(messageArr.length === 0){
+                            console.log("test length zero");
+                            res.render("account", {
+                                Profile: data[0].dataValues,
+                            });
+                        }else{
+                            console.log("test length zero");
+                            res.render("account", {
+                                Profile: data[0].dataValues,
+                                Messages: messageArr
+                            });
+                        }
+                       
+                    } 
+                    else {
                         console.log("test length > zero");
                         res.render("account", {
                             Profile: data[0].dataValues,
-                            Postings: data[0].dataValues.Postings,
-                            Messages: newMessageArr
+                            Postings: postingArr,
+                            Messages: messageArr
                         });
                     }
                 })

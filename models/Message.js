@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             len: [1],
         },
-        toId: {
+        fromId: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         }
@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
     Message.associate = function (models) {
         Message.belongsTo(models.User, {
             foreignKey: {
-                name: "fromId",
+                name: "toId",
             },
             onDelete: "cascade",
         });
