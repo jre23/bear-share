@@ -56,6 +56,14 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade",
         });
 
+        // Associate User with their reviews
+        User.hasMany(models.UserReview, {
+            foreignKey: {
+                name: "userReviewedId",
+            },
+            onDelete: "cascade",
+        });
+
         User.hasMany(models.PostingComment, {
             foreignKey: {
                 name: "commenterId",
