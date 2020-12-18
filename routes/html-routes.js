@@ -96,18 +96,24 @@ module.exports = (app) => {
                     messageArr.forEach(obj => {
                         newMessageArr.push(obj);
                         console.log("obj in foreach")
-                        for(key in obj){
-                            
-                            if(key === "createdAt"){
+                        for (key in obj) {
+
+                            if (key === "createdAt") {
                                 console.log("inside If statement");
                                 newMessageArr[count]["createdAt"] = obj.createdAt.toString().substring(0, 10);
                             }
                         }
                         count++;
                     });
+<<<<<<< HEAD
                     // console.log("========message data newMessageArr==========");
                     // console.log(newMessageArr);
                     
+=======
+                    console.log("========message data newMessageArr==========");
+                    console.log(newMessageArr);
+
+>>>>>>> develop
                     if (data[0].dataValues.Postings.length === 0) {
                         if(messageArr.length === 0){
                             console.log("test length zero");
@@ -213,30 +219,24 @@ module.exports = (app) => {
                         index = i;
                         console.log("item found!")
                     }
-                    if (data[i].title.toLowerCase().includes(searchInputLower) || data[i].description.toLowerCase().includes(searchInputLower)) {
+                    if (data[i].title.toLowerCase().includes(searchInputLower) || data[i].description.toLowerCase().includes(searchInputLower) || data[i].category.toLowerCase().includes(searchInputLower)) {
                         searchArray.push(data[i]);
                     }
                     for (let j = 0; j < eachInputArray.length; j++) {
-                        if (data[i].title.toLowerCase().toString().includes(eachInputArray[j]) || data[i].description.toLowerCase().toString().includes(eachInputArray[j])) {
+                        if (data[i].title.toLowerCase().toString().includes(eachInputArray[j]) || data[i].description.toLowerCase().toString().includes(eachInputArray[j]) || data[i].category.toLowerCase().includes(eachInputArray[j])) {
                             if (!searchArray.includes(data[i])) {
                                 searchArray.push(data[i]);
                             }
                         }
                     }
                 }
+                let searchEmptyArray = [{
+                    title: "Your search came up empty! Try a different search.",
+                }];
                 if (index < 0 && searchArray.length === 0) {
-                    console.log("Your search is not in the database!");
-                } else if (index < 0) {
-                    searchResultsText = searchInput;
-                } else {
-                    searchResultsText = data[index].title;
-                }
-                console.log("==========searchArray==========");
-                for (let i = 0; i < searchArray.length; i++) {
-                    console.log(searchArray[i]);
-                }
-                if (index < 0 && searchArray.length === 0) {
-                    res.redirect("/")
+                    res.render("search", {
+                        emptyList: searchEmptyArray,
+                    });
                 } else {
                     res.render("search", {
                         bearsList: searchArray,

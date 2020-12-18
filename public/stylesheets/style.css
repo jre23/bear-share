@@ -84,6 +84,14 @@ textarea {
     border-radius: 50%;
 }
 
+#alert-panel {
+    padding: 5px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -149,10 +157,10 @@ textarea {
 }
 
 /* Style for message Tab */
-.btn_tab_message{
+.btn_tab_message {
     margin: auto 5px;
     width: 50px;
-    border:none;   
+    border: none;
     border-radius: 5px;
     background-color: #ee6c00;
     color: white;
