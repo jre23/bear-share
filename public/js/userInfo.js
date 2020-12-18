@@ -10,8 +10,10 @@ $(document).ready(function () {
     }).then(results => {
       let reviews = results;
       // console.log(results);
-      for(let i = 0; i < reviews.length; i++){
+      //Setting commenter name
       
+      for(let i = 0; i < reviews.length; i++){
+      let commenter = results[i].User.firstName + " " + results[i].User.lastName;
       let divCol = $("<div></div>");
       let divCard = $("<div></div>");
       let divCardContent = $("<div></div>");
@@ -27,7 +29,7 @@ $(document).ready(function () {
       divCardAction.attr("class", "card-action");
       
       pText.text(results[i].comment)
-      aUser.text(results[i].reviewerId)
+      aUser.text(commenter);
 
       aUser.attr("href", `../userInfo/${results[i].reviewerId}`)
       
