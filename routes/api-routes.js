@@ -259,6 +259,10 @@ module.exports = (app) => {
             where: {
                 userReviewedId: req.params.userId,
             },
+            include: {
+                model: db.User,
+                attributes: ["firstName", "lastName"],
+            },
         }).then((data) => {
             console.log(data);
             res.json(data);
