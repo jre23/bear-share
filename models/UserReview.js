@@ -19,6 +19,13 @@ module.exports = function (sequelize, DataTypes) {
             },
             onDelete: "cascade",
         });
+
+        UserReview.belongsTo(models.User, {
+            foreignKey: {
+                name: "userReviewedId",
+            },
+            onDelete: "cascade",
+        });
     };
 
     return UserReview;
