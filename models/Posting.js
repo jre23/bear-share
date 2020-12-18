@@ -40,6 +40,12 @@ module.exports = function (sequelize, DataTypes) {
             },
             onDelete: "cascade",
         });
+        Posting.belongsTo(models.User, {
+            foreignKey: {
+                name: "userId",
+            },
+            onDelete: "cascade",
+        });
     };
 
     return Posting;
