@@ -10,7 +10,9 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 
 var s3 = new AWS.S3({
     apiVersion: "2006-03-01",
-    params: { Bucket: "bear-share-2" },
+    params: {
+        Bucket: "bear-share-2"
+    },
 });
 
 var uploadS3 = multer({
@@ -19,7 +21,9 @@ var uploadS3 = multer({
         bucket: "bear-share-2",
         acl: "public-read",
         metadata: (req, file, cb) => {
-            cb(null, { fieldName: file.fieldname });
+            cb(null, {
+                fieldName: file.fieldname
+            });
         },
         key: function (req, file, cb) {
             cb(null, Date.now().toString() + "-" + file.originalname);
@@ -29,7 +33,12 @@ var uploadS3 = multer({
 
 module.exports = (app) => {
     app.post("/upload-posting", uploadS3.array("files"), function (req, res, next) {
-        let { title, category, description, ask_price } = req.body;
+        let {
+            title,
+            category,
+            description,
+            ask_price
+        } = req.body;
         let image_paths = "";
 
         // Logging out the location of each file. Store this in the database...
