@@ -229,6 +229,23 @@ module.exports = (app) => {
 
     });
 
+        //Route to delete a message from database
+        app.delete("/api/messages/:messageId", (req, res) => {
+            console.log(req.params.messageId);
+            db.Message.destroy({
+                where: {
+                    id: req.params.messageId
+                },
+            }).then((data) => {
+                // if data === 0 -> item not found, if data === 1 -> item found and deleted
+                console.log(data);
+                res.json(data);
+            }).catch((e) => {
+                console.log(e)
+            });
+        });
+
+
 
 
 

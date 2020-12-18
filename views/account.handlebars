@@ -86,9 +86,9 @@
                                 <li><a class="btn_tab_account" data-id="">Inactive</a></li>
                                 <li><a class="btn_tab_account endItem" data-id={{id}}>End item</a></li>
                             </div>
-                            <p class="active_tab_data">on sale</p>
+                            {{!-- <p class="active_tab_data">on sale</p>
                             <p class="sold_tab_data">sold</p>
-                            <p class="buyer_tab_data">TEST_buyer</p>
+                            <p class="buyer_tab_data">TEST_buyer</p> --}}
                         </div>
                     </div>
                 </div>
@@ -101,29 +101,41 @@
         <div id="message_tab" class="">
             <div class="container center" style="font-size:14px;">
 
-                <div class="container hide-on-small-only">
+                <div class="" style="margin: 0;">
                     <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                        <div class="col s4 tab_name">
+                        <div class="col s2 tab_name">
                             From
                         </div>
-                        <div class="col s4 tab_name">
-                            About Products
+                        <div class="col s6 tab_name">
+                            Contents
                         </div>
-                        <div class="col s4 tab_name">
+                        <div class="col s2 tab_name">
                             Received
+                        </div>
+                        <div class="col s2 tab_name">
+                            Action
                         </div>
                     </div>
                     <!-- Iterate lists from DB -->
                     {{#each Messages}}
                     <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                        <div class="col s4">
-                            <span class="">{{fromId}}</span>
+                        <div class="col s2">
+                            <span class="">{{this.fromId}}</span>
                         </div>
-                        <div class="col s4">
-                            <span class="">{{this.contents}}</span>
+                        <div class="col s6">
+                            <span class="left">{{this.contents}}</span>
                         </div>
-                        <div class="col s4">
+                        <div class="col s2">
                             <span class="">{{this.createdAt}}</span>
+                        </div>
+                        <div class="col s2">
+                                    <div class="col m6">
+                                    <button class="btn_tab_message" data-id=""><i class="fas fa-reply"></i></button>
+                                    </div>
+                                    <div class="col m6">
+                                    <button class="btn_tab_message delete-message" data-id="{{this.id}}"><i class="fas fa-trash-alt" data-id="{{this.id}}"></i></button>
+                                    </div>
+                            </ul>
                         </div>
                     </div>
                     {{/each}}
