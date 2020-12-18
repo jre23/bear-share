@@ -12,14 +12,15 @@ $(document).ready(() => {
         event.preventDefault();
         let postingId = event.target.getAttribute("data-id");
         postingId = parseInt(postingId);
+        console.log(event.target);
         console.log(postingId);
         let makeSureDelete = confirm("Are you sure you want to delete your item?");
         if (!makeSureDelete) {
             return alert("Item not deleted.");
         } else {
             $.ajax("/api/postings/" + postingId, {
-                type: "DELETE",
-            })
+                    type: "DELETE",
+                })
                 .then((res) => {
                     console.log(res);
                     console.log("test log after ajax to api/postings");
@@ -42,7 +43,7 @@ $(document).ready(() => {
 
 
     // Message Tab on Account Page
-    $(".delete-message").on("click", (e) =>{
+    $(".delete-message").on("click", (e) => {
         e.preventDefault();
         let id = $(e.target).data("id");
         console.log(id);
@@ -50,20 +51,20 @@ $(document).ready(() => {
         if (!questionDelete) {
             return alert("Message not deleted.");
         } else {
-        $.ajax("/api/messages/" + id, {
-            type: "DELETE",
-        }).then((res) => {
-            if (res === 0) {
-                return alert("Message to delete not found!");
-            } else {
-                alert("Message deleted!");
-                location.reload();
-            }
-        })
-        .catch((e) => {
-            console.log(e);
-        });
-    }
+            $.ajax("/api/messages/" + id, {
+                    type: "DELETE",
+                }).then((res) => {
+                    if (res === 0) {
+                        return alert("Message to delete not found!");
+                    } else {
+                        alert("Message deleted!");
+                        location.reload();
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
     })
 
 });
