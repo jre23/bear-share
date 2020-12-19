@@ -7,6 +7,11 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1],
             },
         },
+        fromName: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            len: [1],
+        }
     });
 
     UserReview.associate = function (models) {
