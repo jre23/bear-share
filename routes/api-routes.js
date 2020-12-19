@@ -2,7 +2,10 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
-const { Op, json } = require("sequelize");
+const {
+    Op,
+    json
+} = require("sequelize");
 
 module.exports = (app) => {
     /***************
@@ -27,13 +30,13 @@ module.exports = (app) => {
     app.post("/api/signup", function (req, res) {
         let user = req.body;
         db.User.create({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            address: user.address,
-            email: user.email,
-            password: user.password,
-        })
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                email: user.email,
+                password: user.password,
+            })
             .then(function () {
                 res.redirect(307, "/api/login");
             })
@@ -92,18 +95,17 @@ module.exports = (app) => {
             return res.redirect("/account");
         }
         db.User.findAll({
-            where: {
-                id: parseInt(req.params.userId, 10),
-            },
-            include: [
-                {
-                    model: db.Posting,
+                where: {
+                    id: parseInt(req.params.userId, 10),
                 },
-                {
-                    model: db.PostingComment,
-                },
-            ],
-        })
+                include: [{
+                        model: db.Posting,
+                    },
+                    {
+                        model: db.PostingComment,
+                    },
+                ],
+            })
             .then((data) => {
                 //console.log(data[0].dataValues);
                 //console.log(data[0].dataValues.PostingComments);
@@ -124,10 +126,10 @@ module.exports = (app) => {
         console.log(req.user.id);
         console.log("req user id line api-routes");
         db.User.findAll({
-            where: {
-                id: req.user.id,
-            },
-        })
+                where: {
+                    id: req.user.id,
+                },
+            })
             .then((data) => {
                 console.log(data);
                 console.log("test log for userInfo data values");
@@ -188,7 +190,9 @@ module.exports = (app) => {
             },
             include: [{
                 model: db.Posting,
-                where: { id: req.params.productId }
+                where: {
+                    id: req.params.productId
+                }
             }]
         }).then((data) => {
             console.log("====================data[0]====================");
@@ -227,7 +231,7 @@ module.exports = (app) => {
                 id: req.params.messageId
             },
             include: [{
-                model: db.User
+                    model: db.User
                 },
                 {
                     model: db.Posting
@@ -236,7 +240,7 @@ module.exports = (app) => {
         }).then((data) => {
             console.log("====================Server Side toID!!!====================");
             console.log(data[0].dataValues);
-            
+
             // console.log(data[0].dataValues.Postings[0].dataValues);
             // // console.log(data[0].dataValues.Posting.dataValues);
             let userProductInfo = {
@@ -287,42 +291,61 @@ module.exports = (app) => {
 
     });
 
-        // Store messages from user info to Message Model 
-        app.post("/api/userInfo/message/", function (req, res) {
-            console.log(req.body);
-            console.log("req.user.id");
-            console.log(req.user.id); 
-            let message = req.body;
-            message["fromId"] = req.user.id;
+    // Store messages from user info to Message Model 
+    app.post("/api/userInfo/message/", function (req, res) {
+        console.log(req.body);
+        console.log("req.user.id");
+        console.log(req.user.id);
+        let message = req.body;
+        message["fromId"] = req.user.id;
+        console.log(message);
+        
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            console.log(data[0].dataValues.firstName);
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            console.log("message");
             console.log(message);
-            // if(req.user.id == req.body.toId){
-            //     res.json(message);
-            // }
-            // else{
+            if(req.user.id == req.body.toId){
+                res.json(message);
+            }
+            else{
                 db.Message.create(message).then((data) => {
                     res.json(data);
                 });
-                
-            // }
-    
+            }
         });
 
+        // if(req.user.id == req.body.toId){
+        //     res.json(message);
+        // }
+        // else{
+        //     db.Message.create(message).then((data) => {
+        //         res.json(data);
+        //     });
+        // }
 
-        //Route to delete a message from database
-        app.delete("/api/messages/:messageId", (req, res) => {
-            console.log(req.params.messageId);
-            db.Message.destroy({
-                where: {
-                    id: req.params.messageId
-                },
-            }).then((data) => {
-                // if data === 0 -> item not found, if data === 1 -> item found and deleted
-                console.log(data);
-                res.json(data);
-            }).catch((e) => {
-                console.log(e)
-            });
+    });
+
+
+    //Route to delete a message from database
+    app.delete("/api/messages/:messageId", (req, res) => {
+        console.log(req.params.messageId);
+        db.Message.destroy({
+            where: {
+                id: req.params.messageId
+            },
+        }).then((data) => {
+            // if data === 0 -> item not found, if data === 1 -> item found and deleted
+            console.log(data);
+            res.json(data);
+        }).catch((e) => {
+            console.log(e)
         });
+    });
 
 
 
@@ -340,7 +363,6 @@ module.exports = (app) => {
             },
             include: {
                 model: db.User,
-                attributes: ["firstName", "lastName"],
             },
         }).then((data) => {
             console.log(data);
@@ -369,26 +391,59 @@ module.exports = (app) => {
 
     //UPDATE (PUT)
 
-    //Route to update a user from database "/api/users/id/:id"
-    app.put("/api/users/:userId", (req, res) => {
-        // destructure req.body here???
-        db.User.update(
-            {
-                lastName: "hexsel",
+    //Route to update a user from database "/api/users/:id"
+    app.put("/api/users/", (req, res) => {
+        console.log("==========api/users req.body==========");
+        let userData = req.body.filterUserData;
+        console.log(userData)
+        db.User.update({
+            ...userData,
+        }, {
+            where: {
+                id: req.user.id,
             },
-            {
-                where: {
-                    id: req.params.userId,
-                },
-            }
-        ).then((data) => {
-            // render the users account page again???
+        }).then((data) => {
+            res.json(data);
+        }).catch((e) => {
+            console.log(e);
+            res.json(e.errors[0].message);
         });
     });
-
-    //update username, password, listings, and reviews
-    //Route to update a bear from database "/api/postings/id/:id"
-    //update name, value, picture, url, category
+    //Update route for user comments on postings
+    app.post("/api/postings/comments/update/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.PostingComment.update({
+            comment: req.body.comment,
+        },
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    //Update route for user reviews about other users
+    app.post("/api/user/reviews/update/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.UserReview.update({
+            comment: req.body.comment,
+        },
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    
 
     //admin can update anything?
 
@@ -426,6 +481,36 @@ module.exports = (app) => {
             console.log(e)
         });
     });
+    //Delete route for user reviews about other users
+    app.post("/api/user/reviews/delete/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.UserReview.destroy(
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    //Delete route for user comments on postings
+    app.post("/api/postings/comments/delete/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.PostingComment.destroy(
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
 
     //admin can delete anything?
 };
