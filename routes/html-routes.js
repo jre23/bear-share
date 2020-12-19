@@ -54,12 +54,13 @@ module.exports = (app) => {
     app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
-                    where: {
-                        id: req.user.id,
+                where: {
+                    id: req.user.id,
+                },
+                include: [
+                    {
+                        model: db.Posting,
                     },
-                    include: [{
-                        model: db.Posting
-                    }, 
                     {
                         model: db.Message
                     },
@@ -85,24 +86,23 @@ module.exports = (app) => {
                     
                     //Creating Posting Array
                     let postingArr = [];
-                    for(let i = 0; i < data[0].dataValues.Postings.length; i++){
+                    for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
                         postingArr.push(data[0].dataValues.Postings[i].dataValues);
                     }
                    
                     //Creating Message Array
                     let messageArr = [];
-                    for(let i = 0; i < data[0].dataValues.Messages.length; i++){
+                    for (let i = 0; i < data[0].dataValues.Messages.length; i++) {
                         messageArr.push(data[0].dataValues.Messages[i].dataValues);
                     }
                    
                     //this is for editing date for received date for message tab on account page points to messageArr
                     let count = 0;
                     let newMessageArr = [];
-                    messageArr.forEach(obj => {
+                    messageArr.forEach((obj) => {
                         newMessageArr.push(obj);
-                        console.log("obj in foreach")
+                        console.log("obj in foreach");
                         for (key in obj) {
-
                             if (key === "createdAt") {
                                 console.log("inside If statement");
                                 newMessageArr[count]["createdAt"] = obj.createdAt.toString().substring(0, 10);
@@ -110,7 +110,6 @@ module.exports = (app) => {
                         }
                         count++;
                     });
-
                     //initialize the object out of the will be passed to the res.render
                     let renderObj = {};
                     //Add in Profile data to render object
@@ -154,49 +153,61 @@ module.exports = (app) => {
             console.log("Search input was empty!");
             res.redirect("/");
         } else {
-            db.Posting.findAll({}).then((data) => {
-                console.log(data);
-                console.log("test /search route with > 0 postings");
-                console.log(urlSlice);
-                console.log(urlArray);
-                console.log(urlString);
-                let index = -1;
-                let searchArray = [];
-                let searchInputLower = urlString;
-                let eachInputArray = urlArray;
-                console.log("==========eachInputArray==========");
-                console.log(eachInputArray);
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].title.toLowerCase() === searchInputLower) {
-                        index = i;
-                        console.log("item found!")
-                    }
-                    if (data[i].title.toLowerCase().includes(searchInputLower) || data[i].description.toLowerCase().includes(searchInputLower) || data[i].category.toLowerCase().includes(searchInputLower)) {
-                        searchArray.push(data[i]);
-                    }
-                    for (let j = 0; j < eachInputArray.length; j++) {
-                        if (data[i].title.toLowerCase().toString().includes(eachInputArray[j]) || data[i].description.toLowerCase().toString().includes(eachInputArray[j]) || data[i].category.toLowerCase().includes(eachInputArray[j])) {
-                            if (!searchArray.includes(data[i])) {
-                                searchArray.push(data[i]);
+            db.Posting.findAll({})
+                .then((data) => {
+                    console.log(data);
+                    console.log("test /search route with > 0 postings");
+                    console.log(urlSlice);
+                    console.log(urlArray);
+                    console.log(urlString);
+                    let index = -1;
+                    let searchArray = [];
+                    let searchInputLower = urlString;
+                    let eachInputArray = urlArray;
+                    console.log("==========eachInputArray==========");
+                    console.log(eachInputArray);
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].title.toLowerCase() === searchInputLower) {
+                            index = i;
+                            console.log("item found!");
+                        }
+                        if (
+                            data[i].title.toLowerCase().includes(searchInputLower) ||
+                            data[i].description.toLowerCase().includes(searchInputLower) ||
+                            data[i].category.toLowerCase().includes(searchInputLower)
+                        ) {
+                            searchArray.push(data[i]);
+                        }
+                        for (let j = 0; j < eachInputArray.length; j++) {
+                            if (
+                                data[i].title.toLowerCase().toString().includes(eachInputArray[j]) ||
+                                data[i].description.toLowerCase().toString().includes(eachInputArray[j]) ||
+                                data[i].category.toLowerCase().includes(eachInputArray[j])
+                            ) {
+                                if (!searchArray.includes(data[i])) {
+                                    searchArray.push(data[i]);
+                                }
                             }
                         }
                     }
-                }
-                let searchEmptyArray = [{
-                    title: "Your search came up empty! Try a different search.",
-                }];
-                if (index < 0 && searchArray.length === 0) {
-                    res.render("search", {
-                        emptyList: searchEmptyArray,
-                    });
-                } else {
-                    res.render("search", {
-                        bearsList: searchArray,
-                    });
-                }
-            }).catch((e) => {
-                console.log(e)
-            });
+                    let searchEmptyArray = [
+                        {
+                            title: "Your search came up empty! Try a different search.",
+                        },
+                    ];
+                    if (index < 0 && searchArray.length === 0) {
+                        res.render("search", {
+                            emptyList: searchEmptyArray,
+                        });
+                    } else {
+                        res.render("search", {
+                            bearsList: searchArray,
+                        });
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
         }
     });
     // route for showing a product
@@ -205,14 +216,18 @@ module.exports = (app) => {
             db.Posting.findOne({
                 where: {
                     id: req.params.productID,
-                }, 
-                include: [{
-                    model: db.User,
-                    attributes: ["firstName", "lastName"],
-                }], 
+                },
+                include: [
+                    {
+                        model: db.User,
+                        attributes: ["firstName", "lastName"],
+                    },
+                ],
             }).then(function (results) {
-                console.log(results);
                 let hbsObject = results.dataValues;
+                let image_paths = hbsObject.image_paths.trim().split(" ");
+                console.log(image_paths);
+                hbsObject.image_paths = image_paths;
                 console.log(hbsObject);
                 res.render("product", hbsObject);
             });
