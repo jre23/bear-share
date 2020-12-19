@@ -123,8 +123,8 @@
                     <!-- Iterate lists from DB -->
                     {{#each Messages}}
                     <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                        <div class="col s2">
-                            <span class="">{{this.fromId}}</span>
+                        <div class="col s2" id="fromNameStyle">
+                            <a href="/api/userInfo/{{this.fromId}}"><span class="">{{this.fromName}}</span></a>
                         </div>
                         <div class="col s6">
                             <span class="left">{{{this.contents}}}</span>

@@ -13,7 +13,7 @@
                 <li class="tab col m3 l3"><a class="active" href="#posting_tab">{{firstName}} Postings</a></li>
                 <li class="tab col m3 l3"><a href="#reviews_tab">{{firstName}} Reviews</a></li>
                 <li class="tab col m3 l3"><a href="#reviewsAbout_tab">Reviews about {{firstName}}</a></li>
-                <li class="tab col m3 l3"><a href="#message_tab">Send {{firstName}} a Message</a></li>
+                <li class="tab col m3 l3"><a href="#message_tab_on_user_info">Send {{firstName}} a Message</a></li>
             </ul>
         </div>
         <!-- Postings Tab -->
@@ -46,7 +46,7 @@
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <p>{{comment}}</p>
+                        <p>{{{comment}}}</p>
                     </div>
                     <div class="card-action">
                         <a href="/product/{{postingId}}">Checkout here!</a>
@@ -78,8 +78,17 @@
             <button>Submit</button>
         </form>
         </div>
-            <!-- Message Tab -->
-        <div id="message_tab" class="">
+            <!-- New Message Tab -->
+        <div id="message_tab_on_user_info">
+            <form>
+                <textarea id="msg_text_user_info"></textarea>
+                <button id="messageSendbtnOnUserInfo" data-toId={{id}}>Send</button>
+            </form>
+        </div>
+        <!-- New Message Tab -->
+
+        <!-- Old Message Tab -->
+        {{!-- <div id="message_tab" class="">
             <form class="col s12 review_submit" action="/api/users/message" method="POST">
                 <label for="message">Send {{firstName}} a message!</label>
                 <textarea rows="10"
@@ -90,6 +99,8 @@
                 <button>Submit</button>
             </form>
             <a href="{{email}}">Send Personal Email</a>
+        </div> --}}
+        <!-- Old Message Tab -->
 
         </div>
     </div>

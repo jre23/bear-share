@@ -227,6 +227,10 @@ textarea {
     color: white;
 }
 
+#fromNameStyle a{
+    text-decoration: none;
+    color:#ee6c00;
+}
 footer {
     background-color: #fbab7e;
     background-image: linear-gradient(180deg, #fbab7e 0%, #f7ce68 95%, #fff 100%);
