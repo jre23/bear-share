@@ -5,9 +5,10 @@
     <div class="row">
         <div class="col s12 m12" style="margin-bottom:50px;">
             <ul class="tabs">
-                <li class="tab col m4 l4"><a href="#selling_tab">Selling</a></li>
-                <li class="tab col m4 l4"><a href="#message_tab">Message</a></li>
-                <li class="tab col m4 l4"><a class="active" href="#account_tab">Account</a></li>
+                <li class="tab col m3 l3"><a href="#selling_tab">Selling</a></li>
+                <li class="tab col m3 l3"><a href="#message_tab">Message</a></li>
+                <li class="tab col m3 l3"><a href="#reviews_tab">Reviews</a></li>
+                <li class="tab col m3 l3"><a class="active" href="#account_tab">Account</a></li>
             </ul>
         </div>
 
@@ -151,6 +152,46 @@
 
             </div>
         </div>
+
+        <!-- review Tab -->
+        <div id="reviews_tab" class="">
+            <div class="container">
+                <div class="row">
+                <h5>Past Product Reviews</h5>
+            {{#each PostingComments}}
+            <p>{{id}}</p>
+                {{!-- <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="review_text">{{PostingComment.id}} {{PostingComment.comment}}</p>
+                        </div>
+                        <div class="card-action">
+                            <a class="waves-effect waves-light btn orange" href="#">Update</a> <a href="#">Delete</a>
+                        </div>
+                    </div>
+                </div> --}}
+            {{/each}}
+            </div>
+            <div class="row">
+            {{!-- <h5>Past User Reviews</h5> --}}
+            {{!-- {{#each UserReviews}}
+            <div class="row">
+                <div class="col s6">
+                        <div class="card">
+                            <div class="card-content">
+                                <p class="review_text">{{this.id}} </p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Update</a> <a href="#">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}} --}}
+            </div>
+            </div>
+        </div>
+
         <!-- account Tab -->
         <div id="account_tab" class="">
             <div class="container">

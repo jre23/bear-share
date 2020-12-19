@@ -41,17 +41,16 @@
         <!-- Reviews Tab -->
         <div id="reviews_tab" class="">
             <h5>Reviews</h5>
-            <div class="row reviews">
-                {{!-- This is an example card that is removed when product.js runs --}}
-                {{#each PostingComments}}
-                <div class="col s6">
-                    <div class="card">
-                        <div class="card-content">
-                            <p>{{{comment}}}</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="/product/{{PostingId}}">Checkout here!</a>
-                        </div>
+        <div class="row reviews">
+            {{!-- This is an example card that is removed when product.js runs --}}
+            {{#each PostingComments}}
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <p>{{comment}}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="/product/{{postingId}}">Checkout here!</a>
                     </div>
                 </div>
                 {{/each}}
