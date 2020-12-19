@@ -77,7 +77,7 @@ $(document).ready(() => {
                       <img src="${userProductInfo.imgPath}" width="75px" height="100px" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
                           style="border:1px solid #ccc;">
                   </div>
-                  <div class="col s4 m4">
+                  <div class="col s4 m4 text-align-left">
                       <h5 style="margin-top:0;">${userProductInfo.title}</h5>
                       <p>${userProductInfo.category}</p>
                       <p>$ ${userProductInfo.price}</p>
