@@ -327,11 +327,11 @@ $(document).ready(() => {
             //   <div class="col s12">
             for(let i = 0; i < reviews.length; i++){
                 let reviewCard = `
-                <div class="card">
+                <div class="card" style="padding: 10px;">
                     <div class="card-content">
                         <p>Review of ${results[i].User.firstName} ${results[i].User.lastName}</p>
                         <form action="/api/user/reviews/delete/${results[i].id}" method="POST" class="right-align">
-                            <button class="waves-effect waves-light btn red" type="submit">Delete</button>
+                            <button class="waves-effect waves-light btn_tab_message" style="height: 30px;" type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
                         <p class="review_text">${results[i].comment}</p>
 
@@ -340,7 +340,7 @@ $(document).ready(() => {
                         <form action="/api/user/reviews/update/${results[i].id}" method="POST" class="col s12"> 
                             <label for="new_comment_${results[i].reviewerId}">Update Post</label>
                             <textarea placeholder="write a new comment" id="new_comment_${results[i].reviewerId}" type="text" name="comment" class="validate col s12"></textarea><br>
-                            <button class="waves-effect waves-light btn green" type="submit" href="#">Update</button>
+                            <button class="waves-effect waves-light btn_tab_message green" style="height: 30px;  margin-top:10px;" type="submit" href="#"><i class="fas fa-edit"></i></button>
                         </form>
                         </div>   
                     </div>
