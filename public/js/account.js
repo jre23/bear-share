@@ -311,4 +311,48 @@ $(document).ready(() => {
                 console.log(e)
             });
     }
+
+    //This renders the Past User Reviews
+    //select review div to append reviews
+    $(".getUserReviews").on("click", (event) => {
+    let reviewDiv = $(".reviewsAbout");
+    reviewDiv.empty();
+    console.log($(".userData").data("id"));
+        $.ajax("/api/users/reviewed/" + $(".userData").data("id"), {
+            type: "GET"
+            }).then(results => {
+            let reviews = results;
+            // console.log(results);
+            //Setting commenter name
+            //   <div class="col s12">
+            for(let i = 0; i < reviews.length; i++){
+                let reviewCard = `
+                <div class="card">
+                    <div class="card-content">
+                        <p>Review of ${results[i].User.firstName} ${results[i].User.lastName}</p>
+                        <form action="/api/user/reviews/delete/${results[i].id}" method="POST" class="right-align">
+                            <button class="waves-effect waves-light btn red" type="submit">Delete</button>
+                        </form>
+                        <p class="review_text">${results[i].comment}</p>
+
+                    </div>
+                    <div class="row">
+                        <form action="/api/user/reviews/update/${results[i].id}" method="POST" class="col s12"> 
+                            <label for="new_comment_${results[i].reviewerId}">Update Post</label>
+                            <textarea placeholder="write a new comment" id="new_comment_${results[i].reviewerId}" type="text" name="comment" class="validate col s12"></textarea><br>
+                            <button class="waves-effect waves-light btn green" type="submit" href="#">Update</button>
+                        </form>
+                        </div>   
+                    </div>
+                </div>
+            `
+            
+            reviewDiv.append(reviewCard);
+            }
+        }).catch(err => {
+        let pTagNoResult = $("<p></p>");
+        pTagNoResult.text("Server had an error getting the reviews for this user");
+        reviewDiv.append(pTagNoResult);
+        })
+    });
 });
