@@ -42,7 +42,7 @@ $(document).ready(() => {
     };
 
     // Message Tab on Account Page
-    $(".reply-message").on("click", (e) =>{
+    $(".reply-message").on("click", (e) => {
         e.preventDefault();
         let toId = $(e.target).data("id");
         let productId = $(e.target).data("productId");
@@ -53,11 +53,11 @@ $(document).ready(() => {
         console.log(productId);
         console.log("messageId");
         console.log(messageId);
-        $.ajax("/api/reply/" + toId +"/"+productId +"/"+messageId, {
+        $.ajax("/api/reply/" + toId + "/" + productId + "/" + messageId, {
             type: "GET"
         }).then(res => {
             console.log(res);
-            let fullName = res.firstName +" "+res.lastName;
+            let fullName = res.firstName + " " + res.lastName;
             console.log(fullName);
             const userProductInfo = {
                 id: res.productId,
@@ -69,7 +69,7 @@ $(document).ready(() => {
                 imgPath: res.productImgPath,
                 name: fullName,
                 toId: res.toId
-              }
+            }
             let query = `
               <div class="row" style="border:1px solid #ccc; padding: 10px;">
               <div class="row" style="margin-bottom: 0;">
@@ -103,13 +103,13 @@ $(document).ready(() => {
                   </div>
               </div>
           </div>`
-          
+
             $(`#replyMessage_${res.messageId}`).html(query);
         });
     });
 
 
-    $(document).on("click","#messageReplybtn", (e) => {
+    $(document).on("click", "#messageReplybtn", (e) => {
         e.preventDefault();
         // console.log($("#textarea_message_product").val());
         console.log($(e.target));
@@ -122,25 +122,25 @@ $(document).ready(() => {
         console.log(productId);
         console.log("contents");
         console.log(contents);
-          $.ajax("/api/message/", {
-              type: "POST",
-              data: {
-                "contents" : contents,
-                "toId" : toId,
-                "productId" : productId
+        $.ajax("/api/message/", {
+            type: "POST",
+            data: {
+                "contents": contents,
+                "toId": toId,
+                "productId": productId
             }
-          }).then(res => {
-            
-            if(res.toId == res.fromId){
-              alert("This is your product!! You can't send a message to yourself.");
-              location.reload();
-            }else{
-              alert("Sent the message");
-              location.reload();
+        }).then(res => {
+
+            if (res.toId == res.fromId) {
+                alert("This is your product!! You can't send a message to yourself.");
+                location.reload();
+            } else {
+                alert("Sent the message");
+                location.reload();
             }
-          });
-        
-      });
+        });
+
+    });
 
     // Message Tab on Account Page
     $(".delete-message").on("click", (e) => {
@@ -167,4 +167,70 @@ $(document).ready(() => {
         }
     })
 
+    $(".account_edit_btn").on("click", (event) => {
+        event.preventDefault();
+        console.log("test account edit button click");
+        let hideBoolean = $("div .edit").attr("data-id");
+        console.log(hideBoolean);
+        if (hideBoolean === "hidden") {
+            $("div .edit").removeClass("hide");
+            $("div .edit").attr("data-id", "show");
+        } else if (hideBoolean === "show") {
+            $("div .edit").addClass("hide");
+            $("div .edit").attr("data-id", "hidden");
+        }
+    });
+
+    $(".editAccount").on("click", (event) => {
+        console.log("test edit account button click");
+        let makeSureEdit = confirm("Are you sure you want to edit your account?");
+        if (!makeSureEdit) {
+            event.preventDefault();
+            $("div .edit").addClass("hide");
+            return alert("Account not edited.");
+        } else {
+            let userData = [{
+                firstName: $("#first_name_input").val().trim(),
+                lastName: $("#last_name_input").val().trim(),
+                phoneNumber: $("#mobile_number_input").val().trim(),
+                address: $("#address_input").val().trim(),
+                email: $("#email_input").val().trim(),
+                password: $("#password_input").val().trim()
+            }];
+            let filterUserData = {};
+            // if all inputs are empty, alert the user
+            if (userData[0].firstName === "" && userData[0].lastName === "" && userData[0].phoneNumber === "" && userData[0].address === "" && userData[0].email === "" && userData[0].password === "") {
+                return alert("All inputs were empty.");
+            } else {
+                userData.forEach((value, index) => {
+                    for (let key in value) {
+                        if (value[key] !== "") {
+                            filterUserData[key] = value[key];
+                        };
+                    }
+                });
+            }
+            updateUser(filterUserData);
+        }
+    });
+    // call ajax put method to update user info
+    const updateUser = (filterUserData) => {
+        $.ajax("/api/users", {
+                type: "PUT",
+                data: {
+                    filterUserData
+                }
+            })
+            .then(data => {
+                if (data === "users.email must be unique") {
+                    alert("That email already exists! Please choose a different email.");
+                } else {
+                    alert("Account details successfully edited!")
+                    location.replace("/account");
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+    }
 });
