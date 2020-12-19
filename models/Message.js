@@ -8,7 +8,12 @@ module.exports = function (sequelize, DataTypes) {
         fromId: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
-        }
+        },
+        fromName: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            len: [1],
+        },
     });
 
     Message.associate = function (models) {

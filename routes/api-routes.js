@@ -260,21 +260,30 @@ module.exports = (app) => {
 
     // Store messages to Message Model
     app.post("/api/message/", function (req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         console.log("req.user.id");
-        console.log(req.user.id); 
+        // console.log(req.user.id); 
         let message = req.body;
         message["fromId"] = req.user.id;
-        console.log(message);
-        // if(req.user.id == req.body.toId){
-        //     res.json(message);
-        // }
-        // else{
-            db.Message.create(message).then((data) => {
-                res.json(data);
-            });
-            
-        // }
+        // console.log(message);
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            console.log(data[0].dataValues.firstName);
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            console.log("message");
+            console.log(message);
+            if(req.user.id == req.body.toId){
+                res.json(message);
+            }
+            else{
+                db.Message.create(message).then((data) => {
+                    res.json(data);
+                });
+            }
+        });
 
     });
 

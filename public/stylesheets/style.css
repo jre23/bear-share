@@ -173,3 +173,8 @@ textarea {
     background-color: #ee6c00;
     color: white;
 }
+
+#fromNameStyle a{
+    text-decoration: none;
+    color:#ee6c00;
+}
