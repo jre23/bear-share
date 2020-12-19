@@ -53,59 +53,108 @@ $(document).ready(() => {
         console.log(productId);
         console.log("messageId");
         console.log(messageId);
-        $.ajax("/api/reply/" + toId + "/" + productId + "/" + messageId, {
-            type: "GET"
-        }).then(res => {
-            console.log(res);
-            let fullName = res.firstName + " " + res.lastName;
-            console.log(fullName);
-            const userProductInfo = {
-                id: res.productId,
-                productId: res.productId,
-                title: res.productTitle,
-                category: res.productCategory,
-                price: res.productPrice,
-                userId: res.userId,
-                imgPath: res.productImgPath,
-                name: fullName,
-                toId: res.toId
-            }
-            let query = `
-              <div class="row" style="border:1px solid #ccc; padding: 10px;">
-              <div class="row" style="margin-bottom: 0;">
-                  <div class="col s3 m2 l1">
-                      <img src="${userProductInfo.imgPath}" width="75px" height="100px" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
-                          style="border:1px solid #ccc;">
+        if(productId){
+            console.log("Have productID");
+            $.ajax("/api/reply/" + toId + "/" + productId + "/" + messageId, {
+                type: "GET"
+            }).then(res => {
+                console.log(res);
+                let fullName = res.firstName + " " + res.lastName;
+                console.log(fullName);
+                const userProductInfo = {
+                    id: res.productId,
+                    productId: res.productId,
+                    title: res.productTitle,
+                    category: res.productCategory,
+                    price: res.productPrice,
+                    userId: res.userId,
+                    imgPath: res.productImgPath,
+                    name: fullName,
+                    toId: res.toId,
+                    toName: res.toName
+                }
+                let query = `
+                  <div class="row" style="border:1px solid #ccc; padding: 10px;">
+                  <div class="row" style="margin-bottom: 0;">
+                      <div class="col s3 m2 l1">
+                          <img src="${userProductInfo.imgPath}" width="75px" height="100px" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
+                              style="border:1px solid #ccc;">
+                      </div>
+                      <div class="col s4 m4 text-align-left">
+                          <h5 style="margin-top:0;">${userProductInfo.title}</h5>
+                          <p>${userProductInfo.category}</p>
+                          <p>$ ${userProductInfo.price}</p>
+                      </div>
                   </div>
-                  <div class="col s4 m4 text-align-left">
-                      <h5 style="margin-top:0;">${userProductInfo.title}</h5>
-                      <p>${userProductInfo.category}</p>
-                      <p>$ ${userProductInfo.price}</p>
+                  <div class="row">
+                      <form class="col s12">
+                          <div class="row" style="margin-bottom:0; height:100;">
+                              <div class="col s12">
+                                  <textarea maxlength="500" id="textarea_message_product" placeholder="Write something to ${userProductInfo.toName}"
+                                      style="border:1px solid #ccc; padding:10px; margin-bottom:0; height:100px;"></textarea>
+                              </div>
+                          </div>
+                      </form>
                   </div>
-              </div>
-              <div class="row">
-                  <form class="col s12">
-                      <div class="row" style="margin-bottom:0; height:100;">
-                          <div class="col s12">
-                              <textarea maxlength="500" id="textarea_message_product" placeholder="Write something here!!"
-                                  style="border:1px solid #ccc; padding:10px; margin-bottom:0; height:100px;"></textarea>
+                      <div class="row">
+                          <div class="col">
+                          <button id="messageReplybtn" data-productId="${userProductInfo.productId}" data-toId="${userProductInfo.toId}" class="waves-effect waves-green btn">Send</button>
+                          </div>
+                          <div class="col">
+                          <a href="/account/" class="waves-effect waves-green btn">Cancel</a>
                           </div>
                       </div>
-                  </form>
-              </div>
-                  <div class="row">
-                      <div class="col">
-                      <button id="messageReplybtn" data-productId="${userProductInfo.productId}" data-toId="${userProductInfo.toId}" class="waves-effect waves-green btn">Send</button>
-                      </div>
-                      <div class="col">
-                      <a href="/account/" class="waves-effect waves-green btn">Cancel</a>
+                  </div>
+              </div>`
+    
+                $(`#replyMessage_${res.messageId}`).html(query);
+            });
+        }else{
+            console.log("No productID");
+            $.ajax("/api/reply/" + toId + "/" + messageId, {
+                type: "GET"
+            }).then(res => {
+                console.log(res);
+                let fullName = res.firstName + " " + res.lastName;
+                console.log(fullName);
+                const userProductInfo = {
+                    userId: res.userId,
+                    name: fullName,
+                    toId: res.toId,
+                    toName: res.toName
+                }
+                let query = `
+                  <div class="row" style="border:1px solid #ccc; padding: 10px;">
+                  <div class="row" style="margin-bottom: 0;">
+                      <div class="col s12 m12 text-align-left">
+                          <h5 style="margin-top:0;">Send a Message to ${userProductInfo.toName}</h5>
                       </div>
                   </div>
-              </div>
-          </div>`
-
-            $(`#replyMessage_${res.messageId}`).html(query);
-        });
+                  <div class="row">
+                      <form class="col s12">
+                          <div class="row" style="margin-bottom:0; height:100;">
+                              <div class="col s12">
+                                  <textarea maxlength="500" id="textarea_message_product" placeholder="Write something here!!"
+                                      style="border:1px solid #ccc; padding:10px; margin-bottom:0; height:100px;"></textarea>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                      <div class="row">
+                          <div class="col">
+                          <button id="messageReplybtnWithoutProduct" data-toId="${userProductInfo.toId}" class="waves-effect waves-green btn">Send</button>
+                          </div>
+                          <div class="col">
+                          <a href="/account/" class="waves-effect waves-green btn">Cancel</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>`
+    
+                $(`#replyMessage_${res.messageId}`).html(query);
+            });
+        }
+        
     });
 
 
@@ -128,6 +177,35 @@ $(document).ready(() => {
                 "contents": contents,
                 "toId": toId,
                 "productId": productId
+            }
+        }).then(res => {
+
+            if (res.toId == res.fromId) {
+                alert("This is your product!! You can't send a message to yourself.");
+                location.reload();
+            } else {
+                alert("Sent the message");
+                location.reload();
+            }
+        });
+
+    });
+
+    $(document).on("click", "#messageReplybtnWithoutProduct", (e) => {
+        e.preventDefault();
+        // console.log($("#textarea_message_product").val());
+        console.log($(e.target));
+        let toId = $(e.target)[0].attributes[1].nodeValue;
+        let contents = $("#textarea_message_product").val();
+        console.log("toId===========");
+        console.log(toId);
+        console.log("contents");
+        console.log(contents);
+        $.ajax("/api/message/", {
+            type: "POST",
+            data: {
+                "contents": contents,
+                "toId": toId
             }
         }).then(res => {
 

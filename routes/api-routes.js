@@ -215,7 +215,7 @@ module.exports = (app) => {
         });
     });
 
-    // Route for Sending Reply Messages Form
+    // Route for Sending Reply Messages Form with ProductID
     app.get("/api/reply/:toId/:productId/:messageId", (req, res) => {
         console.log("req.params.toId");
         console.log(req.params.toId);
@@ -254,7 +254,45 @@ module.exports = (app) => {
                 productPrice: data[0].dataValues.Posting.dataValues.ask_price,
                 lastContents: data[0].dataValues.contents,
                 messageId: data[0].dataValues.id,
-                toId: data[0].dataValues.fromId
+                toId: data[0].dataValues.fromId,
+                toName: data[0].dataValues.fromName
+            }
+            console.log("============userProductInfo========");
+            console.log(userProductInfo);
+            res.json(userProductInfo);
+        });
+    });
+
+    // Route for Sending Reply Messages Form WITHOUT ProductID
+    app.get("/api/reply/:toId/:messageId", (req, res) => {
+        console.log("req.params.toId");
+        console.log(req.params.toId);
+        let toId = req.params.toId;
+        let fromId = req.user.id;
+        console.log("fromId");
+        console.log(fromId);
+        db.Message.findAll({
+            where: {
+                id: req.params.messageId
+            },
+            include: [{
+                    model: db.User
+                }
+            ]
+        }).then((data) => {
+            console.log("====================Server Side toID!!!====================");
+            console.log(data[0].dataValues);
+
+            // console.log(data[0].dataValues.Postings[0].dataValues);
+            // // console.log(data[0].dataValues.Posting.dataValues);
+            let userProductInfo = {
+                userId: data[0].dataValues.User.dataValues.id,
+                firstName: data[0].dataValues.User.dataValues.firstName,
+                lastName: data[0].dataValues.User.dataValues.lastName,
+                lastContents: data[0].dataValues.contents,
+                messageId: data[0].dataValues.id,
+                toId: data[0].dataValues.fromId,
+                toName: data[0].dataValues.fromName
             }
             console.log("============userProductInfo========");
             console.log(userProductInfo);
