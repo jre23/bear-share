@@ -1,0 +1,47 @@
+<!-- jQuery Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container search_bar">
+    <div class="search_wrap">
+        <div class="search_box">
+            <form method="get" action="/search">
+                <input type="text" class="input searchField" placeholder="Search for your bear" name="search">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <button type="submit" class="btn orange darken-3 searchButton">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container center-align">
+    {{#each emptyList}}
+    <h5>{{title}}</h5>
+    {{/each}}
+</div>
+
+<div class="container">
+    <div class="row">
+        {{#each bearsList}}
+        <a href="/product/{{this.id}}" class="listing-Link">
+            <div class="col s6 m4 l3">
+                <div class="card">
+                    <div class="card-image" style="padding: 20px 20px 0px 20px">
+                        <img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
+                            height="150px" width="100px">
+                    </div>
+                    <div class="card-content">
+                        <p style="font-size:20px; font-weight:bold;">{{this.title}}</p>
+                        <p>{{this.category}}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {{/each}}
+    </div>
+</div>
+
+<div class="container center-align">
+    <a href="/" style="font-size:16px">Return to all postings</a>
+</div>
+
+<script type="text/javascript" src="/js/search.js"></script>

@@ -1,0 +1,304 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="s12 m12">
+    <div class="row">
+        <div class="col s12 m12" style="margin-bottom:50px;">
+            <ul class="tabs">
+                <li class="tab col m3 l3"><a href="#selling_tab">Selling</a></li>
+                <li class="tab col m3 l3"><a href="#message_tab">Message</a></li>
+                <li class="tab col m3 l3 getUserReviews"><a href="#reviews_tab">Reviews</a></li>
+                <li class="tab col m3 l3"><a class="active" href="#account_tab">Account</a></li>
+            </ul>
+        </div>
+
+        <!-- selling Tab -->
+        <div id="selling_tab" class="">
+            <!-- hide-on-small-only" -->
+            <div class="container hide-on-small-only">
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2 tab_name">
+                        Title
+                    </div>
+                    <div class="col s2 tab_name">
+                        Category
+                    </div>
+                    <div class="col s2 tab_name">
+                        Price
+                    </div>
+                    <div class="col s2 tab_name">
+                        Action
+                    </div>
+                    <div class="col s2 tab_name">
+                        Sold
+                    </div>
+                    <div class="col s2 tab_name">
+                        Buyer
+                    </div>
+                </div>
+                <!-- Iterate lists from DB -->
+                {{#each Postings}}
+                <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                    <div class="col s2">
+                        <span class="title_tab_data">{{title}}</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="category_tab_data">{{category}}</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="price_tab_data">{{ask_price}}</span>
+                    </div>
+
+                    <div class="col s2">
+                        <button class='dropdown-trigger btn_tab_message endItem' data-id={{id}}><i class="fas fa-trash-alt" data-id={{id}}></i></button>
+                        {{!-- <div class="col s2">
+                            <a class='dropdown-trigger btn' data-id="" href='#' data-activates='dropdown_selling_tab'>
+                                <span id="account_dropdown_btn_status">On sale</span></a>
+                            <!-- Dropdown Structure -->
+                            <ul id='dropdown_selling_tab' class='dropdown-content'>
+                                <li><button class="btn_tab_account" data-id="">On sale</button></li>
+                                <li><button class="btn_tab_account" data-id="">Inactive</button></li>
+                                <li><button class="btn_tab_account endItem" data-id={{id}}>End item</button></li>
+                            </ul>
+                        </div> --}}
+                    </div>
+
+                    <div class="col s2">
+                        <span class="sold_tab_data">x</span>
+                    </div>
+                    <div class="col s2">
+                        <span class="buyer_tab_data">null</span>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <!-- hide-on-med-and-up -->
+            <div class="container hide-on-med-and-up">
+                <!-- Iterate lists from DB -->
+                {{#each Postings}}
+                <div class="col s6">
+                    <div class="card">
+                            <div class="card-content">
+                                <p class="title_tab_data" style="font-size:20px; font-weight:bold;">{{title}}</p>
+                                <p class="category_tab_data">{{category}}</p>
+                                <p class="price_tab_data">{{ask_price}}</p>
+                            <!-- Dropdown Structure -->
+                            <div>
+                                <p>Action:</p>
+                                {{!-- <li><a class="btn_tab_account" data-id="">On sale</a></li>
+                                <li><a class="btn_tab_account" data-id="">Inactive</a></li> --}}
+                                <a class="btn_tab_account endItem" data-id={{id}}>Delete</a>
+                            </div>
+                            {{!-- <p class="active_tab_data">on sale</p>
+                            <p class="sold_tab_data">sold</p>
+                            <p class="buyer_tab_data">TEST_buyer</p> --}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+
+        <!-- message_tab-->
+        <div id="message_tab" class="">
+            <div class="container center" style="font-size:14px;">
+
+                <div class="" style="margin: 0;">
+                    <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                        <div class="col s2 tab_name">
+                            From
+                        </div>
+                        <div class="col s6 tab_name">
+                            Contents
+                        </div>
+                        <div class="col s2 tab_name">
+                            Received
+                        </div>
+                        <div class="col s2 tab_name">
+                            Action
+                        </div>
+                    </div>
+                    <!-- Iterate lists from DB -->
+                    {{#each Messages}}
+                    <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
+                        <div class="col s2" id="fromNameStyle">
+                            <a href="/api/userInfo/{{this.fromId}}"><span class="">{{this.fromName}}</span></a>
+                        </div>
+                        <div class="col s6">
+                            <span class="left">{{{this.contents}}}</span>
+                        </div>
+                        <div class="col s2">
+                            <span class="">{{this.createdAt}}</span>
+                        </div>
+                        <div class="col s2">
+                            <div class="col m6">
+                                <button class="btn_tab_message reply-message" data-product-id="{{this.productId}}"
+                                    data-id="{{this.fromId}}" data-message-id="{{this.id}}"><i class="fas fa-reply"
+                                        data-product-id="{{this.productId}}" data-id="{{this.fromId}}"
+                                        data-message-id="{{this.id}}"></i></button>
+                            </div>
+                            <div class="col m6">
+                                <button class="btn_tab_message delete-message" data-id="{{this.id}}"><i
+                                        class="fas fa-trash-alt" data-id="{{this.id}}"></i></button>
+                            </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="replyMessage_{{this.id}}" class="row"></div>
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+<!-- account Tab -->
+        <div id="account_tab" class="userData" data-id="{{Profile.id}}">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12 center">
+                        <div class="row">
+                            {{#if Profile.profilePic}}
+                            <img id="profile-img" src="{{Profile.profilePic}}" alt="">
+                            {{else}}
+                            <img id="profile-img" src="https://via.placeholder.com/150" alt="">
+                            {{/if}}
+                        </div>
+                        <input id="pp-pic-btn" type="button" class="btn white orange-text text-darken-3 waves-effect"
+                            value="Change" onclick="document.getElementById('file').click();" />
+                        <form method='post' action="/profile-pic" enctype="multipart/form-data" id="pp-form">
+                            <input type="file" style="display:none;" id="file" name="file" />
+                        </form>
+                    </div>
+                    <form class="col l6 s12 post_item center">
+                        <div class="row">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
+                                Name :
+                            </div>
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
+                                <strong><span id="user_name">{{Profile.firstName}} {{Profile.lastName}}</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
+                                Address: 
+                            </div>
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
+                                <strong><span id="user_address">{{Profile.address}}</span></strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
+                                email :
+                            </div>
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
+                                <span id="user_email">{{Profile.email}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
+                                Phone Number :
+                            </div>
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
+
+                                <span id="user_phone">{{Profile.phoneNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m12">
+                                        <button
+                                            class="btn white orange-text text-darken-3 waves-effect account_edit_btn"
+                                            data-id="" id="">Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row hide edit" data-id="hidden">
+                    <form class="col s8 offset-s2 signup">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="First Name" id="first_name_input" type="text" class="validate">
+                                <label for="first_name">First Name <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Last Name" id="last_name_input" type="text" class="validate">
+                                <label for="last_name">Last Name <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter mobile phone" id="mobile_number_input" type="text"
+                                    class="validate">
+                                <label for="last_name">Mobile Phone</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter address" id="address_input" type="text" class="validate">
+                                <label for="last_name">Address</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter email address" id="email_input" type="email" class="validate">
+                                <label for="email">Email <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input disabled placeholder="Password not editable" id="password_input" type="password"
+                                    class="validate">
+                                <label for="password">Password <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="editAccount btn orange darken-3 waves-effect">Edit Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- review Tab -->
+        <div id="reviews_tab" class="">
+            <div class="container">
+                <div class="row">
+                <h5>Past Product Reviews</h5>
+            {{#each PostingComments}}
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <form action="/api/postings/comments/delete/{{id}}" method="POST" class="right-align">
+                                <button class="waves-effect waves-light btn red" type="submit">Delete</button>
+                            </form>
+                            <p class="review_text">{{comment}}</p>
+                            
+                        </div>
+                        <div class="row">
+                            <form action="/api/postings/comments/update/{{id}}" method="POST" class="col s12"> 
+                                <label for="new_comment_{{id}}">Update Post</label>
+                                <textarea placeholder="write a new comment" id="new_comment_{{id}}" type="text" name="comment" class="validate col s6"></textarea>
+                                <button class="waves-effect waves-light btn green" type="submit" href="#">Update</button>
+                                
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            </div>
+            <div class="row">
+                <h5>Past User Reviews</h5>
+                <div class-"col s12">
+                <div id="reviewsAbout_tab" class="reviewsAbout"></div>
+                </div>
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="/js/account.js"></script>

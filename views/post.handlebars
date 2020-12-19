@@ -1,0 +1,146 @@
+<!-- jQuery Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <h3 class="orange-text text-darken-3 center" style="margin-bottom: 5%">Post an Item</h3>
+    </div>
+    <div class="row">
+        <form class="col s12 post_item" method="post" enctype="multipart/form-data" action="/upload-posting">
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="title" class="orange-text text-darken-3 post_label_custom left">Title <sup><i
+                                class="fas fa-star-of-life red-text starIcon"></i></sup></label>
+                </div>
+                <div class="col s12 m10">
+                    <input type="textarea" id="title_post" name="title" class="post_input_boader left"
+                        required="true" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="category" class="orange-text text-darken-3 post_label_custom left">Category <sup><i
+                                class="fas fa-star-of-life red-text starIcon"></i></sup></label>
+                </div>
+                <div class="col s12 m10">
+                    <select name="category" class="browser-default post_input_boader validateCat" id="bears_lists">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="teddy_bear">Teddy Bear</option>
+                        <option value="pokemon">Pokemon</option>
+                        <option value="unicorn">Unicorn</option>
+                        <option value="bunny">Bunny</option>
+                        <option value="dino">Dino</option>
+                        <option value="farm_zoo">Farm &amp; Zoo</option>
+                        <option value="misc">Misc</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5%">
+                <div class="col s12 m2">
+                    <label for="photos" class="orange-text text-darken-3 post_label_custom left">Photos <sup><i
+                                class="fas fa-star-of-life red-text starIcon"></i></sup></label>
+                </div>
+
+                <div class="col s12 m10">
+                    <div class="photo_box">
+                        <div class="row img_row">
+                            <div class="col s12 m6">
+                                <input id="file-upload_3" type="file" name="files" multiple />
+                                <img id="img_up_load_3" src="" style="display: none" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Description <sup><i
+                                class="fas fa-star-of-life red-text starIcon"></i></sup></label>
+                </div>
+                <div class="col s12 m10">
+                    <textarea rows="10" name="description" id="description_post"
+                        class="post_input_boader left"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m2">
+                    <label for="price" class="orange-text text-darken-3 post_label_custom left">Price <sup><i
+                                class="fas fa-star-of-life red-text starIcon"></i></sup></label>
+                </div>
+                <div class="col s12 m10">
+                    <label for="price" class="orange-text text-darken-3 left post_label_custom">$</label>
+                    <input type="textarea" id="price_post" name="ask_price" class="left post_input_boader"
+                        required="true" />
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <button type="submit" class="testCat btn orange darken-3 waves-effect" style="margin-top: 50px">
+                Post item
+            </button>
+        </form>
+    </div>
+</div>
+
+{{!--
+<!-- Script for displaying images -->
+<script>
+    function readURL01(input) {
+        console.log("readURL01");
+        $("#img_upload_btn_1").css("display", "none");
+        $("#img_up_load_1").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_1').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL02(input) {
+        console.log("readURL02");
+        $("#img_upload_btn_2").css("display", "none");
+        $("#img_up_load_2").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_2').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL03(input) {
+        console.log("readURL03");
+        $("#img_upload_btn_3").css("display", "none");
+        $("#img_up_load_3").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_3').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL04(input) {
+        console.log("readURL04");
+        $("#img_upload_btn_4").css("display", "none");
+        $("#img_up_load_4").css("display", "block")
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img_up_load_4').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>--}}
+<script type="text/javascript" src="/js/post.js"></script>
