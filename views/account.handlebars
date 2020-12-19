@@ -78,10 +78,10 @@
                 {{#each Postings}}
                 <div class="col s6">
                     <div class="card">
-                        <div class="card-content">
-                            <p class="title_tab_data" style="font-size:20px; font-weight:bold;">{{title}}</p>
-                            <p class="category_tab_data">{{category}}</p>
-                            <p class="price_tab_data">{{ask_price}}</p>
+                            <div class="card-content">
+                                <p class="title_tab_data" style="font-size:20px; font-weight:bold;">{{title}}</p>
+                                <p class="category_tab_data">{{category}}</p>
+                                <p class="price_tab_data">{{ask_price}}</p>
                             <!-- Dropdown Structure -->
                             <div>
                                 <p>Action:</p>
@@ -155,7 +155,7 @@
         <div id="account_tab" class="">
             <div class="container">
                 <div class="row">
-                    <div class="col s4">
+                    <div class="col l6 s12 center">
                         <div class="row">
                             {{#if Profile.profilePic}}
                             <img id="profile-img" src="{{Profile.profilePic}}" alt="">
@@ -163,60 +163,54 @@
                             <img id="profile-img" src="https://via.placeholder.com/150" alt="">
                             {{/if}}
                         </div>
-                        <input type="button" class="btn white orange-text text-darken-3 waves-effect left"
+                        <input id="pp-pic-btn" type="button" class="btn white orange-text text-darken-3 waves-effect"
                             value="Change" onclick="document.getElementById('file').click();" />
                         <form method='post' action="/profile-pic" enctype="multipart/form-data" id="pp-form">
                             <input type="file" style="display:none;" id="file" name="file" />
                         </form>
                     </div>
-                    <form class="col s8 post_item">
+                    <form class="col l6 s12 post_item center">
                         <div class="row">
-                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
                                 Name :
                             </div>
-                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
                                 <strong><span id="user_name">{{Profile.firstName}} {{Profile.lastName}}</span></strong>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
-                                Address :
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
+                                Address: 
                             </div>
-                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
                                 <strong><span id="user_address">{{Profile.address}}</span></strong>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
                                 email :
                             </div>
-                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
                                 <span id="user_email">{{Profile.email}}</span>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col s12 m3 orange-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m4 orange-text text-darken-3 post_label_custom left">
                                 Phone Number :
                             </div>
-                            <div class="col s12 m9 black-text text-darken-3 post_label_custom left">
+                            <div class="col s12 m8 black-text text-darken-3 post_label_custom left">
 
                                 <span id="user_phone">{{Profile.phoneNumber}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s12 m12">
-                                <div class="left" style="margin-top: 50px;">
-                                    <div class="row">
-                                        <div class="col s6 m6">
-                                            <button
-                                                class="btn white orange-text text-darken-3 waves-effect left account_edit_btn"
-                                                data-id="" id="" style=" border: solid 1px">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <button
+                                            class="btn white orange-text text-darken-3 waves-effect account_edit_btn"
+                                            data-id="" id="">Edit</button>
                             </div>
                         </div>
                     </form>
