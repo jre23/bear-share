@@ -3,6 +3,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <div class="container">
     <div class="row">
+        <div class="col">
+            <h3>{{this.title}}</h3>
+            <h5 id="price_product">${{ask_price}}</h5>
+        </div>
+    </div>
+    <div id="product-splide-row" class="row">
         <div class="col s12 m6 offset-m3 center">
             <div class="splide" data-indicators="true" style="margin:auto;">
                 <div class="splide__track">
@@ -20,80 +26,29 @@
     </div>
 
     <div class="row">
-        <div class="row">
-            <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left productId"
-                data-id="{{id}}">
-                Title :
-            </div>
-            <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-
-                <strong><span id="title_product">{{this.title}}</span></strong>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s2 m2 orange-text text-darken-3 post_label_custom left hide-on-small-only">
-                Price :
-            </div>
-            <div class="col s10 m10 black-text text-darken-3 post_label_custom left">
-
-                <span>$</span><span id="price_product">{{ask_price}}</span>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s4 m2 orange-text text-darken-3 post_label_custom left">
-                Category :
-            </div>
-            <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-
-                <span id="cagegory_product">{{category}}</span>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s12 m2">
-                <label for="title_name" class="orange-text text-darken-3 post_label_custom left">Description :
-                </label>
-            </div>
-            <div class="col s12 m10"
-                style="border: 1px solid rgb(179, 179, 179); border-radius:5px; margin-left:10px; padding: 10px; max-height: 350px; max-width:350px">
-
-                <div id="description_product">{{{description}}}</div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s4 m2 orange-text text-darken-3 post_label_custom left">
-                Seller :
-            </div>
-            <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
-
-                <span id="sellerId_product" class="action"><a class="btn orange darken-3 waves-effect left" href="../api/userInfo/{{userId}}">{{User.firstName}} {{User.lastName}}</a></span>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s0 m2"></div>
-            <div class="col s12 m10">
-                <div class="left" style="margin-top: 50px;">
-                    <div class="row">
-                        <div class="col s6 m6">
-                            <button id="message_btn" data-target="modal1"
-                                class="btn white orange-text text-darken-3 waves-effect left modal-trigger"
-                                data-id="{{userId}} {{id}}" style=" border: solid 1px">Message</button>
+        <div class="col s12 m5 right">
+            <div class="row">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content valign-wrapper">
+                            <img id="product-card-profile-img" src="{{User.profilePic}}">
+                            <span id="sellerId_product" class="product-card-username action"><a class="orange-text bold" href="../api/userInfo/{{userId}}">{{User.firstName}} {{User.lastName}}</a></span>
                         </div>
-                        <div class="col s6 m6">
-                            <button class="btn orange darken-3 waves-effect left" data-id="">Buy it now</button>
+                        <div class="card-action">
+                            <div id="product-profile-card" class="row valign-wrapper">
+                                    <button id="message_btn" data-target="modal1"
+                                    class="btn white orange-text text-darken-3 waves-effect modal-trigger"
+                                    data-id="{{userId}} {{id}}" style=" border: solid 1px">Message</button>
+                                    <button class="btn orange darken-3 waves-effect" data-id="">Buy</button>
+                            </div>                                
                         </div>
-                        <div class="clearfix"></div>
                     </div>
-                </div>
+                </div>                    
+            </div>
+        </div>
+        <div class="col s12 m6 left">
+            <div class="row">
+                <div id="description_product">{{{description}}}</div>
             </div>
         </div>
     </div>

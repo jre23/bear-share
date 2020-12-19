@@ -5,21 +5,23 @@ const db = require("../models");
 module.exports = (app) => {
     // route for landing page "/".
     app.get("/", (req, res) => {
-        if (req.user) {
-            db.Posting.findAll({}).then((data) => {
-                console.log(data);
+        db.Posting.findAll({}).then((data) => {
+            // Putting Images into Array
+            data.forEach((item) => {
+                let image_paths = item.dataValues.image_paths.trim().split(" ");
+                item.dataValues.image_paths = image_paths[0];
+            });
+
+            if (req.user) {
                 res.render("members", {
                     bearsList: data,
                 });
-            });
-        } else {
-            db.Posting.findAll({}).then((data) => {
-                // console.log(data);
+            } else {
                 res.render("index", {
                     bearsList: data,
                 });
-            });
-        }
+            }
+        });
     });
 
     // route for login page
@@ -62,40 +64,41 @@ module.exports = (app) => {
                         model: db.Posting,
                     },
                     {
-                        model: db.Message
+                        model: db.Message,
                     },
                     {
-                        model: db.PostingComment
+                        model: db.PostingComment,
                     },
                     {
-                        model: db.UserReview
-                    }]
+                        model: db.UserReview,
+                    },
+                ],
             })
                 .then((data) => {
                     //Creating PostingComment Array
                     let postingCommentArr = [];
-                    for(let i = 0; i < data[0].dataValues.PostingComments.length; i++){
+                    for (let i = 0; i < data[0].dataValues.PostingComments.length; i++) {
                         postingCommentArr.push(data[0].dataValues.PostingComments[i].dataValues);
                     }
 
                     //Creating UserReview Array
                     let userReviewArr = [];
-                    for(let i = 0; i < data[0].dataValues.UserReviews.length; i++){
+                    for (let i = 0; i < data[0].dataValues.UserReviews.length; i++) {
                         userReviewArr.push(data[0].dataValues.UserReviews[i].dataValues);
                     }
-                    
+
                     //Creating Posting Array
                     let postingArr = [];
                     for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
                         postingArr.push(data[0].dataValues.Postings[i].dataValues);
                     }
-                   
+
                     //Creating Message Array
                     let messageArr = [];
                     for (let i = 0; i < data[0].dataValues.Messages.length; i++) {
                         messageArr.push(data[0].dataValues.Messages[i].dataValues);
                     }
-                   
+
                     //this is for editing date for received date for message tab on account page points to messageArr
                     let count = 0;
                     let newMessageArr = [];
@@ -114,25 +117,26 @@ module.exports = (app) => {
                     let renderObj = {};
                     //Add in Profile data to render object
                     renderObj.Profile = data[0].dataValues;
-                    
+
                     //Check if the array is greater than 0 then add to the renderArr to renderObj
-                    if (postingArr.length !== 0){
+                    if (postingArr.length !== 0) {
                         renderObj.Postings = postingArr;
                     }
 
-                    if (messageArr.length !== 0){
+                    if (messageArr.length !== 0) {
                         renderObj.Messages = messageArr;
                     }
 
-                    if (postingCommentArr.length !== 0){
+                    if (postingCommentArr.length !== 0) {
                         renderObj.PostingComments = postingCommentArr;
                     }
 
-                    if (userReviewArr.length !== 0){
+                    if (userReviewArr.length !== 0) {
                         renderObj.UserReviews = userReviewArr;
                     }
                     console.log(renderObj);
-                res.render("account",renderObj)})
+                    res.render("account", renderObj);
+                })
                 .catch(function (err) {
                     res.status(404).json(err);
                 });
@@ -220,7 +224,7 @@ module.exports = (app) => {
                 include: [
                     {
                         model: db.User,
-                        attributes: ["firstName", "lastName"],
+                        attributes: ["firstName", "lastName", "profilePic"],
                     },
                 ],
             }).then(function (results) {
