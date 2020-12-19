@@ -388,16 +388,27 @@ module.exports = (app) => {
 
 
 
-
-    //Route to get all users with bear listings "/api/users/lists"  ???
-    //Route to get all bear with user listings "/api/postings/lists" ???
-
-    //Route to get all users with reviews "/api/users/reviews" ???
+    //This gets by userReviewedId
     app.get("/api/users/reviews/:userId", (req, res) => {
         console.log(req.params.userId);
         db.UserReview.findAll({
             where: {
                 userReviewedId: req.params.userId,
+            },
+            include: {
+                model: db.User,
+            },
+        }).then((data) => {
+            console.log(data);
+            res.json(data);
+        });
+    });
+    //This gets by reviewerId
+    app.get("/api/users/reviewed/:userId", (req, res) => {
+        console.log(req.params.userId);
+        db.UserReview.findAll({
+            where: {
+                reviewerId: req.user.id,
             },
             include: {
                 model: db.User,
