@@ -256,3 +256,30 @@ footer {
 .splide img {
     width: 250px;
 }
+
+#product-splide-row {
+    margin-bottom: 3rem;
+}
+
+#product-card-profile-img {
+    border-radius: 50%;
+    width: 50px;
+    margin-right: 5px;
+}
+
+#product-profile-card {
+    justify-content: center;
+}
+
+.product-card-username {
+    font-size: 1.5rem;
+}
+
+#description_product {
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+#message_btn {
+    margin-right: 5px;
+}
