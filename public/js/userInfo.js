@@ -31,7 +31,7 @@ $(document).ready(function () {
       divCardAction.attr("class", "card-action");
       
       pText.text(results[i].comment)
-      aUser.text(results[i].reviewerId);
+      aUser.text(results[i].fromName);
 
       aUser.attr("href", `../userInfo/${results[i].reviewerId}`)
       
