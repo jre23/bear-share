@@ -205,6 +205,10 @@ textarea {
     color: white;
 }
 
+#account_tab .row .col.s12 {
+    margin-bottom: 2rem;
+}
+
 /* Style for message Tab */
 .btn_tab_message {
     margin: auto 5px;
@@ -226,6 +230,7 @@ textarea {
 footer {
     background-color: #fbab7e;
     background-image: linear-gradient(180deg, #fbab7e 0%, #f7ce68 95%, #fff 100%);
+    /* background: url(../img/pattern.png) repeat; */
 }
 
 .links-row .col {
