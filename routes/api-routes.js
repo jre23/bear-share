@@ -49,7 +49,18 @@ module.exports = (app) => {
     app.post("/api/users/review", (req, res) => {
         let review = req.body;
         review["reviewerId"] = req.user.id;
-        db.UserReview.create(review)
+
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            // console.log(data);
+            let fromName = data[0].dataValues.firstName + " " + data[0].dataValues.lastName;
+            console.log(fromName);
+            review["fromName"] = fromName;
+            console.log(review);
+            db.UserReview.create(review)
             .then((data) => {
                 res.status(200);
                 res.redirect("back");
@@ -61,6 +72,7 @@ module.exports = (app) => {
             .catch(function (err) {
                 res.status(500).json(err);
             });
+        });
     });
 
     //Route to create a new review on a bear listing "/api/postings/comments"
