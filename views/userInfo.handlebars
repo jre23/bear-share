@@ -60,25 +60,26 @@
         <!-- Reviews About Tab -->
         <div id="reviewsAbout_tab" class="userReviewed" data-id="{{id}}">
             <div class="container">
-            <h5>Reviews About {{firstName}}</h5>
-            <div class="row reviewsAbout">
-                {{!-- This is an example card that is removed when userInfo.js runs --}}
-                <div class="col s6">
-                    <div class="card">
-                        <div class="card-content">
-                        </div>
-                        <div class="card-action">
-                            <a href="#"></a>
+                <h5>Reviews About {{firstName}}</h5>
+                <div class="row reviewsAbout">
+                    {{!-- This is an example card that is removed when userInfo.js runs --}}
+                    <div class="col s6">
+                        <div class="card">
+                            <div class="card-content">
+                            </div>
+                            <div class="card-action">
+                                <a href="#"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <form class="col s12 review_submit" style="border:1px solid #ccc; padding: 10px;" action="/api/users/review" method="POST">
-                <input id="userReviewedId" name="userReviewedId" type="hidden" value="{{id}}">
-                <label>Leave a review of {{firstName}}</label>
-                <textArea name="comment" type="text"></textArea>
-                <button class="waves-effect waves-green btn" style="margin-top:10px;">Submit</button>
-            </form>
+                <form class="col s12 review_submit" style="border:1px solid #ccc; padding: 10px;"
+                    action="/api/users/review" method="POST">
+                    <input id="userReviewedId" name="userReviewedId" type="hidden" value="{{id}}">
+                    <label>Leave a review of {{firstName}}</label>
+                    <textArea name="comment" type="text"></textArea>
+                    <button class="waves-effect waves-green btn" style="margin-top:10px;">Submit</button>
+                </form>
             </div>
         </div>
 
@@ -86,11 +87,13 @@
         <div id="message_tab_on_user_info">
             <div class="container">
                 <h5>Message</h5>
-            <form style="border:1px solid #ccc; padding: 10px;">
-                <label>Send a message to {{firstName}}</label>
-                <textarea id="msg_text_user_info" maxlength="500" placeholder="Write something here!!" style="border:1px solid #ccc; padding:10px; margin-bottom:0px; height:100px;"></textarea>
-                <button id="messageSendbtnOnUserInfo" data-toId={{id}} class="waves-effect waves-green btn" style="margin-top:10px;">Send</button>
-            </form>
+                <form style="border:1px solid #ccc; padding: 10px;">
+                    <label>Send a message to {{firstName}}</label>
+                    <textarea id="msg_text_user_info" maxlength="500" placeholder="Write something here!!"
+                        style="border:1px solid #ccc; padding:10px; margin-bottom:0px; height:100px;"></textarea>
+                    <button id="messageSendbtnOnUserInfo" data-toId={{id}} class="waves-effect waves-green btn"
+                        style="margin-top:10px;">Send</button>
+                </form>
             </div>
         </div>
         <!-- New Message Tab -->
