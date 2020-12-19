@@ -2,6 +2,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: "Karla", sans-serif;
 }
 
 main {
@@ -182,4 +183,12 @@ textarea {
 .btn_tab_message:active {
     background-color: #ee6c00;
     color: white;
+}
+
+.links-row .col {
+    margin-right: 1rem;
+}
+
+.links-row .col li {
+    padding: 0 1rem 1rem 0;
 }

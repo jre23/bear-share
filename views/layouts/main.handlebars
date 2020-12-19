@@ -10,7 +10,10 @@
 	<!-- Materialize CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
+    {{!-- Google Font CSS --}}
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
 	<!-- Customized CSS-->
 
 	<link href="/stylesheets/style.css" rel="stylesheet">
@@ -32,7 +35,7 @@
 <body>
     <header>
 	<!-- No Member Nav -->
-	<nav class="white navTextColor no_members_fixed_btn" id="" style="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
+	<nav class="orange lighten-3 navTextColor no_members_fixed_btn" id="" style="padding-top: 1%; padding-bottom: 1%; height: 80px; margin-bottom: 5%;">
 		<div class="nav-wrapper">
 
 			<a href="/" class="brand-logo center"><img src="/img/logo2.png" width="90px"></a>
@@ -96,25 +99,31 @@
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
-					<h5 class="white-text">Footer Content</h5>
-					<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-						content.</p>
+					<h5 class="white-text">Bear Share</h5>
+					<p class="grey-text text-lighten-4">Your home to buy, sell or trade your favorite stuffed animal and connect with others. Slide on in!</p>
 				</div>
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Links</h5>
-					<ul>
-
-						<li><a class="grey-text text-lighten-3" href="/">Lists</a></li>
-						<li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
-						<li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
-						<li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
-					</ul>
+                    <div class="links-row row">
+                        <div class="col l3 s12">
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="/">Listings</a></li>
+                                <li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
+                            </ul>
+                        </div>
+                        <div class="col l3 s12">
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
+                                <li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
+                            </ul>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
 		<div class="footer-copyright">
 			<div class="container center">
-				© 2020 Copyright
+				© 2020 Copyright Bear Share, Inc. 
 			</div>
 		</div>
 	</footer>
