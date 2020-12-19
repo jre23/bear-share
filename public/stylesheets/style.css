@@ -240,3 +240,11 @@ footer {
 .links-row .col li {
     padding: 0 1rem 1rem 0;
 }
+
+.carousel img {
+    width: 250px;
+}
+
+.splide img {
+    width: 250px;
+}
