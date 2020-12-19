@@ -73,7 +73,8 @@
             </div>
             <div class="col s12 m10 black-text text-darken-3 post_label_custom left">
 
-                <span id="sellerId_product" class="action"><a class="btn orange darken-3 waves-effect left" href="../api/userInfo/{{userId}}">{{User.firstName}} {{User.lastName}}</a></span>
+                <span id="sellerId_product" class="action"><a class="btn orange darken-3 waves-effect left"
+                        href="../api/userInfo/{{userId}}">{{User.firstName}} {{User.lastName}}</a></span>
 
             </div>
         </div>
@@ -99,7 +100,7 @@
     </div>
     <!-- TextArea for message -->
     <row>
-    <div id="message_form"></div>
+        <div id="message_form"></div>
     </row>
 
     <h5>Reviews</h5>
@@ -118,20 +119,29 @@
     </div>
 </div>
 </div>
-<div class="row">
-    <div class="col s12 m6 center">
+<div class="container">
+    <div class="row">
         <form class="review_submit" action="/api/postings/comments" method="POST">
-            <input id="postingId" name="postingId" type="hidden" value="{{id}}">
-            <label>Leave a review for {{title}}</label>
-            <i class="material-icons prefix">mode_edit</i>
-            <textarea id="icon_prefix2" name="comment" type="text" class="materialize-textarea" placeholder="Leave a review"></textarea>
-            <button class="btn waves-effect waves-light">Submit
-                <i class="material-icons right">send</i>
-            </button>
+            <div class="row">
+                <div class="col s12 m6">
+                <input id="postingId" name="postingId" type="hidden" value="{{id}}">
+                <label class="left">Leave a review for {{title}}<i
+                        class="material-icons black-text">mode_edit</i></label>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m10">
+                <textarea id="" name="comment" type="text" class="materialize-textarea left"
+                    placeholder="Leave a review"></textarea>
+                <button class="btn orange darken-3 waves-effect" style="margin-top:10px;">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
 <script>
-	new Splide( '.splide' ).mount();
+    new Splide('.splide').mount();
 </script>
 <script type="text/javascript" src="/js/product.js"></script>
