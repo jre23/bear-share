@@ -67,12 +67,10 @@ module.exports = (app) => {
                         model: db.Message,
                     },
                     {
-                        model: db.PostingComment,
-                    },
-                    {
-                        model: db.UserReview,
-                    },
-                ],
+
+                        model: db.PostingComment
+                    }
+                ]
             })
                 .then((data) => {
                     //Creating PostingComment Array
@@ -80,13 +78,6 @@ module.exports = (app) => {
                     for (let i = 0; i < data[0].dataValues.PostingComments.length; i++) {
                         postingCommentArr.push(data[0].dataValues.PostingComments[i].dataValues);
                     }
-
-                    //Creating UserReview Array
-                    let userReviewArr = [];
-                    for (let i = 0; i < data[0].dataValues.UserReviews.length; i++) {
-                        userReviewArr.push(data[0].dataValues.UserReviews[i].dataValues);
-                    }
-
                     //Creating Posting Array
                     let postingArr = [];
                     for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
@@ -130,10 +121,7 @@ module.exports = (app) => {
                     if (postingCommentArr.length !== 0) {
                         renderObj.PostingComments = postingCommentArr;
                     }
-
-                    if (userReviewArr.length !== 0) {
-                        renderObj.UserReviews = userReviewArr;
-                    }
+                    console.log("======renderObj========")
                     console.log(renderObj);
                     res.render("account", renderObj);
                 })

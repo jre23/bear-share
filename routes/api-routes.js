@@ -49,7 +49,18 @@ module.exports = (app) => {
     app.post("/api/users/review", (req, res) => {
         let review = req.body;
         review["reviewerId"] = req.user.id;
-        db.UserReview.create(review)
+
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            // console.log(data);
+            let fromName = data[0].dataValues.firstName + " " + data[0].dataValues.lastName;
+            console.log(fromName);
+            review["fromName"] = fromName;
+            console.log(review);
+            db.UserReview.create(review)
             .then((data) => {
                 res.status(200);
                 res.redirect("back");
@@ -61,6 +72,7 @@ module.exports = (app) => {
             .catch(function (err) {
                 res.status(500).json(err);
             });
+        });
     });
 
     //Route to create a new review on a bear listing "/api/postings/comments"
@@ -215,7 +227,7 @@ module.exports = (app) => {
         });
     });
 
-    // Route for Sending Reply Messages Form
+    // Route for Sending Reply Messages Form with ProductID
     app.get("/api/reply/:toId/:productId/:messageId", (req, res) => {
         console.log("req.params.toId");
         console.log(req.params.toId);
@@ -254,7 +266,45 @@ module.exports = (app) => {
                 productPrice: data[0].dataValues.Posting.dataValues.ask_price,
                 lastContents: data[0].dataValues.contents,
                 messageId: data[0].dataValues.id,
-                toId: data[0].dataValues.fromId
+                toId: data[0].dataValues.fromId,
+                toName: data[0].dataValues.fromName
+            }
+            console.log("============userProductInfo========");
+            console.log(userProductInfo);
+            res.json(userProductInfo);
+        });
+    });
+
+    // Route for Sending Reply Messages Form WITHOUT ProductID
+    app.get("/api/reply/:toId/:messageId", (req, res) => {
+        console.log("req.params.toId");
+        console.log(req.params.toId);
+        let toId = req.params.toId;
+        let fromId = req.user.id;
+        console.log("fromId");
+        console.log(fromId);
+        db.Message.findAll({
+            where: {
+                id: req.params.messageId
+            },
+            include: [{
+                    model: db.User
+                }
+            ]
+        }).then((data) => {
+            console.log("====================Server Side toID!!!====================");
+            console.log(data[0].dataValues);
+
+            // console.log(data[0].dataValues.Postings[0].dataValues);
+            // // console.log(data[0].dataValues.Posting.dataValues);
+            let userProductInfo = {
+                userId: data[0].dataValues.User.dataValues.id,
+                firstName: data[0].dataValues.User.dataValues.firstName,
+                lastName: data[0].dataValues.User.dataValues.lastName,
+                lastContents: data[0].dataValues.contents,
+                messageId: data[0].dataValues.id,
+                toId: data[0].dataValues.fromId,
+                toName: data[0].dataValues.fromName
             }
             console.log("============userProductInfo========");
             console.log(userProductInfo);
@@ -264,21 +314,30 @@ module.exports = (app) => {
 
     // Store messages to Message Model
     app.post("/api/message/", function (req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         console.log("req.user.id");
-        console.log(req.user.id);
+        // console.log(req.user.id); 
         let message = req.body;
         message["fromId"] = req.user.id;
-        console.log(message);
-        // if(req.user.id == req.body.toId){
-        //     res.json(message);
-        // }
-        // else{
-        db.Message.create(message).then((data) => {
-            res.json(data);
+        // console.log(message);
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            console.log(data[0].dataValues.firstName);
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            console.log("message");
+            console.log(message);
+            if(req.user.id == req.body.toId){
+                res.json(message);
+            }
+            else{
+                db.Message.create(message).then((data) => {
+                    res.json(data);
+                });
+            }
         });
-
-        // }
 
     });
 
@@ -290,14 +349,33 @@ module.exports = (app) => {
         let message = req.body;
         message["fromId"] = req.user.id;
         console.log(message);
+        
+        db.User.findAll({
+            where: {
+                id: req.user.id
+            }
+        }).then((data) =>{
+            console.log(data[0].dataValues.firstName);
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            console.log("message");
+            console.log(message);
+            if(req.user.id == req.body.toId){
+                res.json(message);
+            }
+            else{
+                db.Message.create(message).then((data) => {
+                    res.json(data);
+                });
+            }
+        });
+
         // if(req.user.id == req.body.toId){
         //     res.json(message);
         // }
         // else{
-        db.Message.create(message).then((data) => {
-            res.json(data);
-        });
-
+        //     db.Message.create(message).then((data) => {
+        //         res.json(data);
+        //     });
         // }
 
     });
@@ -322,16 +400,27 @@ module.exports = (app) => {
 
 
 
-
-    //Route to get all users with bear listings "/api/users/lists"  ???
-    //Route to get all bear with user listings "/api/postings/lists" ???
-
-    //Route to get all users with reviews "/api/users/reviews" ???
+    //This gets by userReviewedId
     app.get("/api/users/reviews/:userId", (req, res) => {
         console.log(req.params.userId);
         db.UserReview.findAll({
             where: {
                 userReviewedId: req.params.userId,
+            },
+            include: {
+                model: db.User,
+            },
+        }).then((data) => {
+            console.log(data);
+            res.json(data);
+        });
+    });
+    //This gets by reviewerId
+    app.get("/api/users/reviewed/:userId", (req, res) => {
+        console.log(req.params.userId);
+        db.UserReview.findAll({
+            where: {
+                reviewerId: req.user.id,
             },
             include: {
                 model: db.User,

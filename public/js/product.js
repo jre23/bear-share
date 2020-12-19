@@ -86,10 +86,10 @@ $("#message_btn").on("click", (e) => {
         <div class="row" style="border:1px solid #ccc; padding: 10px;">
         <div class="row" style="margin-bottom: 0;">
             <div class="col s3 m2 l1">
-                <img src="${userProductInfo.imgPath}" width="75px" height="100px" alt="product image"
+                <img src="${userProductInfo.imgPath}" width="75px" height="100px" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';"
                     style="border:1px solid #ccc;">
             </div>
-            <div class="col s4 m4">
+            <div class="col s4 m4 left">
                 <h5 style="margin-top:0;">${userProductInfo.title}</h5>
                 <p>${userProductInfo.category}</p>
                 <p>$ ${userProductInfo.price}</p>

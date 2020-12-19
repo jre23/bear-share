@@ -7,7 +7,7 @@
             <ul class="tabs">
                 <li class="tab col m3 l3"><a href="#selling_tab">Selling</a></li>
                 <li class="tab col m3 l3"><a href="#message_tab">Message</a></li>
-                <li class="tab col m3 l3"><a href="#reviews_tab">Reviews</a></li>
+                <li class="tab col m3 l3 getUserReviews"><a href="#reviews_tab">Reviews</a></li>
                 <li class="tab col m3 l3"><a class="active" href="#account_tab">Account</a></li>
             </ul>
         </div>
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="col s2">
-                        <button class='dropdown-trigger btn endItem' data-id={{id}}>Delete Item</button>
+                        <button class='dropdown-trigger btn_tab_message endItem' data-id={{id}}><i class="fas fa-trash-alt" data-id={{id}}></i></button>
                         {{!-- <div class="col s2">
                             <a class='dropdown-trigger btn' data-id="" href='#' data-activates='dropdown_selling_tab'>
                                 <span id="account_dropdown_btn_status">On sale</span></a>
@@ -123,8 +123,8 @@
                     <!-- Iterate lists from DB -->
                     {{#each Messages}}
                     <div class="row center" style="border-bottom:solid 1px rgb(214, 214, 214); padding-bottom:10px;">
-                        <div class="col s2">
-                            <span class="">{{this.fromId}}</span>
+                        <div class="col s2" id="fromNameStyle">
+                            <a href="/api/userInfo/{{this.fromId}}"><span class="">{{this.fromName}}</span></a>
                         </div>
                         <div class="col s6">
                             <span class="left">{{{this.contents}}}</span>
@@ -152,65 +152,8 @@
 
             </div>
         </div>
-
-        <!-- review Tab -->
-        <div id="reviews_tab" class="">
-            <div class="container">
-                <div class="row">
-                <h5>Past Product Reviews</h5>
-            {{#each PostingComments}}
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <form action="/api/postings/comments/delete/{{id}}" method="POST" class="right-align">
-                                <button class="waves-effect waves-light btn red" type="submit">Delete</button>
-                            </form>
-                            <p class="review_text">{{comment}}</p>
-                            
-                        </div>
-                        <div class="row">
-                            <form action="/api/postings/comments/update/{{id}}" method="POST" class="col s12"> 
-                                <label for="new_comment_{{id}}">Update Post</label>
-                                <textarea placeholder="write a new comment" id="new_comment_{{id}}" type="text" name="comment" class="validate col s6"></textarea>
-                                <button class="waves-effect waves-light btn green" type="submit" href="#">Update</button>
-                                
-                            </form>
-                            
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
-            </div>
-            <div class="row">
-            <h5>Past User Reviews</h5>
-           {{#each UserReviews}}
-            <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <form action="/api/user/reviews/delete/{{id}}" method="POST" class="right-align">
-                                <button class="waves-effect waves-light btn red" type="submit">Delete</button>
-                            </form>
-                            <p class="review_text">{{comment}}</p>
-                            
-                        </div>
-                        <div class="row">
-                            <form action="/api/user/reviews/update/{{id}}" method="POST" class="col s12"> 
-                                <label for="new_comment_{{id}}">Update Post</label>
-                                <textarea placeholder="write a new comment" id="new_comment_{{id}}" type="text" name="comment" class="validate col s6"></textarea>
-                                <button class="waves-effect waves-light btn green" type="submit" href="#">Update</button>
-                                
-                            </form>
-                            
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
-            </div>
-            </div>
-        </div>
-
-        <!-- account Tab -->
-        <div id="account_tab" class="">
+<!-- account Tab -->
+        <div id="account_tab" class="userData" data-id="{{Profile.id}}">
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12 center">
@@ -321,5 +264,40 @@
         </div>
     </div>
 </div>
+        <!-- review Tab -->
+        <div id="reviews_tab" class="">
+            <div class="container">
+                <div class="row">
+                <h5>Past Product Reviews</h5>
+            {{#each PostingComments}}
+                <div class="col s12">
+                    <div class="card" style="padding: 10px;">
+                        <div class="card-content">
+                            <form action="/api/postings/comments/delete/{{id}}" method="POST" class="right-align">
+                                <button class="waves-effect waves-light btn_tab_message" style="height: 30px;" type="submit"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                            <p class="review_text">{{{comment}}}</p>
+                            
+                        </div>
+                        <div class="row">
+                            <form action="/api/postings/comments/update/{{id}}" method="POST" class="col s12"> 
+                                <label for="new_comment_{{id}}">Update Post</label>
+                                <textarea placeholder="write a new comment" id="new_comment_{{id}}" type="text" name="comment" class="validate col s6"></textarea>
+                                <button class="waves-effect waves-light btn_tab_message green" style="height: 30px; margin-top:10px;" type="submit" href="#"><i class="fas fa-edit"></i></button>  
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            </div>
+            <div class="row">
+                <h5>Past User Reviews</h5>
+                <div class-"col s12">
+                <div id="reviewsAbout_tab" class="reviewsAbout"></div>
+                </div>
+            </div>
+        </div>
+        
 
 <script type="text/javascript" src="/js/account.js"></script>
