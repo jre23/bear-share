@@ -331,7 +331,6 @@ module.exports = (app) => {
             },
             include: {
                 model: db.User,
-                attributes: ["firstName", "lastName"],
             },
         }).then((data) => {
             console.log(data);
@@ -376,10 +375,41 @@ module.exports = (app) => {
             // render the users account page again???
         });
     });
-
-    //update username, password, listings, and reviews
-    //Route to update a bear from database "/api/postings/id/:id"
-    //update name, value, picture, url, category
+    //Update route for user comments on postings
+    app.post("/api/postings/comments/update/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.PostingComment.update({
+            comment: req.body.comment,
+        },
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    //Update route for user reviews about other users
+    app.post("/api/user/reviews/update/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.UserReview.update({
+            comment: req.body.comment,
+        },
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    
 
     //admin can update anything?
 
@@ -417,6 +447,36 @@ module.exports = (app) => {
             console.log(e)
         });
     });
+    //Delete route for user reviews about other users
+    app.post("/api/user/reviews/delete/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.UserReview.destroy(
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
+    //Delete route for user comments on postings
+    app.post("/api/postings/comments/delete/:commentId", (req, res) => {
+        console.log(req.body.comment)
+        db.PostingComment.destroy(
+        {
+            where: {
+                id: req.params.commentId
+            }
+        }).then((data) => {
+            res.status(200);
+            res.redirect("back");
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    })
 
     //admin can delete anything?
 };
