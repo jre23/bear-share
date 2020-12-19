@@ -55,6 +55,7 @@ Please see the following for a list of technologies used in this project:
 * Passport
 * AWS Simple Secure Storage
 * Tiny Cloud
+* JawsDB
 
 ## Installation
 
