@@ -3,15 +3,22 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <div class="container">
     <div class="row">
-        <div class="col s0 m2"></div>
-        <div class="col s12 m10" style="height:370px;">
-            <div class="carousel carousel-slider left" data-indicators="true" style="margin:auto;">
-                <a class="carousel-item" href="#"><img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" ></a>
-                <a class="carousel-item" href="#"><img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" ></a>
-                <a class="carousel-item" href="#"><img src="{{image_paths}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" ></a>
+        <div class="col s12 m6 offset-m3 center">
+            <div class="splide" data-indicators="true" style="margin:auto;">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        {{#each image_paths}}
+                        <li class="splide__slide"><img src="{{this}}" alt=""></li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{!-- {{#each image_paths}}
+                <a class="carousel-item" href="#{{@index}}"><img src="{{this}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" ></a>
+                {{/each}} --}}
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="row">
             <div class="col s12 m2 hide-on-small-only orange-text text-darken-3 post_label_custom left productId"
@@ -112,14 +119,19 @@
 </div>
 </div>
 <div class="row">
-    <form class="col s6 review_submit" action="/api/postings/comments" method="POST">
-        <input id="postingId" name="postingId" type="hidden" value="{{id}}">
-        <label>Leave a review for {{title}}</label>
-        <i class="material-icons prefix">mode_edit</i>
-        <textarea id="icon_prefix2" name="comment" type="text" class="materialize-textarea" placeholder="Leave a review"></textarea>
-        <button class="btn waves-effect waves-light">Submit
-            <i class="material-icons right">send</i>
-        </button>
-    </form>
+    <div class="col s12 m6 center">
+        <form class="review_submit" action="/api/postings/comments" method="POST">
+            <input id="postingId" name="postingId" type="hidden" value="{{id}}">
+            <label>Leave a review for {{title}}</label>
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea id="icon_prefix2" name="comment" type="text" class="materialize-textarea" placeholder="Leave a review"></textarea>
+            <button class="btn waves-effect waves-light">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
 </div>
+<script>
+	new Splide( '.splide' ).mount();
+</script>
 <script type="text/javascript" src="/js/product.js"></script>
