@@ -211,14 +211,58 @@
                                 <div class="left" style="margin-top: 50px;">
                                     <div class="row">
                                         <div class="col s6 m6">
-                                            <button class="btn white orange-text text-darken-3 waves-effect left"
-                                                data-id="" id="account_edit_btn"
-                                                style=" border: solid 1px">Edit</button>
+                                            <button
+                                                class="btn white orange-text text-darken-3 waves-effect left account_edit_btn"
+                                                data-id="" id="" style=" border: solid 1px">Edit</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </form>
+                </div>
+
+                <div class="row hide edit" data-id="hidden">
+                    <form class="col s8 offset-s2 signup">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="First Name" id="first_name_input" type="text" class="validate">
+                                <label for="first_name">First Name <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Last Name" id="last_name_input" type="text" class="validate">
+                                <label for="last_name">Last Name <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter mobile phone" id="mobile_number_input" type="text"
+                                    class="validate">
+                                <label for="last_name">Mobile Phone</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter address" id="address_input" type="text" class="validate">
+                                <label for="last_name">Address</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Enter email address" id="email_input" type="email" class="validate">
+                                <label for="email">Email <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input disabled placeholder="Password not editable" id="password_input" type="password"
+                                    class="validate">
+                                <label for="password">Password <sup><i class="fas"></i></sup></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="editAccount btn orange darken-3 waves-effect">Edit Account</button>
                     </form>
                 </div>
             </div>
