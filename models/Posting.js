@@ -1,3 +1,6 @@
+// This creates the Posting model using sequelize ORM. 
+// The columns include title, description, category, image_paths, ask_price.
+// This table is used for the posting system that allows users to post their bears.
 module.exports = function (sequelize, DataTypes) {
     var Posting = sequelize.define("Posting", {
         title: {
@@ -25,7 +28,9 @@ module.exports = function (sequelize, DataTypes) {
             defaultValue: 0,
         },
     });
-
+    // This table is associated with the PostingComment model under the foreign key postingId,
+    // Message model under the foreign key productId,
+    // User model under the foreign key userId.
     Posting.associate = function (models) {
         // Associating Posting with PostingComment
         Posting.hasMany(models.PostingComment, {
@@ -47,6 +52,5 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade",
         });
     };
-
     return Posting;
 };

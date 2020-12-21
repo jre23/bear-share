@@ -1,3 +1,4 @@
+// This selects the document and runs after it loads.
 $(document).ready(function () {
     console.log("search.js")
 
@@ -9,10 +10,12 @@ $(document).ready(function () {
             console.log(data);
             if (isNaN(data)) {
                 // show navbar for user not logged in
+                // This selects the class members_fixed_btn and sets the css display to block.
                 $(".no_members_fixed_btn").css("display", "block");
                 $(".members_fixed_btn").css("display", "none");
             } else {
                 // show navbar for user logged in
+                // This selects the class no_members_fixed_btn and sets the css display to none.
                 $(".no_members_fixed_btn").css("display", "none");
                 $(".members_fixed_btn").css("display", "block");
             }
@@ -21,31 +24,19 @@ $(document).ready(function () {
             console.log(e)
         });
 
-    // search button event handler on search page
+    // This adds a search button event handler on search page.
     $(".searchButton").on("click", event => {
-        // grab reference to search input
+        // This grabs the  reference to search input.
         let searchInput = $(".input").val().trim().replace(/\s+/g, " ");
         if (searchInput === "") {
             return alert("Empty search input");
         }
     });
-
-    // this event handler is so the user can also press enter to search instead of having to click the search button
+    // This event handler is so the user can also press enter to search instead of having to click the search button.
     $(".searchField").keypress(enter => {
         if (enter.which === 13) {
             $(".searchButton").click();
             return false;
         }
-    });
-
-    $(".testBtn").on('click', (e) => {
-        e.preventDefault();
-        let id = $(e.target).data("id");
-        console.log(id);
-        $.get(`/api/product/${id}`).then((result) => {
-            // window.location.replace("/product");
-            // location.reload();   
-            // res.end();
-        });
     });
 });

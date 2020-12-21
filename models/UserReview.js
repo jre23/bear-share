@@ -1,3 +1,6 @@
+// This creates the UserReview model using sequelize ORM. 
+// The columns include comment, and fromName.
+// This table is used to store user reviews about other users.
 module.exports = function (sequelize, DataTypes) {
     var UserReview = sequelize.define("UserReview", {
         comment: {
@@ -13,11 +16,9 @@ module.exports = function (sequelize, DataTypes) {
             len: [1],
         }
     });
-
+    // This table is associated with the User model under the foreign key reviewerId,
+    // User model under the foreign key userReviewedId.
     UserReview.associate = function (models) {
-        // We're saying that a UserReview should belong to an User
-        // A UserReview can't be created without an User due to the foreign key constraint
-        // UserReview.belongsTo(models.User, { as: "reviewer" });
         UserReview.belongsTo(models.User, {
             foreignKey: {
                 name: "reviewerId",
@@ -32,6 +33,5 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade",
         });
     };
-
     return UserReview;
 };
