@@ -54,24 +54,24 @@ module.exports = (app) => {
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
+        }).then((data) => {
             // console.log(data);
             let fromName = data[0].dataValues.firstName + " " + data[0].dataValues.lastName;
             console.log(fromName);
             review["fromName"] = fromName;
             console.log(review);
             db.UserReview.create(review)
-            .then((data) => {
-                res.status(200);
-                res.redirect("back");
-                // This needs the reviewerId and userReviewedId in the object sent
+                .then((data) => {
+                    res.status(200);
+                    res.redirect("back");
+                    // This needs the reviewerId and userReviewedId in the object sent
 
-                // reload that users page with the reviews underneath
-                // console.log(data);
-            })
-            .catch(function (err) {
-                res.status(500).json(err);
-            });
+                    // reload that users page with the reviews underneath
+                    // console.log(data);
+                })
+                .catch(function (err) {
+                    res.status(500).json(err);
+                });
         });
     });
 
@@ -130,7 +130,11 @@ module.exports = (app) => {
 
     //Route to get a single user's userId
     app.get("/api/users", (req, res) => {
-        res.json(req.user.id);
+        if (req.user) {
+            res.json(req.user.id);
+        } else {
+            res.json(res);
+        }
     });
 
     // route to get all of user's info for account page used by account.js
@@ -288,9 +292,8 @@ module.exports = (app) => {
                 id: req.params.messageId
             },
             include: [{
-                    model: db.User
-                }
-            ]
+                model: db.User
+            }]
         }).then((data) => {
             console.log("====================Server Side toID!!!====================");
             console.log(data[0].dataValues);
@@ -324,15 +327,14 @@ module.exports = (app) => {
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
+        }).then((data) => {
             console.log(data[0].dataValues.firstName);
-            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName
             console.log("message");
             console.log(message);
-            if(req.user.id == req.body.toId){
+            if (req.user.id == req.body.toId) {
                 res.json(message);
-            }
-            else{
+            } else {
                 db.Message.create(message).then((data) => {
                     res.json(data);
                 });
@@ -349,20 +351,19 @@ module.exports = (app) => {
         let message = req.body;
         message["fromId"] = req.user.id;
         console.log(message);
-        
+
         db.User.findAll({
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
+        }).then((data) => {
             console.log(data[0].dataValues.firstName);
-            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName
             console.log("message");
             console.log(message);
-            if(req.user.id == req.body.toId){
+            if (req.user.id == req.body.toId) {
                 res.json(message);
-            }
-            else{
+            } else {
                 db.Message.create(message).then((data) => {
                     res.json(data);
                 });
@@ -475,8 +476,7 @@ module.exports = (app) => {
         console.log(req.body.comment)
         db.PostingComment.update({
             comment: req.body.comment,
-        },
-        {
+        }, {
             where: {
                 id: req.params.commentId
             }
@@ -492,8 +492,7 @@ module.exports = (app) => {
         console.log(req.body.comment)
         db.UserReview.update({
             comment: req.body.comment,
-        },
-        {
+        }, {
             where: {
                 id: req.params.commentId
             }
@@ -504,7 +503,7 @@ module.exports = (app) => {
             res.status(500).json(err);
         });
     })
-    
+
 
     //admin can update anything?
 
@@ -545,8 +544,7 @@ module.exports = (app) => {
     //Delete route for user reviews about other users
     app.post("/api/user/reviews/delete/:commentId", (req, res) => {
         console.log(req.body.comment)
-        db.UserReview.destroy(
-        {
+        db.UserReview.destroy({
             where: {
                 id: req.params.commentId
             }
@@ -560,8 +558,7 @@ module.exports = (app) => {
     //Delete route for user comments on postings
     app.post("/api/postings/comments/delete/:commentId", (req, res) => {
         console.log(req.body.comment)
-        db.PostingComment.destroy(
-        {
+        db.PostingComment.destroy({
             where: {
                 id: req.params.commentId
             }

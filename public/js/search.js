@@ -1,7 +1,25 @@
 $(document).ready(function () {
     console.log("search.js")
-    $(".no_members_fixed_btn").css("display", "block");
-    $(".members_fixed_btn").css("display", "none");
+
+    // this ajax call checks if a user is logged in or not to determine what nav bar to show when a user conducts a search
+    $.ajax("/api/users", {
+            type: "GET",
+        })
+        .then(data => {
+            console.log(data);
+            if (isNaN(data)) {
+                // show navbar for user not logged in
+                $(".no_members_fixed_btn").css("display", "block");
+                $(".members_fixed_btn").css("display", "none");
+            } else {
+                // show navbar for user logged in
+                $(".no_members_fixed_btn").css("display", "none");
+                $(".members_fixed_btn").css("display", "block");
+            }
+        })
+        .catch((e) => {
+            console.log(e)
+        });
 
     // search button event handler on search page
     $(".searchButton").on("click", event => {
