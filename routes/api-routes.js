@@ -53,7 +53,7 @@ module.exports = (app) => {
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
+        }).then((data) => {
             let fromName = data[0].dataValues.firstName + " " + data[0].dataValues.lastName;
             review["fromName"] = fromName;
             db.UserReview.create(review)
@@ -87,12 +87,11 @@ module.exports = (app) => {
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
-            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
-            if(req.user.id == req.body.toId){
+        }).then((data) => {
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName
+            if (req.user.id == req.body.toId) {
                 res.json(message);
-            }
-            else{
+            } else {
                 db.Message.create(message).then((data) => {
                     res.json(data);
                 });
@@ -107,12 +106,11 @@ module.exports = (app) => {
             where: {
                 id: req.user.id
             }
-        }).then((data) =>{
-            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName 
-            if(req.user.id == req.body.toId){
+        }).then((data) => {
+            message["fromName"] = data[0].dataValues.firstName + " " + data[0].dataValues.lastName
+            if (req.user.id == req.body.toId) {
                 res.json(message);
-            }
-            else{
+            } else {
                 db.Message.create(message).then((data) => {
                     res.json(data);
                 });
@@ -148,7 +146,11 @@ module.exports = (app) => {
     });
     // Route to get a single user's userId
     app.get("/api/users", (req, res) => {
-        res.json(req.user.id);
+        if (req.user) {
+            res.json(req.user.id);
+        } else {
+            res.json(res);
+        }
     });
     // Route to get all of user's info for account page used by account.js
     app.get("/api/userInfo", (req, res) => {
@@ -234,9 +236,8 @@ module.exports = (app) => {
                 id: req.params.messageId
             },
             include: [{
-                    model: db.User
-                }
-            ]
+                model: db.User
+            }]
         }).then((data) => {
             let userProductInfo = {
                 userId: data[0].dataValues.User.dataValues.id,
@@ -312,8 +313,7 @@ module.exports = (app) => {
     app.post("/api/postings/comments/update/:commentId", (req, res) => {
         db.PostingComment.update({
             comment: req.body.comment,
-        },
-        {
+        }, {
             where: {
                 id: req.params.commentId
             }
@@ -328,8 +328,7 @@ module.exports = (app) => {
     app.post("/api/user/reviews/update/:commentId", (req, res) => {
         db.UserReview.update({
             comment: req.body.comment,
-        },
-        {
+        }, {
             where: {
                 id: req.params.commentId
             }
@@ -358,8 +357,7 @@ module.exports = (app) => {
     });
     //Delete route for user reviews about other users
     app.post("/api/user/reviews/delete/:commentId", (req, res) => {
-        db.UserReview.destroy(
-        {
+        db.UserReview.destroy({
             where: {
                 id: req.params.commentId
             }
@@ -372,8 +370,7 @@ module.exports = (app) => {
     })
     //Delete route for user comments on postings
     app.post("/api/postings/comments/delete/:commentId", (req, res) => {
-        db.PostingComment.destroy(
-        {
+        db.PostingComment.destroy({
             where: {
                 id: req.params.commentId
             }
