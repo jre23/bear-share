@@ -1,38 +1,22 @@
+// This selects the document and runs after it loads.
 $(document).ready(function () {
-  console.log("members JS");
+  // This selects the class no_members_fixed_btn and sets the css display to none.
   $(".no_members_fixed_btn").css("display", "none");
+  // This selects the class members_fixed_btn and sets the css display to block.
   $(".members_fixed_btn").css("display", "block");
-
-  // search button event handler on index page
+  // This puts a search button event handler on the index page.
   $(".searchButton").on("click", event => {
-    // grab reference to search input
+    // This grabs the reference to search input.
     let searchInput = $(".input").val().trim().replace(/\s+/g, " ");
     if (searchInput === "") {
       return alert("Empty search input");
     }
   });
-
-  // this event handler is so the user can also press enter to search instead of having to click the search button
+  // This event handler is so the user can also press enter to search instead of having to click the search button.
   $(".searchField").keypress(enter => {
     if (enter.which === 13) {
       $(".searchButton").click();
       return false;
     }
   });
-
-  $(".testBtn").on('click', (e) => {
-    e.preventDefault();
-
-    let id = $(e.target).data("id");
-    console.log(id);
-    $.get(`/api/product/${id}`).then((result) => {
-      // window.location.replace("/product");
-      // location.reload();
-
-
-      // res.end();
-    });
-
-  });
-
 });

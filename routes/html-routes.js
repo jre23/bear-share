@@ -1,9 +1,10 @@
+// HTML Routes
+// Requiring our models and passport as we've configured it
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
-//HTML Routes
-
+// Using the server intance (app) we run different RESTful HTTP Methods.
 module.exports = (app) => {
-    // route for landing page "/".
+    // Route for landing page "/".
     app.get("/", (req, res) => {
         db.Posting.findAll({}).then((data) => {
             // Putting Images into Array
@@ -11,7 +12,6 @@ module.exports = (app) => {
                 let image_paths = item.dataValues.image_paths.trim().split(" ");
                 item.dataValues.image_paths = image_paths[0];
             });
-
             if (req.user) {
                 res.render("members", {
                     bearsList: data,
@@ -23,27 +23,25 @@ module.exports = (app) => {
             }
         });
     });
-
-    // route for login page
+    // Route for login page.
     app.get("/login", (req, res) => {
-        // If the user already has an account send them to the members page
+        // If the user already has an account send them to the members page.
         if (req.user) {
             res.redirect("/");
         } else {
             res.render("login");
         }
     });
-
-    // route for signup page
+    // Route for signup page.
     app.get("/signup", (req, res) => {
-        // If the user already has an account send them to the members page
+        // If the user already has an account send them to the members page.
         if (req.user) {
             res.redirect("/");
         } else {
             res.render("signup");
         }
     });
-    // route for posting an item
+    // Route for posting an item.
     app.get("/post", (req, res) => {
         if (req.user) {
             res.render("post");
@@ -51,8 +49,7 @@ module.exports = (app) => {
             res.render("login");
         }
     });
-
-    // route for user's account page. gets all of user's postings to hydrate selling tab
+    // Route for user's account page. gets all of user's postings to hydrate selling tab.
     app.get("/account", (req, res) => {
         if (req.user) {
             db.User.findAll({
@@ -73,24 +70,24 @@ module.exports = (app) => {
                 ]
             })
                 .then((data) => {
-                    //Creating PostingComment Array
+                    // Creating PostingComment Array.
                     let postingCommentArr = [];
                     for (let i = 0; i < data[0].dataValues.PostingComments.length; i++) {
                         postingCommentArr.push(data[0].dataValues.PostingComments[i].dataValues);
                     }
-                    //Creating Posting Array
+                    // Creating Posting Array.
                     let postingArr = [];
                     for (let i = 0; i < data[0].dataValues.Postings.length; i++) {
                         postingArr.push(data[0].dataValues.Postings[i].dataValues);
                     }
 
-                    //Creating Message Array
+                    // Creating Message Array.
                     let messageArr = [];
                     for (let i = 0; i < data[0].dataValues.Messages.length; i++) {
                         messageArr.push(data[0].dataValues.Messages[i].dataValues);
                     }
 
-                    //this is for editing date for received date for message tab on account page points to messageArr
+                    // This is for editing date for received date for message tab on account page points to messageArr.
                     let count = 0;
                     let newMessageArr = [];
                     messageArr.forEach((obj) => {
@@ -104,12 +101,12 @@ module.exports = (app) => {
                         }
                         count++;
                     });
-                    //initialize the object out of the will be passed to the res.render
+                    // Initialize the object out of the will be passed to the res.render.
                     let renderObj = {};
-                    //Add in Profile data to render object
+                    // Add in Profile data to render object.
                     renderObj.Profile = data[0].dataValues;
 
-                    //Check if the array is greater than 0 then add to the renderArr to renderObj
+                    // Check if the array is greater than 0 then add to the renderArr to renderObj.
                     if (postingArr.length !== 0) {
                         renderObj.Postings = postingArr;
                     }
@@ -121,8 +118,6 @@ module.exports = (app) => {
                     if (postingCommentArr.length !== 0) {
                         renderObj.PostingComments = postingCommentArr;
                     }
-                    console.log("======renderObj========")
-                    console.log(renderObj);
                     res.render("account", renderObj);
                 })
                 .catch(function (err) {
@@ -132,32 +127,21 @@ module.exports = (app) => {
             res.render("login");
         }
     });
-
-    // route for bear list "/search"
+    // Route for bear list "/search".
     app.get("/search", (req, res) => {
-        console.log("test search route");
-        console.log("==========search==========");
         let urlSlice = req.url.slice(15);
         let urlArray = urlSlice.toLowerCase().split("+");
         let urlString = urlArray.join(" ");
         let searchInput = urlString.trim().replace(/\s+/g, " ");
         if (searchInput === "") {
-            console.log("Search input was empty!");
             res.redirect("/");
         } else {
             db.Posting.findAll({})
                 .then((data) => {
-                    console.log(data);
-                    console.log("test /search route with > 0 postings");
-                    console.log(urlSlice);
-                    console.log(urlArray);
-                    console.log(urlString);
                     let index = -1;
                     let searchArray = [];
                     let searchInputLower = urlString;
                     let eachInputArray = urlArray;
-                    console.log("==========eachInputArray==========");
-                    console.log(eachInputArray);
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].title.toLowerCase() === searchInputLower) {
                             index = i;
@@ -202,7 +186,7 @@ module.exports = (app) => {
                 });
         }
     });
-    // route for showing a product
+    // Route for showing a product.
     app.get("/product/:productID", (req, res) => {
         if (req.user) {
             db.Posting.findOne({
@@ -218,9 +202,7 @@ module.exports = (app) => {
             }).then(function (results) {
                 let hbsObject = results.dataValues;
                 let image_paths = hbsObject.image_paths.trim().split(" ");
-                console.log(image_paths);
                 hbsObject.image_paths = image_paths;
-                console.log(hbsObject);
                 res.render("product", hbsObject);
             });
         } else {

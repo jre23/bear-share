@@ -1,26 +1,24 @@
 // Requiring bcrypt for password hashing. Using the bcryptjs version as the regular bcrypt module sometimes causes errors on Windows machines
 const bcrypt = require("bcryptjs");
-// Creating our User model
+// This creates the User model using sequelize ORM. 
+// The columns include firstName, lastName, phoneNumber, address, email, password, and profilePic.
+// This table is used for storing user information and provides a secure way to authenticate users.
 module.exports = function (sequelize, DataTypes) {
     const User = sequelize.define("User", {
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-
         lastName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-
         phoneNumber: {
             type: DataTypes.STRING,
         },
-
         address: {
             type: DataTypes.STRING,
         },
-        // The email cannot be null, and must be a proper email before creation
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -29,7 +27,6 @@ module.exports = function (sequelize, DataTypes) {
                 isEmail: true,
             },
         },
-        // The password cannot be null
         password: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -38,16 +35,14 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.TEXT,
         },
     });
-
     User.associate = function (models) {
-        // Associating User with their Postings
+        // Associating User with their postings
         User.hasMany(models.Posting, {
             foreignKey: {
                 name: "userId",
             },
             onDelete: "cascade",
         });
-
         // Associate User with their reviews
         User.hasMany(models.UserReview, {
             foreignKey: {
@@ -55,7 +50,6 @@ module.exports = function (sequelize, DataTypes) {
             },
             onDelete: "cascade",
         });
-
         // Associate User with their reviews
         User.hasMany(models.UserReview, {
             foreignKey: {
@@ -63,13 +57,14 @@ module.exports = function (sequelize, DataTypes) {
             },
             onDelete: "cascade",
         });
-
+        // Associate User with their comments on posts
         User.hasMany(models.PostingComment, {
             foreignKey: {
                 name: "commenterId",
             },
             onDelete: "cascade",
         });
+        // Associate User with messages that are sent to them
         User.hasMany(models.Message, {
             foreignKey: {
                 name: "toId",
@@ -77,8 +72,8 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade",
         });
     };
-
-    // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
+    // Creating a custom method for our User model. 
+    // This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database.
     User.prototype.validPassword = function (password) {
         return bcrypt.compareSync(password, this.password);
     };
