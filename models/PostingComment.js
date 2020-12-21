@@ -1,7 +1,6 @@
-"use strict";
-
-const User = require("./User");
-
+// This creates the PostingComment model using sequelize ORM. 
+// The column includes comment.
+// This table is used for the adding comments on the product page of individual bear posts.
 module.exports = function (sequelize, DataTypes) {
     var PostingComment = sequelize.define("PostingComment", {
         comment: {
@@ -12,7 +11,8 @@ module.exports = function (sequelize, DataTypes) {
             },
         },
     });
-
+    // This table is associated with the User model under the foreign key commenterId,
+    // Posting model under the foreign key postingId.
     PostingComment.associate = function (models) {
         PostingComment.belongsTo(models.User, {
             foreignKey: {
@@ -20,7 +20,6 @@ module.exports = function (sequelize, DataTypes) {
             },
             onDelete: "cascade",
         });
-
         PostingComment.belongsTo(models.Posting, {
             foreignKey: {
                 name: "postingId",
@@ -28,6 +27,5 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade",
         });
     };
-
     return PostingComment;
 };

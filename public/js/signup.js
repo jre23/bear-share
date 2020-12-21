@@ -1,5 +1,6 @@
+// This selects the document and runs after it loads.
 $(document).ready(function () {
-  // Getting references to our form and input
+  // Getting references to our form and input.
   const signUpForm = $(".signup");
   const firstNameInput = $("#first_name_input");
   const lastNameInput = $("#last_name_input");
@@ -7,10 +8,11 @@ $(document).ready(function () {
   const addressInput = $("#address_input");
   const emailInput = $("#email_input");
   const passwordInput = $("#password_input");
-
-  // When the signup button is clicked, we validate the email and password are not blank
+  // When the signup button is clicked, we validate the email and password are not blank.
   signUpForm.on("submit", function (event) {
+    // This prevents the default on the form submission.
     event.preventDefault();
+    // This assigns userData with object filled with previously selected elements and cleans up the data.
     let userData = {
       firstName: firstNameInput.val().trim(),
       lastName: lastNameInput.val().trim(),
@@ -19,13 +21,13 @@ $(document).ready(function () {
       email: emailInput.val().trim(),
       password: passwordInput.val().trim()
     };
-
+    // This makes sure that the email, password, first and last name inputs are not empty.
     if (!userData.email || !userData.password || !userData.firstName || !userData.lastName) {
       return;
     }
-    // console.log(userData);
-    // If we have an email and password, run the signUpUser function
+    // Then this calls the signUpUser function with the data we just created.
     signUpUser(userData.firstName, userData.lastName, userData.phoneNumber, userData.address, userData.email, userData.password);
+    // This resets the form with empty strings.
     firstNameInput.val("");
     lastNameInput.val("");
     phoneInput.val("");
@@ -33,9 +35,7 @@ $(document).ready(function () {
     emailInput.val("");
     passwordInput.val("");
   });
-
-  // Does a post to the signup route. If successful, we are redirected to the login page...which should reroute to the members page
-  // Otherwise we log any errors
+  // This calls a post to the signup route "/api/signup". If successful, we are redirected to the login page which should reroute to the members page
   function signUpUser(firstName, lastName, phoneNumber, address, email, password) {
     $.post("/api/signup", {
         firstName: firstName,
@@ -46,12 +46,13 @@ $(document).ready(function () {
         password: password
       })
       .then(function (data) {
+        //This redirects the window to the "/login" route.
         window.location.replace("/login");
-        // If there's an error, handle it by throwing up an alert
       })
+      // If there's an error, handle it by throwing up an alert.
       .catch(handleLoginErr);
   }
-
+  // This function handles the errors and alerts the user by adding text to the element with the msg class.
   function handleLoginErr(err) {
     $(".msg").text(err.responseJSON.name);
   }

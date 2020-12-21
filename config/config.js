@@ -1,5 +1,6 @@
+// This allows you to use the .env file.
 require('dotenv').config()
-
+// This sets up the different enviorment connections for development, test, and production.
 module.exports = {
         "development": {
           "username": "root",
