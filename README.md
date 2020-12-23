@@ -53,8 +53,10 @@ Please see the following for a list of technologies used in this project:
 * Heroku
 * Bcrypt.js
 * Passport
-* AWS Simple Secure Storage
+* AWS S3 & Cognito
+* Multer & MulterS3
 * Tiny Cloud
+* SplideJS
 
 ## Installation
 
