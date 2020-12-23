@@ -1,181 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	{{!-- Reset CSS --}}
-	<link href="/stylesheets/reset.css" rel="stylesheet">
-
-	<!-- Materialize CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-    {{!-- Google Font CSS --}}
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
-	<!-- Customized CSS-->
-
-	<link href="/stylesheets/style.css" rel="stylesheet">
-
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
-
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- TextArea editor -->
-	<script src="https://cdn.tiny.cloud/1/ka4kjciymashf9uvb29ys61dy7vhzwuqax1j6wasmy2p9tqt/tinymce/5/tinymce.min.js"
-		referrerpolicy="origin"></script>
-	<script>tinymce.init({ selector: 'textarea', menubar: '', branding: false });</script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
-	<title>Bear Share</title>
-</head>
-
-<body>
-    <header>
-	<!-- No Member Nav -->
-	<nav class="no_members_fixed_btn" id="">
-		<div class="nav-wrapper">
-			<a href="/" class="brand-logo center"><img src="/img/logo2.png" width="90px"></a>
-
-			<a href="#" data-activates="no_member_nav" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="right main-nav hide-on-med-and-down">
-				<li><a href="/login">Login</a></li>
-				<li><a href="/signup">Sign up</a></li>
-			</ul>
-
-            <!-- Side navbar! -->
-			<ul class="side-nav" id="no_member_nav">
-				<!-- id should match data-activates-->
-				<li class='side-logo' style="padding: 0.5rem; margin-bottom: 20px">
-                    <a href="#">
-                        <img src="/img/logo1.png" width="45px">
-                        <sup style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup>
-                    </a>
-                </li>
-				<li><a href="/login">Login</a></li>
-				<li><a href="/signup">Sign up</a></li>
-			</ul>
-		</div>  
-	</nav>
-
-	<!-- Members Nav -->
-	<nav class="members_fixed_btn">
-		<div class="nav-wrapper">
-			<a href="/" class="brand-logo center"><img src="/img/logo2.png" width="90px"></a>
-			<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="/">Lists</a></li>
-				<li><a href="/post">Post</a></li>
-				<li><a href="/account">Account</a></li>
-				<li><a href="/logout">Logout</a></li>
-			</ul>
-			<ul class="side-nav" id="modible-demo">
-				<!-- id should match data-activates-->
-				<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img
-							src="/img/logo1.png" width="45px"><sup
-							style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
-				<li><a href="/">Lists</a></li>
-				<li><a href="/post">Post</a></li>
-				<li><a href="/account">Account</a></li>
-				<li><a href="/logout">Logout</a></li>
-			</ul>
-			<ul class="nav-wrapper right hide-on-large-only" id="user_account_id">
-				<!-- id should match data-activates-->
-				<li><a href="/account"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
-			</ul>
-
-		</div>
-
-	</nav>
-    </header>
-
-    <main>
-	{{{ body }}}
-    </main>
-
-
-	<footer class="page-footer hide-on-med-and-down">
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">Bear Share</h5>
-					<p class="grey-text text-lighten-4">Your home to buy, sell or trade your favorite stuffed animal and connect with others. Slide on in!</p>
-				</div>
-				<div class="col l4 offset-l2 s12">
-					<h5 class="white-text">Links</h5>
-                    <div class="links-row row">
-                        <div class="col l3 s12">
-                            <ul>
-                                <li><a class="grey-text text-lighten-3" href="/">Listings</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
-                            </ul>
-                        </div>
-                        <div class="col l3 s12">
-                            <ul>
-                                <li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
-                                <li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
-                            </ul>
-                        </div>
-                    </div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{{!-- Reset CSS --}}
+		<link href="/stylesheets/reset.css" rel="stylesheet">
+		<!-- Materialize CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+		{{!-- Google Font CSS --}}
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+		<!-- Customized CSS-->
+		<link href="/stylesheets/style.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- TextArea editor -->
+		<script src="https://cdn.tiny.cloud/1/ka4kjciymashf9uvb29ys61dy7vhzwuqax1j6wasmy2p9tqt/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>tinymce.init({ selector: 'textarea', menubar: '', branding: false });</script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+		{{!-- Title --}}
+		<title>Bear Share</title>
+	</head>
+	<body>
+		<header>
+		<!-- No Member Nav -->
+		<nav class="no_members_fixed_btn" id="">
+			<div class="nav-wrapper">
+				<a href="/" class="brand-logo center"><img src="/img/logo2.png" width="90px"></a>
+				<a href="#" data-activates="no_member_nav" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="right main-nav hide-on-med-and-down">
+					<li><a href="/login">Login</a></li>
+					<li><a href="/signup">Sign up</a></li>
+				</ul>
+				<!-- Side navbar! -->
+				<ul class="side-nav" id="no_member_nav">
+					<!-- id should match data-activates-->
+					<li class='side-logo' style="padding: 0.5rem; margin-bottom: 20px">
+						<a href="#">
+							<img src="/img/logo1.png" width="45px">
+							<sup style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup>
+						</a>
+					</li>
+					<li><a href="/login">Login</a></li>
+					<li><a href="/signup">Sign up</a></li>
+				</ul>
+			</div>  
+		</nav>
+		<!-- Members Nav -->
+		<nav class="members_fixed_btn">
+			<div class="nav-wrapper">
+				<a href="/" class="brand-logo center"><img src="/img/logo2.png" width="90px"></a>
+				<a href="#" data-activates="modible-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/">Lists</a></li>
+					<li><a href="/post">Post</a></li>
+					<li><a href="/account">Account</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+				<ul class="side-nav" id="modible-demo">
+					<!-- id should match data-activates-->
+					<li class="orange darken-3" style="padding: 0.5rem; margin-bottom: 20px"><a href="#"><img
+								src="/img/logo1.png" width="45px"><sup
+								style="font-size:20px; margin-left:35px; color:white;">BEAR SHARE</sup></a></li>
+					<li><a href="/">Lists</a></li>
+					<li><a href="/post">Post</a></li>
+					<li><a href="/account">Account</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+				<ul class="nav-wrapper right hide-on-large-only" id="user_account_id">
+					<!-- id should match data-activates-->
+					<li><a href="/account"><i class="fas fa-user-circle" style="font-size:2.5rem;"></i></a></li>
+				</ul>
+			</div>
+		</nav>
+		</header>
+		<main>
+		{{{ body }}}
+		</main>
+		<footer class="page-footer hide-on-med-and-down">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">Bear Share</h5>
+						<p class="grey-text text-lighten-4">Your home to buy, sell or trade your favorite stuffed animal and connect with others. Slide on in!</p>
+					</div>
+					<div class="col l4 offset-l2 s12">
+						<h5 class="white-text">Links</h5>
+						<div class="links-row row">
+							<div class="col l3 s12">
+								<ul>
+									<li><a class="grey-text text-lighten-3" href="/">Listings</a></li>
+									<li><a class="grey-text text-lighten-3" href="#!">Inbox</a></li>
+								</ul>
+							</div>
+							<div class="col l3 s12">
+								<ul>
+									<li><a class="grey-text text-lighten-3" href="/post">Post</a></li>
+									<li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="footer-copyright">
-			<div class="container center">
-				© 2020 Copyright Bear Share, Inc. 
+			<div class="footer-copyright">
+				<div class="container center">
+					© 2020 Copyright Bear Share, Inc. 
+				</div>
 			</div>
-		</div>
-	</footer>
-
-	<!-- member fixed Action button -->
-	<footer class="page-footer hide-on-large-only white members_fixed_btn">
-		<div class="fixed-action-btn">
-			<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
-			<ul>
-				<li><a href="/" class="btn-floating purple btn-large"><i
-							class="large material-icons">format_list_bulleted</i></a>
-				</li>
-				<li><a href="/post" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
-				</li>
-				<li><a href="/" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
-				</li>
-				<li><a href="/account" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
-				</li>
-			</ul>
-		</div>
-	</footer>
-
-	<!-- No member fixed Action button -->
-	<footer class="page-footer hide-on-large-only white no_members_fixed_btn">
-		<div class="fixed-action-btn">
-			<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
-			<ul>
-				<li><a href="/login" class="btn-floating blue btn-large"><i class="fas fa-sign-in-alt"></i></a>
-				</li>
-				<li><a href="/signup" class="btn-floating red btn-large"><i class="fas fa-user-plus"></i></a>
-				</li>
-			</ul>
-		</div>
-	</footer>
-
-	<!-- jQuery Js -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Materialize Js -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-	<!-- this is for MarterializeCSS-->
-	<script>
-		$(".button-collapse").sideNav();
-		$('.carousel.carousel-slider').carousel({
-			fullWidth: true
-		}).width(370)
-	</script>
-	<!-- Public Js -->
-
-	<script type="text/javascript" src="/js/signup.js"></script>
-	<script type="text/javascript" src="/js/login.js"></script>
-
-</body>
-
+		</footer>
+		<!-- member fixed Action button -->
+		<footer class="page-footer hide-on-large-only white members_fixed_btn">
+			<div class="fixed-action-btn">
+				<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
+				<ul>
+					<li>
+						<a href="/" class="btn-floating purple btn-large"><i class="large material-icons">format_list_bulleted</i></a>
+					</li>
+					<li>
+						<a href="/post" class="btn-floating blue btn-large"><i class="large material-icons">add</i></a>
+					</li>
+					<li>
+						<a href="/" class="btn-floating green btn-large"><i class="large material-icons">search</i></a>
+					</li>
+					<li>
+						<a href="/account" class="btn-floating red btn-large"><i class="large material-icons">account_box</i></a>
+					</li>
+				</ul>
+			</div>
+		</footer>
+		<!-- No member fixed Action button -->
+		<footer class="page-footer hide-on-large-only white no_members_fixed_btn">
+			<div class="fixed-action-btn">
+				<a href="#" class="btn-floating orange darken-3 btn-large"><i class="large material-icons">mode_edit</i></a>
+				<ul>
+					<li>
+						<a href="/login" class="btn-floating blue btn-large"><i class="fas fa-sign-in-alt"></i></a>
+					</li>
+					<li>
+						<a href="/signup" class="btn-floating red btn-large"><i class="fas fa-user-plus"></i></a>
+					</li>
+				</ul>
+			</div>
+		</footer>
+		<!-- jQuery Js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Materialize Js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<!-- this is for MarterializeCSS-->
+		<script>
+			$(".button-collapse").sideNav();
+			$('.carousel.carousel-slider').carousel({
+				fullWidth: true
+			}).width(370)
+		</script>
+		<!-- Public Js -->
+		<script type="text/javascript" src="/js/signup.js"></script>
+		<script type="text/javascript" src="/js/login.js"></script>
+	</body>
 </html>

@@ -2,17 +2,14 @@ var AWS = require("aws-sdk");
 var multer = require("multer");
 var multerS3 = require("multer-s3");
 const db = require("../models");
-
 AWS.config.region = "us-west-2"; // Region
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: process.env.IdentityPoolId,
 });
-
 var s3 = new AWS.S3({
     apiVersion: "2006-03-01",
     params: { Bucket: "bear-share-2" },
 });
-
 var uploadS3 = multer({
     storage: multerS3({
         s3: s3,
@@ -26,12 +23,9 @@ var uploadS3 = multer({
         },
     }),
 });
-
 module.exports = (app) => {
     app.post("/profile-pic", uploadS3.single("file"), function (req, res, next) {
         let image_path = req.file.location;
-        console.log(image_path);
-
         db.User.update(
             { profilePic: image_path },
             {

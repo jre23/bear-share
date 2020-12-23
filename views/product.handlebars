@@ -19,13 +19,9 @@
                         {{/each}}
                     </ul>
                 </div>
-                {{!-- {{#each image_paths}}
-                <a class="carousel-item" href="#{{@index}}"><img src="{{this}}" onError="this.onerror=null;this.src='/img/missingPhoto.jpg';" ></a>
-                {{/each}} --}}
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col s12 m5 right">
             <div class="row">
@@ -37,9 +33,7 @@
                         </div>
                         <div class="card-action">
                             <div id="product-profile-card" class="row valign-wrapper">
-                                    <button id="message_btn" data-target="modal1"
-                                    class="btn white orange-text text-darken-3 waves-effect modal-trigger"
-                                    data-id="{{userId}} {{id}}" style=" border: solid 1px">Message</button>
+                                    <button id="message_btn" data-target="modal1" class="btn white orange-text text-darken-3 waves-effect modal-trigger" data-id="{{userId}} {{id}}" style=" border: solid 1px">Message</button>
                                     <button class="btn orange darken-3 waves-effect" data-id="">Buy</button>
                             </div>                                
                         </div>
@@ -53,12 +47,10 @@
             </div>
         </div>
     </div>
-
     <!-- TextArea for message -->
     <row>
         <div id="message_form"></div>
     </row>
-
     <h5>Reviews</h5>
     <div class="row reviews">
         {{!-- This is an example card that is removed when product.js runs --}}
