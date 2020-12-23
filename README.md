@@ -57,6 +57,7 @@ Please see the following for a list of technologies used in this project:
 * Multer & MulterS3
 * Tiny Cloud
 * SplideJS
+* JawsDB
 
 ## Installation
 
